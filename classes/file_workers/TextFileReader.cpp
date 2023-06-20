@@ -22,6 +22,7 @@ std::vector<std::string> TextFileReader::readFileContent() {
             result.push_back(currentLine);
         }
         catch(const std::bad_alloc&){
+            in.close();
             result.clear();
             throw std::runtime_error("File too big to load. File name: " + fileName_);
         }
