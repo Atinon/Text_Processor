@@ -1,0 +1,10 @@
+#ifndef TEXT_PROCESSOR_IFILEWRITER_H
+#define TEXT_PROCESSOR_IFILEWRITER_H
+
+
+class IFileWriter {
+
+};
+
+
+#endif //TEXT_PROCESSOR_IFILEWRITER_H

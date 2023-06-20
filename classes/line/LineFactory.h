@@ -1,0 +1,12 @@
+#ifndef TEXT_PROCESSOR_LINEFACTORY_H
+#define TEXT_PROCESSOR_LINEFACTORY_H
+
+
+
+class LineFactory {
+
+};
+
+
+
+#endif //TEXT_PROCESSOR_LINEFACTORY_H

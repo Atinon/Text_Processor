@@ -1,0 +1,10 @@
+#ifndef TEXT_PROCESSOR_IFILEREADER_H
+#define TEXT_PROCESSOR_IFILEREADER_H
+
+
+class IFileReader {
+
+};
+
+
+#endif //TEXT_PROCESSOR_IFILEREADER_H
