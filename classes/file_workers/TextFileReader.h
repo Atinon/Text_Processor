@@ -10,6 +10,8 @@ private:
     std::string fileName_;
 
 public:
+    TextFileReader() = default;
+
     explicit TextFileReader(const std::string &fileName) : fileName_(fileName) {};
 
     const std::string &getFileName() override;

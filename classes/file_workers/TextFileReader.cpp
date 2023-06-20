@@ -13,6 +13,10 @@ std::vector<std::string> TextFileReader::readFileContent() {
     std::string currentLine;
     std::fstream in(fileName_);
 
+    if(fileName_.empty()){
+        throw std::runtime_error("Please provide a file name to open.");
+    }
+
     if(!in.is_open()){
         throw std::runtime_error("Failed to open the file: " + fileName_);
     }
