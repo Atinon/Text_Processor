@@ -7,12 +7,16 @@ add_executable(Text_Processor
         main.cpp
         classes/TextProcessor.h
         classes/TextProcessor.cpp
+        classes/Config.h
+        classes/Config.cpp
         classes/line/BaseLine.h
         classes/line/BaseLine.cpp
         classes/line/LineFactory.h
         classes/line/LineFactory.cpp
         classes/file_workers/IFileReader.h
         classes/file_workers/IFileReader.cpp
+        classes/file_workers/TextFileReader.h
+        classes/file_workers/TextFileReader.cpp
         classes/file_workers/IFileWriter.h
         classes/file_workers/IFileWriter.cpp
 )
