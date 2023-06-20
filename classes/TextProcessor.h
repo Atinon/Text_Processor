@@ -2,11 +2,16 @@
 #define TEXT_PROCESSOR_TEXTPROCESSOR_H
 
 
+#include "file_workers/IFileReader.h"
+#include "Config.h"
 
-class TextProcessor {
+class TextProcessor final {
+private:
+    IFileReader *fileReader_;
 
+public:
+    explicit TextProcessor(IConfig *config) : fileReader_(config->getFileReader()) {};
 };
-
 
 
 #endif //TEXT_PROCESSOR_TEXTPROCESSOR_H
