@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 #include "classes/Config.h"
 #include "classes/TextProcessor.h"
@@ -7,11 +8,28 @@
 
 using namespace std;
 
+void sampleTokenizingFunction(){
+    vector<string> resultingTokens;
+    string test = "123 456 789, ASD - 000";
+    char* dup = strdup(test.c_str());
+    char* tokPtr = strtok(dup, " ,");
+    while(tokPtr != nullptr){
+        resultingTokens.emplace_back(tokPtr);
+        tokPtr = strtok(nullptr, " ,");
+    }
+    delete[] dup;
+    for (const string &s : resultingTokens) {
+        cout << s << endl;
+    }
+}
 
 int main(){
     DefaultConfig defaultConfig;
     TextProcessor textProcessor(&defaultConfig);
-    textProcessor.fileReader_->setFileName("sample_files/single_line_sample.txt");
+
+
+    // ---------- reading
+    textProcessor.fileReader_->setFileName("sample_files/sample_text.txt");
     vector<string> rawData;
     try{
         rawData = textProcessor.fileReader_->readFileContent();
@@ -21,6 +39,7 @@ int main(){
         return -1;
     }
 
+    // ---------- creating
     vector<BaseLine*> result;
     try{
         result = LineParser::createFromString(rawData);
@@ -36,14 +55,15 @@ int main(){
         cout << line->getStringValue() << " ||| Type: " << line->getType() << endl;
     }
 
+
+    // ---------- writing
+    textProcessor.fileWriter_->setFileName("sample_files/first_write_sample.txt");
     try{
-        string hey = " \" \"";
-        cout << hey << endl;
-        result[0]->setStringValue(hey);
+        textProcessor.fileWriter_->writeFileContent(result);
     }
-    catch(const std::invalid_argument &e){
-        cout << e.what();
+    catch(const std::runtime_error &e){
+        cout << e.what() << endl;
         return -1;
     }
-    cout << result[0]->getStringValue() << endl;
+
 }

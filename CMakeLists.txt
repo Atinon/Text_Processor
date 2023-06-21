@@ -21,4 +21,6 @@ add_executable(Text_Processor
         classes/file_workers/TextFileReader.cpp
         classes/file_workers/IFileWriter.h
         classes/file_workers/IFileWriter.cpp
+        classes/file_workers/TextFileWriter.h
+        classes/file_workers/TextFileWriter.cpp
 )

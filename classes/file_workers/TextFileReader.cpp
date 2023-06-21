@@ -1,6 +1,6 @@
 #include "TextFileReader.h"
 
-const std::string &TextFileReader::getFileName() {
+const std::string &TextFileReader::getFileName() const {
     return fileName_;
 }
 
@@ -11,7 +11,6 @@ void TextFileReader::setFileName(const std::string &fileName) {
 std::vector<std::string> TextFileReader::readFileContent() {
     std::vector<std::string> result;
     std::string currentLine;
-    std::fstream in(fileName_);
 
     if(fileName_.empty()){
         throw std::runtime_error("Please provide a file name to open.");
@@ -23,19 +22,31 @@ std::vector<std::string> TextFileReader::readFileContent() {
         throw std::runtime_error("Please provide a file of .txt format.");
     }
 
+    std::ifstream in(fileName_);
+
     if(!in.is_open()){
         throw std::runtime_error("Failed to open the file: " + fileName_);
     }
 
-    while(getline(in, currentLine, '\n')){
-        try{
-            result.push_back(currentLine);
+    try{
+        while(getline(in, currentLine, '\n')){
+                result.push_back(currentLine);
+            }
         }
-        catch(const std::bad_alloc&){
-            in.close();
-            result.clear();
-            throw std::runtime_error("File too big to load. File name: " + fileName_);
-        }
+    catch(const std::ifstream::failure&){
+        in.close();
+        result.clear();
+        throw std::runtime_error("File error, could be corrupted. File name: " + fileName_);
+    }
+    catch(const std::bad_alloc&){
+        in.close();
+        result.clear();
+        throw std::runtime_error("File too big to load. File name: " + fileName_);
+    }
+    catch(...){
+        in.close();
+        result.clear();
+        throw std::runtime_error("Internal error when reading. Not yet accounted for.");
     }
 
     in.close();

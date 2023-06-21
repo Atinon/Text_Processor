@@ -14,7 +14,7 @@ public:
 
     explicit TextFileReader(const std::string &fileName) : fileName_(fileName) {};
 
-    const std::string &getFileName() override;
+    const std::string &getFileName() const override;
 
     void setFileName(const std::string &fileName) override;
 
