@@ -6,7 +6,7 @@
 #include "Config.h"
 
 class TextProcessor final {
-private:
+public: // TODO: MAKE PRIVATE
     IFileReader *fileReader_;
 
 public:

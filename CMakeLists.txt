@@ -11,8 +11,10 @@ add_executable(Text_Processor
         classes/Config.cpp
         classes/line/BaseLine.h
         classes/line/BaseLine.cpp
-        classes/line/LineFactory.h
-        classes/line/LineFactory.cpp
+        classes/line/BaseLineDerivedClasses.h
+        classes/line/BaseLineDerivedClasses.cpp
+        classes/line/LineParser.h
+        classes/line/LineParser.cpp
         classes/file_workers/IFileReader.h
         classes/file_workers/IFileReader.cpp
         classes/file_workers/TextFileReader.h
