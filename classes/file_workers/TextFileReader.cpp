@@ -17,6 +17,8 @@ std::vector<std::string> TextFileReader::readFileContent() {
         throw std::runtime_error("Please provide a file name to open.");
     }
 
+    // if '.' is not found, find_last_of returns string::npos which is max value for size_t type
+    // adding +1 to it reverts it back to 0, so theoretically, there shouldn't be out of bound operations
     if(fileName_.substr(fileName_.find_last_of('.') + 1) != "txt"){
         throw std::runtime_error("Please provide a file of .txt format.");
     }
