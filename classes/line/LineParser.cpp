@@ -10,12 +10,12 @@ std::vector<BaseLine *> LineParser::createFromString(const std::vector<std::stri
 
     for (size_t i = 0; i < rawData.size(); ++i) {
         if (isNumberLine(rawData[i])) {
-            appendNewLineToVectorOrThrow_(result, BaseLine::NUMBER, rawData[i]);
+            pushNewLineToVectorOrThrow_(result, BaseLine::NUMBER, rawData[i]);
             continue;
         }
 
         if (isNumberAndDotLine(rawData[i])) {
-            appendNewLineToVectorOrThrow_(result, BaseLine::NUMBER_AND_DOT, rawData[i]);
+            pushNewLineToVectorOrThrow_(result, BaseLine::NUMBER_AND_DOT, rawData[i]);
             continue;
         }
 
@@ -24,7 +24,7 @@ std::vector<BaseLine *> LineParser::createFromString(const std::vector<std::stri
         }
 
         //Default case
-        appendNewLineToVectorOrThrow_(result, BaseLine::REGULAR, rawData[i]);
+        pushNewLineToVectorOrThrow_(result, BaseLine::REGULAR, rawData[i]);
     }
 
     return result;
@@ -142,7 +142,7 @@ bool LineParser::createQuotedLineIfQualify_
                 resultingString += rawData[j];
                 if(j < vectorLineIndexWithClosingQuote) resultingString += '\n';
             }
-            appendNewLineToVectorOrThrow_(resultRef, BaseLine::QUOTED, resultingString);
+            pushNewLineToVectorOrThrow_(resultRef, BaseLine::QUOTED, resultingString);
             rawDataIndexRef = vectorLineIndexWithClosingQuote;
             return true;
         }
@@ -150,8 +150,8 @@ bool LineParser::createQuotedLineIfQualify_
     return false;
 }
 
-void LineParser::appendNewLineToVectorOrThrow_(std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type,
-                                               const std::string &stringValue) {
+void LineParser::pushNewLineToVectorOrThrow_(std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type,
+                                             const std::string &stringValue) {
     try{
         switch(type){
             case BaseLine::REGULAR:

@@ -14,7 +14,7 @@ private:
 
     static const char SPACE_CHAR_;
 
-    static void appendNewLineToVectorOrThrow_
+    static void pushNewLineToVectorOrThrow_
             (std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type, const std::string &stringValue);
 
     static size_t getStringIndexIfStartsWithQuote_(const std::string &s);
