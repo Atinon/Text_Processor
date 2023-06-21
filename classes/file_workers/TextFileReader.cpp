@@ -17,6 +17,10 @@ std::vector<std::string> TextFileReader::readFileContent() {
         throw std::runtime_error("Please provide a file name to open.");
     }
 
+    if(fileName_.substr(fileName_.find_last_of('.') + 1) != "txt"){
+        throw std::runtime_error("Please provide a file of .txt format.");
+    }
+
     if(!in.is_open()){
         throw std::runtime_error("Failed to open the file: " + fileName_);
     }
