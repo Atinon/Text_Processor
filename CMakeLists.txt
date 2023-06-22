@@ -15,6 +15,8 @@ add_executable(Text_Processor
         classes/line/BaseLineDerivedClasses.cpp
         classes/line/LineParser.h
         classes/line/LineParser.cpp
+        classes/line/LineComparator.h
+        classes/line/LineComparator.cpp
         classes/file_workers/IFileReader.h
         classes/file_workers/IFileReader.cpp
         classes/file_workers/TextFileReader.h
