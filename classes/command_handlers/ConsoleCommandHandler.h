@@ -19,21 +19,36 @@ private:
         ReturnType (ClassName::*func)(Args...);
     };
 
+    // Creating this struct just for const-ness could probably be avoided with static casting or something like that
+    // Can adjust implementation later on
+    template<typename ClassName, typename ReturnType, typename ...Args>
+    struct CommandConst {
+        std::string stringValue;
+        ReturnType (ClassName::*func)(Args...) const;
+    };
+
     const static char *SPACE_DELIM_;
 
     const static std::string EXIT_COMMAND_;
 
     TextProcessor *textProcessor_;
 
-    const std::vector<Command<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoid_ =
-            {
-                    {"open", &TextProcessor::open},
-                    {"save_as", &TextProcessor::saveAs},
-            };
-
     const std::vector<Command<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
             {
                     {"save", &TextProcessor::save},
+            };
+
+    const std::vector<CommandConst<TextProcessor, const std::vector<BaseLine *> &>>
+            textProcessorNoArgsCommandsVectorBaseLineConst_ =
+            {
+                    {"print", &TextProcessor::getLines},
+
+            };
+
+    const std::vector<Command<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoid_ =
+            {
+                    {"open",    &TextProcessor::open},
+                    {"save_as", &TextProcessor::saveAs},
             };
 
     static void basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef);

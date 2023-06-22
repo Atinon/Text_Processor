@@ -1,5 +1,9 @@
 #include "TextProcessor.h"
 
+TextProcessor::~TextProcessor() {
+    deAllocAllLines_();
+}
+
 void TextProcessor::open(const std::string &fileName) {
     std::vector<std::string> rawData;
 
@@ -13,7 +17,9 @@ void TextProcessor::open(const std::string &fileName) {
     }
 
     try {
-        lines = LineParser::createFromString(rawData);
+        // Can add a separate vector to store backup data in case creating fails
+        deAllocAllLines_();
+        lines_ = LineParser::createFromString(rawData);
     }
     catch (const std::invalid_argument &e) {
         throw std::runtime_error(e.what());
@@ -24,21 +30,35 @@ void TextProcessor::open(const std::string &fileName) {
 }
 
 void TextProcessor::save() {
+    saveAs(fileReader_->getFileName());
+}
+
+void TextProcessor::saveAs(const std::string &fileName) {
+    fileWriter_->setFileName(fileName);
+
     try{
-        fileWriter_->writeFileContent(lines);
+        fileWriter_->writeFileContent(lines_);
     }
     catch(...){
         throw;
     }
 }
 
-void TextProcessor::saveAs(const std::string &fileName) {
-    fileWriter_->setFileName(fileName);
-    save();
+const std::vector<BaseLine *> &TextProcessor::getLines() const {
+    return lines_;
 }
 
-TextProcessor::~TextProcessor() {
-    for (BaseLine* line : lines) {
-        delete line;
+void TextProcessor::deAllocSingleLine_(BaseLine *&line) {
+    delete line;
+    line = nullptr;
+}
+
+void TextProcessor::deAllocAllLines_() {
+    if(!lines_.empty()){
+        for (BaseLine *& line : lines_) {
+            deAllocSingleLine_(line);
+        }
     }
 }
+
+

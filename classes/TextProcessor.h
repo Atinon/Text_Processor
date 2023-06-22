@@ -13,7 +13,10 @@ public: // TODO: MAKE PRIVATE
     IFileReader *fileReader_;
     IFileWriter *fileWriter_;
 
-    std::vector<BaseLine*> lines;
+    std::vector<BaseLine*> lines_;
+
+    static void deAllocSingleLine_(BaseLine *&line);
+    void deAllocAllLines_();
 
 public:
     explicit TextProcessor(IConfig *config) : fileReader_(config->getFileReader()),
@@ -29,6 +32,8 @@ public:
     void save();
 
     void saveAs(const std::string &fileName);
+
+    const std::vector<BaseLine*> &getLines() const;
 
     ~TextProcessor();
 };
