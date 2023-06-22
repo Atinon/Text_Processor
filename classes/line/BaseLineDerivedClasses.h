@@ -88,8 +88,6 @@ public:
 
     void trimRight() override;
 
-    long long getNumericValue();
-
     ~NumberAndDotLine() override = default;
 };
 
@@ -107,6 +105,8 @@ public:
     void trimLeft() override;
 
     void trimRight() override;
+
+    long long getNumericValue() const;
 
     ~NumberLine() override = default;
 };
