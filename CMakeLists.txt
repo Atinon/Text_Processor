@@ -23,4 +23,8 @@ add_executable(Text_Processor
         classes/file_workers/IFileWriter.cpp
         classes/file_workers/TextFileWriter.h
         classes/file_workers/TextFileWriter.cpp
+        classes/command_handlers/ICommandHandler.h
+        classes/command_handlers/ICommandHandler.cpp
+        classes/command_handlers/ConsoleCommandHandler.h
+        classes/command_handlers/ConsoleCommandHandler.cpp
 )
