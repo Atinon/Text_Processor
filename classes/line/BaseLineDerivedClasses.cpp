@@ -112,6 +112,26 @@ void NumberAndDotLine::trimRight() {
     WhitespaceTrimmer::trimRight_(stringValue_);
 }
 
+long long NumberAndDotLine::getNumericValue() {
+//    std::string temp = stringValue_;
+//    WhitespaceTrimmer::trimLeft_(temp);
+//    WhitespaceTrimmer::trimRight_(temp);
+
+    long long result;
+
+    try{
+        result = std::stoll(stringValue_);
+    }
+    catch(const std::out_of_range&){
+        result = -1;
+    }
+    catch(const std::invalid_argument&){
+        result = -1;
+    }
+
+    return result;
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 NumberLine::NumberLine(const std::string &stringValue) : BaseLine(stringValue) {}

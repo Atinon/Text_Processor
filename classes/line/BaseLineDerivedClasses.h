@@ -88,6 +88,8 @@ public:
 
     void trimRight() override;
 
+    long long getNumericValue();
+
     ~NumberAndDotLine() override = default;
 };
 
