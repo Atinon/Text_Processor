@@ -11,11 +11,15 @@ void TextFileWriter::setFileName(const std::string &fileName) {
 
 void TextFileWriter::writeFileContent(const std::vector<BaseLine*> &vec) {
     if(fileName_.empty()){
-        throw std::runtime_error("Please provide a file name to open.");
+        throw std::runtime_error("Please provide a file name to save to.");
     }
 
     if(fileName_.substr(fileName_.find_last_of('.') + 1) != "txt"){
         throw std::runtime_error("Please provide a file of .txt format.");
+    }
+
+    if(vec.empty()){
+        throw std::runtime_error("Nothing to write to file.");
     }
 
     std::ofstream out(fileName_);
