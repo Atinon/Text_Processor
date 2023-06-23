@@ -147,7 +147,7 @@ void ConsoleCommandHandler::printCentered_(const std::vector<BaseLine *> &lines)
             std::cout << " ";
         }
 
-        // Print trailing spaces for centering (if needed)
+        // Print trailing space for centering (if needed)
         if (padding > 0 && (maxWidth - lineValue.length()) % 2 != 0) {
             std::cout << " ";
         }
