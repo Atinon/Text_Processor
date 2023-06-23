@@ -30,7 +30,7 @@ int main(){
 //    // ---------- creating
 //    vector<BaseLine*> result;
 //    try{
-//        result = LineParser::createFromString(rawData);
+//        result = LineParser::createFromStringVector(rawData);
 //    }
 //    catch(const std::runtime_error &re){
 //        cout << re.what() << endl;

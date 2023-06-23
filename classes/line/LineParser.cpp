@@ -5,7 +5,10 @@ const size_t LineParser::NPOS_ = -1;
 
 const char LineParser::SPACE_CHAR_ = ' ';
 
-std::vector<BaseLine *> LineParser::createFromString(const std::vector<std::string> &rawData) {
+const char LineParser::NEWLINE_CHAR_ = '\n';
+
+// might need to refactor later
+std::vector<BaseLine *> LineParser::createFromStringVector(const std::vector<std::string> &rawData) {
     std::vector<BaseLine *> result;
 
     for (size_t i = 0; i < rawData.size(); ++i) {
@@ -24,10 +27,38 @@ std::vector<BaseLine *> LineParser::createFromString(const std::vector<std::stri
         }
 
         //Default case
+        //Might need to parsing for /n symbol later if vector is not previously curated
         pushNewLineToVectorOrThrow_(result, BaseLine::REGULAR, rawData[i]);
     }
 
     return result;
+}
+
+BaseLine *LineParser::createFromString(const std::string &rawData) {
+    try{
+        BaseLine *newLine;
+
+        if(isNumberLine(rawData)){
+            newLine = new NumberLine(rawData);
+        }
+        else if (isNumberAndDotLine(rawData)){
+            newLine = new NumberAndDotLine(rawData);
+        }
+        else if (isQuotedLine(rawData)){
+            newLine = new QuotedLine(rawData);
+        }
+        else if (isRegularLine(rawData)){
+            newLine = new RegularLine(rawData);
+        }
+        else{
+            throw std::invalid_argument("Invalid line format.");
+        }
+
+        return newLine;
+    }
+    catch(const std::bad_alloc &){
+        throw;
+    }
 }
 
 // Currently only allowed empty symbols on the left side
@@ -84,6 +115,15 @@ bool LineParser::isQuotedLine(const std::string &s) {
         }
     }
     return false;
+}
+
+bool LineParser::isRegularLine(const std::string &s) {
+    for (char c : s) {
+        if(c == NEWLINE_CHAR_){
+            return false;
+        }
+    }
+    return true;
 }
 
 size_t LineParser::getStringIndexIfStartsWithQuote_(const std::string &s) {

@@ -14,6 +14,8 @@ private:
 
     static const char SPACE_CHAR_;
 
+    static const char NEWLINE_CHAR_;
+
     static void pushNewLineToVectorOrThrow_
             (std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type, const std::string &stringValue);
 
@@ -30,13 +32,17 @@ private:
 public:
     LineParser() = default;
 
-    static std::vector<BaseLine *> createFromString(const std::vector<std::string> &rawData);
+    static std::vector<BaseLine *> createFromStringVector(const std::vector<std::string> &rawData);
+
+    static BaseLine* createFromString(const std::string &rawData);
 
     static bool isNumberLine(const std::string &s);
 
     static bool isNumberAndDotLine(const std::string &s);
 
     static bool isQuotedLine(const std::string &s);
+
+    static bool isRegularLine(const std::string &s);
 };
 
 
