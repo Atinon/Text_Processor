@@ -6,6 +6,8 @@
 #include "file_workers/IFileWriter.h"
 #include "line/LineParser.h"
 #include "Config.h"
+#include "line/LineComparator.h"
+
 
 
 class TextProcessor final {
@@ -34,6 +36,8 @@ public:
     void saveAs(const std::string &fileName);
 
     const std::vector<BaseLine*> &getLines() const;
+
+    void sort();
 
     ~TextProcessor();
 };

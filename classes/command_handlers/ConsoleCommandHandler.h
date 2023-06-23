@@ -42,6 +42,7 @@ private:
     const std::vector<Command<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
             {
                     {"save", &TextProcessor::save},
+                    {"sort", &TextProcessor::sort},
             };
 
     const std::vector<CommandConstPrinting<
