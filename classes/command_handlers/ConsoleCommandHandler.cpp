@@ -3,6 +3,17 @@
 const char *ConsoleCommandHandler::SPACE_DELIM_ = " ";
 const std::string ConsoleCommandHandler::EXIT_COMMAND_ = "exit";
 
+size_t ConsoleCommandHandler::getMaxLineWidth_(const std::vector<BaseLine *> &lines) {
+    size_t maxWidth = 0;
+    for (const BaseLine* line : lines) {
+        size_t lineWidth = line->getStringValue().length();
+        if (lineWidth > maxWidth) {
+            maxWidth = lineWidth;
+        }
+    }
+    return maxWidth;
+}
+
 void ConsoleCommandHandler::basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef) {
     char *dup = strdup(command.c_str());
     char *tokPtr = strtok(dup, SPACE_DELIM_);
@@ -71,18 +82,16 @@ void ConsoleCommandHandler::handleNoArgCommand_(const std::vector<std::string> &
         }
     }
 
-    // textProcessorNoArgsCommandsVectorBaseLineConst_
-    for (const CommandConst<TextProcessor, const std::vector<BaseLine *> &> &c:
-            textProcessorNoArgsCommandsVectorBaseLineConst_) {
+    // textProcessorNoArgsCommandsVectorPrinting_
+    for (const CommandConstPrinting<
+                TextProcessor,
+                const std::vector<BaseLine *> &,
+                ConsoleCommandHandler,
+                void,
+                const std::vector<BaseLine *> &> &c: textProcessorNoArgsCommandsVectorPrinting_) {
         if (c.stringValue == commandTokens[0]) {
-            const std::vector<BaseLine *> &vectorRef = (textProcessor_->*c.func)();
-            for (int i = 0; i < vectorRef.size(); ++i) {
-                std::cout
-                        << "idx: " << i
-                        << "|  " << vectorRef[i]->getStringValue()
-                        << "  |Type: " << vectorRef[i]->getType()
-                        << std::endl;
-            }
+            const std::vector<BaseLine *> &lines = (textProcessor_->*c.func)();
+            (this->*c.printFunc)(lines);
             return;
         }
     }
@@ -106,4 +115,43 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
         }
     }
     std::cout << "Invalid command." << std::endl;
+}
+
+void ConsoleCommandHandler::printRegular_(const std::vector<BaseLine *> &lines) {
+    for (int i = 0; i < lines.size(); ++i) {
+        std::cout
+                << "idx: " << i
+                << "|  " << lines[i]->getStringValue()
+                << "  |Type: " << lines[i]->getType()
+                << std::endl;
+    }
+}
+
+void ConsoleCommandHandler::printCentered_(const std::vector<BaseLine *> &lines) {
+    size_t maxWidth = getMaxLineWidth_(lines);
+
+    for (int i = 0; i < lines.size(); ++i) {
+        std::cout << "idx: " << i << "|  ";
+
+        const std::string &lineValue = lines[i]->getStringValue();
+        size_t padding = (maxWidth - lineValue.length()) / 2;
+
+        // Print leading spaces for centering
+        for (int j = 0; j < padding; ++j) {
+            std::cout << " ";
+        }
+
+        std::cout << lineValue;
+
+        for (int j = 1; j < padding; ++j) {
+            std::cout << " ";
+        }
+
+        // Print trailing spaces for centering (if needed)
+        if (padding > 0 && (maxWidth - lineValue.length()) % 2 != 0) {
+            std::cout << " ";
+        }
+
+        std::cout << "  |Type: " << lines[i]->getType() << std::endl;
+    }
 }

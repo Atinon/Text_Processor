@@ -16,15 +16,21 @@ private:
     template<typename ClassName, typename ReturnType, typename ...Args>
     struct Command {
         std::string stringValue;
+
         ReturnType (ClassName::*func)(Args...);
     };
 
-    // Creating this struct just for const-ness could probably be avoided with static casting or something like that
-    // Can adjust implementation later on
-    template<typename ClassName, typename ReturnType, typename ...Args>
-    struct CommandConst {
+    template<typename ClassName,
+            typename ReturnType,
+            typename PrinterClass,
+            typename PrinterReturnType,
+            typename ...PrinterArgs>
+    struct CommandConstPrinting {
         std::string stringValue;
-        ReturnType (ClassName::*func)(Args...) const;
+
+        ReturnType (ClassName::*func)() const;
+
+        PrinterReturnType (PrinterClass::*printFunc)(PrinterArgs...);
     };
 
     const static char *SPACE_DELIM_;
@@ -38,20 +44,40 @@ private:
                     {"save", &TextProcessor::save},
             };
 
-    const std::vector<CommandConst<TextProcessor, const std::vector<BaseLine *> &>>
-            textProcessorNoArgsCommandsVectorBaseLineConst_ =
+    const std::vector<CommandConstPrinting<
+            TextProcessor,
+            const std::vector<BaseLine *> &,
+            ConsoleCommandHandler,
+            void,
+            const std::vector<BaseLine *> &>>
+            textProcessorNoArgsCommandsVectorPrinting_ =
             {
-                    {"print", &TextProcessor::getLines},
+                    {
+                            "print",
+                            &TextProcessor::getLines,
+                            &ConsoleCommandHandler::printRegular_
+                    },
+                    {
+                            "print_centered",
+                            &TextProcessor::getLines,
+                            &ConsoleCommandHandler::printCentered_
+                    },
 
             };
 
     const std::vector<Command<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoid_ =
             {
-                    {"open",    &TextProcessor::open},
+                    {"open", &TextProcessor::open},
                     {"save_as", &TextProcessor::saveAs},
             };
 
+    static size_t getMaxLineWidth_(const std::vector<BaseLine *> &lines);
+
     static void basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef);
+
+    void printRegular_(const std::vector<BaseLine *> &lines);
+
+    void printCentered_(const std::vector<BaseLine *> &lines);
 
     void handleNoArgCommand_(const std::vector<std::string> &commandTokens);
 

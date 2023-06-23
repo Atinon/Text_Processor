@@ -4,6 +4,7 @@
 #include "classes/Config.h"
 #include "classes/TextProcessor.h"
 #include "classes/line/BaseLine.h"
+#include "classes/line/BaseLineDerivedClasses.h"
 #include "classes/line/LineParser.h"
 #include "classes/command_handlers/ConsoleCommandHandler.h"
 
