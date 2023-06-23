@@ -9,7 +9,7 @@
 
 
 class TextProcessor final {
-public: // TODO: MAKE PRIVATE
+private: // TODO: MAKE PRIVATE
     IFileReader *fileReader_;
     IFileWriter *fileWriter_;
 
