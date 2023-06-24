@@ -117,7 +117,6 @@ public:
 
     const std::vector<BaseLine*> &getBlock() const; // TODO: added print and print_centered so far
 
-    // TODO: Add in console commands
     void toUpperSingleLine(size_t index);
     void toLowerSingleLine(size_t index);
     void trimLeftSingleLine(size_t index);
@@ -128,7 +127,7 @@ public:
     void trimLeftManyLines(size_t indexStart, size_t indexEnd);
     void trimRightManyLines(size_t indexStart, size_t indexEnd);
 
-    // TODO: ADD toUpper, toLower, trimLeft, trimRight to methods!! Also for block
+    // TODO: add the methods for block too
 
     std::vector<std::string> getOpenedFileNames();
 
