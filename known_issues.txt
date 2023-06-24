@@ -1,0 +1,4 @@
+undo - indexing with multiple files causes wrong file to have content replaced (check commit history for more info)
+* - possibly similar issue with lines?
+
+todo: check for more just in case
