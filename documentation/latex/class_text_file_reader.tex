@@ -1,0 +1,92 @@
+\hypertarget{class_text_file_reader}{}\doxysection{Text\+File\+Reader Class Reference}
+\label{class_text_file_reader}\index{TextFileReader@{TextFileReader}}
+
+
+{\ttfamily \#include $<$Text\+File\+Reader.\+h$>$}
+
+
+
+Inheritance diagram for Text\+File\+Reader\+:
+% FIG 0
+
+
+Collaboration diagram for Text\+File\+Reader\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_text_file_reader_a9a81c98c757fb183ab006cca5c1c5dab}{Text\+File\+Reader}} ()=default
+\item 
+\mbox{\hyperlink{class_text_file_reader_a2973ce10b2153fea176657662c2dee21}{Text\+File\+Reader}} (const std\+::string \&file\+Name)
+\item 
+const std\+::string \& \mbox{\hyperlink{class_text_file_reader_a20607f998e6fd0cb43f4095e584528a9}{get\+File\+Name}} () const override
+\item 
+void \mbox{\hyperlink{class_text_file_reader_aaeaa6a5f3eadb7b991a71c60653465f4}{set\+File\+Name}} (const std\+::string \&file\+Name) override
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_text_file_reader_aea4b6014c3469b63ef9499300bc03aba}{read\+File\+Content}} () override
+\item 
+\mbox{\hyperlink{class_text_file_reader_ab727edb5bd157ac29ee5adf8b6137979}{$\sim$\+Text\+File\+Reader}} () override=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the \mbox{\hyperlink{class_i_file_reader}{IFile\+Reader}} interface and provides definitions for it\textquotesingle{}s methods. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_text_file_reader_a9a81c98c757fb183ab006cca5c1c5dab}\label{class_text_file_reader_a9a81c98c757fb183ab006cca5c1c5dab}} 
+\index{TextFileReader@{TextFileReader}!TextFileReader@{TextFileReader}}
+\index{TextFileReader@{TextFileReader}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{TextFileReader()}{TextFileReader()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Text\+File\+Reader\+::\+Text\+File\+Reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_text_file_reader_a2973ce10b2153fea176657662c2dee21}\label{class_text_file_reader_a2973ce10b2153fea176657662c2dee21}} 
+\index{TextFileReader@{TextFileReader}!TextFileReader@{TextFileReader}}
+\index{TextFileReader@{TextFileReader}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{TextFileReader()}{TextFileReader()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Text\+File\+Reader\+::\+Text\+File\+Reader (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{class_text_file_reader_ab727edb5bd157ac29ee5adf8b6137979}\label{class_text_file_reader_ab727edb5bd157ac29ee5adf8b6137979}} 
+\index{TextFileReader@{TextFileReader}!````~TextFileReader@{$\sim$TextFileReader}}
+\index{````~TextFileReader@{$\sim$TextFileReader}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{$\sim$TextFileReader()}{~TextFileReader()}}
+{\footnotesize\ttfamily Text\+File\+Reader\+::$\sim$\+Text\+File\+Reader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_file_reader_a20607f998e6fd0cb43f4095e584528a9}\label{class_text_file_reader_a20607f998e6fd0cb43f4095e584528a9}} 
+\index{TextFileReader@{TextFileReader}!getFileName@{getFileName}}
+\index{getFileName@{getFileName}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{getFileName()}{getFileName()}}
+{\footnotesize\ttfamily const std\+::string \& Text\+File\+Reader\+::get\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_reader_aed12882d2b4a72cc0744cb445028b229}{IFile\+Reader}}.
+
+\mbox{\Hypertarget{class_text_file_reader_aea4b6014c3469b63ef9499300bc03aba}\label{class_text_file_reader_aea4b6014c3469b63ef9499300bc03aba}} 
+\index{TextFileReader@{TextFileReader}!readFileContent@{readFileContent}}
+\index{readFileContent@{readFileContent}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{readFileContent()}{readFileContent()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ Text\+File\+Reader\+::read\+File\+Content (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_reader_a02c195d372438e4c5d66fddef0442ec4}{IFile\+Reader}}.
+
+\mbox{\Hypertarget{class_text_file_reader_aaeaa6a5f3eadb7b991a71c60653465f4}\label{class_text_file_reader_aaeaa6a5f3eadb7b991a71c60653465f4}} 
+\index{TextFileReader@{TextFileReader}!setFileName@{setFileName}}
+\index{setFileName@{setFileName}!TextFileReader@{TextFileReader}}
+\doxysubsubsection{\texorpdfstring{setFileName()}{setFileName()}}
+{\footnotesize\ttfamily void Text\+File\+Reader\+::set\+File\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_reader_a71dc0d8457b0724d0f656e8550737627}{IFile\+Reader}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/file\+\_\+workers/\mbox{\hyperlink{_text_file_reader_8h}{Text\+File\+Reader.\+h}}\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/file\+\_\+workers/\mbox{\hyperlink{_text_file_reader_8cpp}{Text\+File\+Reader.\+cpp}}\end{DoxyCompactItemize}

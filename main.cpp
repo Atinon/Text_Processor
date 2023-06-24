@@ -1,11 +1,6 @@
 #include <iostream>
-#include <cstring>
-
 #include "classes/Config.h"
 #include "classes/TextProcessor.h"
-#include "classes/line/BaseLine.h"
-#include "classes/line/BaseLineDerivedClasses.h"
-#include "classes/line/LineParser.h"
 #include "classes/command_handlers/ConsoleCommandHandler.h"
 
 using namespace std;
@@ -15,32 +10,26 @@ int main(){
     DefaultConfig defaultConfig;
     TextProcessor textProcessor(&defaultConfig);
 
-    // ---------- command handler
     ConsoleCommandHandler commandHandler(&textProcessor);
 
-
-    const std::string fileNameOne = "sample_files/sample_text.txt";
-    const std::string fileNameTwo = "sample_files/sample_text_better.txt";
-
-//    textProcessor.open(fileNameTwo);
-//
-//    for(const auto &e : textProcessor.getLines())
-//    {
-//        cout << e->getStringValue() << endl;
-//    }
-
-//    commandHandler.handleCommand("print");
-
-//    std::vector<FileData> data;
-//
-//
-//    test(data);
-//
-//    for(const auto &el : data){
-//        for (const auto &line: el.lines) {
-//            cout << line->getStringValue() << endl;
-//        }
-//    }
-
     commandHandler.startConsoleUi();
+
+    /* example work-flow:
+     * open filename
+     * print
+     * remove_lines_range idxStart idxEnd
+     * undo
+     * set_block idxStart idxEnd
+     * print_block_centered
+     * add_lines_many
+     * add_macro
+     * do_macro
+     * open newFileName
+     * print_open_files
+     * set_current_file fileIdx
+     * ... and more
+     * All commands for ConsoleCommandHandler can be seen in the respective header file
+     * There are some methods which are not implemented as console commands yet,
+     * but are existent as methods for the respective classes and should be functioning properly.
+     * */
 }

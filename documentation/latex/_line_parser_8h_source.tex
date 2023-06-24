@@ -1,0 +1,63 @@
+\hypertarget{_line_parser_8h_source}{}\doxysection{Line\+Parser.\+h}
+\label{_line_parser_8h_source}\index{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/line/LineParser.h@{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/line/LineParser.h}}
+\mbox{\hyperlink{_line_parser_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TEXT\_PROCESSOR\_LINEPARSER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TEXT\_PROCESSOR\_LINEPARSER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_base_line_8h}{BaseLine.h}}"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_case_converter}{CaseConverter}};}
+\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{class_whitespace_trimmer}{WhitespaceTrimmer}};}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{19 \textcolor{keyword}{class }\mbox{\hyperlink{class_line_parser}{LineParser}} \{}
+\DoxyCodeLine{20 \textcolor{keyword}{private}:}
+\DoxyCodeLine{21     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} NPOS\_;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} SPACE\_CHAR\_;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} NEWLINE\_CHAR\_;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keyword}{static} \textcolor{keywordtype}{void} pushNewLineToVectorOrThrow\_}
+\DoxyCodeLine{28             (std::vector<BaseLine *> \&resultRef, \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}{BaseLine::LineTypes}} type, \textcolor{keyword}{const} std::string \&stringValue);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{static} \textcolor{keywordtype}{size\_t} getStringIndexIfStartsWithQuote\_(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keyword}{static} \textcolor{keywordtype}{size\_t} getStringIndexIfEndsWithQuote\_(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{keyword}{static} \textcolor{keywordtype}{size\_t} getVectorIndexIfEndQuoteFound\_}
+\DoxyCodeLine{35             (\textcolor{keyword}{const} std::vector<std::string> \&rawData, \textcolor{keywordtype}{size\_t} vectorStartIndex, \textcolor{keywordtype}{size\_t} stringStartIndex);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} createQuotedLineIfQualify\_}
+\DoxyCodeLine{38     (\textcolor{keywordtype}{size\_t} \&rawDataIndexRef, \textcolor{keyword}{const} std::vector<std::string> \&rawData, std::vector<BaseLine*> \&resultRef);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{public}:}
+\DoxyCodeLine{41     \mbox{\hyperlink{class_line_parser_a9299f20e8180f02b9f265c4fb678aa4c}{LineParser}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keyword}{static} std::vector<BaseLine *> \mbox{\hyperlink{class_line_parser_a5db0fba93d81e2687e4634bd26e49d5b}{createFromStringVector}}(\textcolor{keyword}{const} std::vector<std::string> \&rawData);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keyword}{static} \mbox{\hyperlink{class_base_line}{BaseLine}}* \mbox{\hyperlink{class_line_parser_afa94a6d05f536adceefc41d577b3b804}{createFromString}}(\textcolor{keyword}{const} std::string \&rawData);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{static} \mbox{\hyperlink{class_base_line}{BaseLine}}* \mbox{\hyperlink{class_line_parser_a14e8fd70306a7a596e7e9404306a6438}{parseTypeAndCreateCopy}}(\mbox{\hyperlink{class_base_line}{BaseLine}}* line);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_line_parser_a05c8444e76030afa4597aceaede6e5c5}{isNumberLine}}(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_line_parser_aad2bbbcbf5b30134d72017bb95681a81}{isNumberAndDotLine}}(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_line_parser_a1712ed5c064ce805d1e964ef1955bf8b}{isQuotedLine}}(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keyword}{static} \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_line_parser_a8a1630b24833f5f730846615c259b0fe}{isRegularLine}}(\textcolor{keyword}{const} std::string \&s);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keyword}{static} \mbox{\hyperlink{class_case_converter}{CaseConverter}}* \mbox{\hyperlink{class_line_parser_a247a7230690b4f766d8f7b9c9aac565c}{castToCaseConverter}}(\mbox{\hyperlink{class_base_line}{BaseLine}} *line);}
+\DoxyCodeLine{58     \textcolor{keyword}{static} \mbox{\hyperlink{class_whitespace_trimmer}{WhitespaceTrimmer}}* \mbox{\hyperlink{class_line_parser_a5406bddfb423f55ed9afe69e99580c1d}{castToWhitespaceTrimmer}}(\mbox{\hyperlink{class_base_line}{BaseLine}} *line);}
+\DoxyCodeLine{59 \};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//TEXT\_PROCESSOR\_LINEPARSER\_H}}
+
+\end{DoxyCode}

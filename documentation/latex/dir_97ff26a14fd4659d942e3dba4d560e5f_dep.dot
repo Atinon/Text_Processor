@@ -1,0 +1,11 @@
+digraph "C:/Users/Nikola/CLionProjects/OOP_RE/Text_Processor/classes/command_handlers"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_91f4556948e037aed8d4b2d8ffe3ce09 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="classes", fontname="Helvetica", fontsize="10", URL="dir_91f4556948e037aed8d4b2d8ffe3ce09.html"]
+  dir_97ff26a14fd4659d942e3dba4d560e5f [shape=box, label="command_handlers", style="filled,bold,", fillcolor="#edf0f7", color="grey25", URL="dir_97ff26a14fd4659d942e3dba4d560e5f.html"];
+  }
+}

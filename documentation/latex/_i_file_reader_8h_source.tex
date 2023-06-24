@@ -1,0 +1,25 @@
+\hypertarget{_i_file_reader_8h_source}{}\doxysection{IFile\+Reader.\+h}
+\label{_i_file_reader_8h_source}\index{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/file\_workers/IFileReader.h@{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/file\_workers/IFileReader.h}}
+\mbox{\hyperlink{_i_file_reader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TEXT\_PROCESSOR\_IFILEREADER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TEXT\_PROCESSOR\_IFILEREADER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_i_file_reader}{IFileReader}} \{}
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \textcolor{keyword}{virtual} std::vector<std::string> \mbox{\hyperlink{class_i_file_reader_a02c195d372438e4c5d66fddef0442ec4}{readFileContent}}() = 0;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string \&\mbox{\hyperlink{class_i_file_reader_aed12882d2b4a72cc0744cb445028b229}{getFileName}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_i_file_reader_a71dc0d8457b0724d0f656e8550737627}{setFileName}}(\textcolor{keyword}{const} std::string \&fileName) = 0;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_i_file_reader_ae9beaa6c347e9929efa955962ff5564b}{\string~IFileReader}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{19 \};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//TEXT\_PROCESSOR\_IFILEREADER\_H}}
+
+\end{DoxyCode}

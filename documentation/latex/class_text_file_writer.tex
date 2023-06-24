@@ -1,0 +1,92 @@
+\hypertarget{class_text_file_writer}{}\doxysection{Text\+File\+Writer Class Reference}
+\label{class_text_file_writer}\index{TextFileWriter@{TextFileWriter}}
+
+
+{\ttfamily \#include $<$Text\+File\+Writer.\+h$>$}
+
+
+
+Inheritance diagram for Text\+File\+Writer\+:
+% FIG 0
+
+
+Collaboration diagram for Text\+File\+Writer\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_text_file_writer_aba1353013f27ed94afb7007d0a5f7d00}{Text\+File\+Writer}} ()=default
+\item 
+\mbox{\hyperlink{class_text_file_writer_a97ccf292157f739d88542629de42ea6f}{Text\+File\+Writer}} (const std\+::string \&file\+Name)
+\item 
+const std\+::string \& \mbox{\hyperlink{class_text_file_writer_a075379ea88f2e383e107f1393a6fb928}{get\+File\+Name}} () const override
+\item 
+void \mbox{\hyperlink{class_text_file_writer_a0796202b12157ecbe0b0e86d2f22f968}{set\+File\+Name}} (const std\+::string \&file\+Name) override
+\item 
+void \mbox{\hyperlink{class_text_file_writer_a42f53253eb7c153b52e45389014d8b32}{write\+File\+Content}} (const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \&vec) override
+\item 
+\mbox{\hyperlink{class_text_file_writer_aa039ce474079cce85bc38d06faf6ee7b}{$\sim$\+Text\+File\+Writer}} () override=default
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the \mbox{\hyperlink{class_i_file_writer}{IFile\+Writer}} interface and provides definitions for it\textquotesingle{}s methods. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_text_file_writer_aba1353013f27ed94afb7007d0a5f7d00}\label{class_text_file_writer_aba1353013f27ed94afb7007d0a5f7d00}} 
+\index{TextFileWriter@{TextFileWriter}!TextFileWriter@{TextFileWriter}}
+\index{TextFileWriter@{TextFileWriter}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{TextFileWriter()}{TextFileWriter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Text\+File\+Writer\+::\+Text\+File\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_text_file_writer_a97ccf292157f739d88542629de42ea6f}\label{class_text_file_writer_a97ccf292157f739d88542629de42ea6f}} 
+\index{TextFileWriter@{TextFileWriter}!TextFileWriter@{TextFileWriter}}
+\index{TextFileWriter@{TextFileWriter}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{TextFileWriter()}{TextFileWriter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Text\+File\+Writer\+::\+Text\+File\+Writer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{class_text_file_writer_aa039ce474079cce85bc38d06faf6ee7b}\label{class_text_file_writer_aa039ce474079cce85bc38d06faf6ee7b}} 
+\index{TextFileWriter@{TextFileWriter}!````~TextFileWriter@{$\sim$TextFileWriter}}
+\index{````~TextFileWriter@{$\sim$TextFileWriter}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{$\sim$TextFileWriter()}{~TextFileWriter()}}
+{\footnotesize\ttfamily Text\+File\+Writer\+::$\sim$\+Text\+File\+Writer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_file_writer_a075379ea88f2e383e107f1393a6fb928}\label{class_text_file_writer_a075379ea88f2e383e107f1393a6fb928}} 
+\index{TextFileWriter@{TextFileWriter}!getFileName@{getFileName}}
+\index{getFileName@{getFileName}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{getFileName()}{getFileName()}}
+{\footnotesize\ttfamily const std\+::string \& Text\+File\+Writer\+::get\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_writer_ae6857923628ab7347e194309ca7bdc6c}{IFile\+Writer}}.
+
+\mbox{\Hypertarget{class_text_file_writer_a0796202b12157ecbe0b0e86d2f22f968}\label{class_text_file_writer_a0796202b12157ecbe0b0e86d2f22f968}} 
+\index{TextFileWriter@{TextFileWriter}!setFileName@{setFileName}}
+\index{setFileName@{setFileName}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{setFileName()}{setFileName()}}
+{\footnotesize\ttfamily void Text\+File\+Writer\+::set\+File\+Name (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_writer_ad89f04f4df5c5f03ccf409c0b86b2e1c}{IFile\+Writer}}.
+
+\mbox{\Hypertarget{class_text_file_writer_a42f53253eb7c153b52e45389014d8b32}\label{class_text_file_writer_a42f53253eb7c153b52e45389014d8b32}} 
+\index{TextFileWriter@{TextFileWriter}!writeFileContent@{writeFileContent}}
+\index{writeFileContent@{writeFileContent}!TextFileWriter@{TextFileWriter}}
+\doxysubsubsection{\texorpdfstring{writeFileContent()}{writeFileContent()}}
+{\footnotesize\ttfamily void Text\+File\+Writer\+::write\+File\+Content (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \&}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_i_file_writer_a390903ff980b730946c010ed6af79c7d}{IFile\+Writer}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/file\+\_\+workers/\mbox{\hyperlink{_text_file_writer_8h}{Text\+File\+Writer.\+h}}\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/file\+\_\+workers/\mbox{\hyperlink{_text_file_writer_8cpp}{Text\+File\+Writer.\+cpp}}\end{DoxyCompactItemize}

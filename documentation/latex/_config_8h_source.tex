@@ -1,0 +1,40 @@
+\hypertarget{_config_8h_source}{}\doxysection{Config.\+h}
+\label{_config_8h_source}\index{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/Config.h@{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/Config.h}}
+\mbox{\hyperlink{_config_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TEXT\_PROCESSOR\_CONFIG\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TEXT\_PROCESSOR\_CONFIG\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_file_reader_8h}{file\_workers/IFileReader.h}}"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{_i_file_writer_8h}{file\_workers/IFileWriter.h}}"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{class }\mbox{\hyperlink{class_i_config}{IConfig}} \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_i_file_reader}{IFileReader}}* \mbox{\hyperlink{class_i_config_a3597f5ac2f61a3c02503436e6a897b7b}{getFileReader}}() = 0;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_i_file_writer}{IFileWriter}}* \mbox{\hyperlink{class_i_config_a7d5f7e711eba4ec5688a5c82684d5a7b}{getFileWriter}}() = 0;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_i_config_a5c4f5949d00ebd94d4468c209acffe4a}{\string~IConfig}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{16 \};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{class_default_config}{DefaultConfig}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_i_config}{IConfig}} \{}
+\DoxyCodeLine{24 \textcolor{keyword}{private}:}
+\DoxyCodeLine{25     \mbox{\hyperlink{class_i_file_reader}{IFileReader}} *fileReader\_;}
+\DoxyCodeLine{26     \mbox{\hyperlink{class_i_file_writer}{IFileWriter}} *fileWriter\_;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{public}:}
+\DoxyCodeLine{29     \mbox{\hyperlink{class_default_config_ab4409b2885dc81bbb2bb1852b58ddc70}{DefaultConfig}}();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \mbox{\hyperlink{class_i_file_reader}{IFileReader}} *\mbox{\hyperlink{class_default_config_a93495e5dae259a9f80c99bfaaf6f6244}{getFileReader}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \mbox{\hyperlink{class_i_file_writer}{IFileWriter}} *\mbox{\hyperlink{class_default_config_a8894d5bda100e9c73cfecb36d8a3cbcb}{getFileWriter}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \mbox{\hyperlink{class_default_config_a620ad1c85a5df51979e3c675efd15e22}{\string~DefaultConfig}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{36 \};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//TEXT\_PROCESSOR\_CONFIG\_H}}
+
+\end{DoxyCode}

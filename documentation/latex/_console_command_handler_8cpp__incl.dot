@@ -1,0 +1,50 @@
+digraph "C:/Users/Nikola/CLionProjects/OOP_RE/Text_Processor/classes/command_handlers/ConsoleCommandHandler.cpp"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="C:/Users/Nikola/CLionProjects\l/OOP_RE/Text_Processor/classes\l/command_handlers/ConsoleCommandHandler.cpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="ConsoleCommandHandler.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_console_command_handler_8h.html",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="ICommandHandler.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_i_command_handler_8h.html",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="../TextProcessor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_text_processor_8h.html",tooltip=" "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="file_workers/IFileReader.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_i_file_reader_8h.html",tooltip=" "];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="vector",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="string",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="file_workers/IFileWriter.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_i_file_writer_8h.html",tooltip=" "];
+  Node8 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="line/LineParser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_line_parser_8h.html",tooltip=" "];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="BaseLine.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_base_line_8h.html",tooltip=" "];
+  Node10 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="stdexcept",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="Config.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_config_8h.html",tooltip=" "];
+  Node12 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="line/LineComparator.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_line_comparator_8h.html",tooltip=" "];
+  Node13 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="Macro.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_macro_8h.html",tooltip=" "];
+  Node14 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="cstring",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="iostream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+}

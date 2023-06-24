@@ -11,6 +11,11 @@
 class CaseConverter;
 class WhitespaceTrimmer;
 
+/**
+ * This class is used for parsing raw strings, or vectors of such, and producing Line objects.
+ *
+ * Also provides methods for copying lines. Includes a dynamic_cast wrapper as well.
+ */
 class LineParser {
 private:
     static const size_t NPOS_;

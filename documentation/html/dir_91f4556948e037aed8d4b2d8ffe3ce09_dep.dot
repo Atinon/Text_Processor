@@ -1,0 +1,20 @@
+digraph "C:/Users/Nikola/CLionProjects/OOP_RE/Text_Processor/classes"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_ef7d681dfafc76b440731fb5281964f3 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="Text_Processor", fontname="Helvetica", fontsize="10", URL="dir_ef7d681dfafc76b440731fb5281964f3.html"]
+  subgraph clusterdir_91f4556948e037aed8d4b2d8ffe3ce09 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_91f4556948e037aed8d4b2d8ffe3ce09.html"]
+    dir_91f4556948e037aed8d4b2d8ffe3ce09 [shape=plaintext, label="classes"];
+  dir_97ff26a14fd4659d942e3dba4d560e5f [shape=box, label="command_handlers", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_97ff26a14fd4659d942e3dba4d560e5f.html"];
+  dir_63a0832c11657b89bad66750e4b799c7 [shape=box, label="file_workers", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_63a0832c11657b89bad66750e4b799c7.html"];
+  dir_e4b40bf4380700b985ab9d831038dbcb [shape=box, label="line", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_e4b40bf4380700b985ab9d831038dbcb.html"];
+  }
+  }
+  dir_91f4556948e037aed8d4b2d8ffe3ce09->dir_63a0832c11657b89bad66750e4b799c7 [headlabel="6", labeldistance=1.5 headhref="dir_000001_000008.html"];
+  dir_91f4556948e037aed8d4b2d8ffe3ce09->dir_e4b40bf4380700b985ab9d831038dbcb [headlabel="4", labeldistance=1.5 headhref="dir_000001_000009.html"];
+  dir_63a0832c11657b89bad66750e4b799c7->dir_e4b40bf4380700b985ab9d831038dbcb [headlabel="1", labeldistance=1.5 headhref="dir_000008_000009.html"];
+}

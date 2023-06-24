@@ -1,0 +1,16 @@
+digraph "C:/Users/Nikola/CLionProjects/OOP_RE/Text_Processor/cmake-build-debug/CMakeFiles/3.25.2"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_da888a21b90ad07f8dfa2579cf9843bb {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="CMakeFiles", fontname="Helvetica", fontsize="10", URL="dir_da888a21b90ad07f8dfa2579cf9843bb.html"]
+  subgraph clusterdir_9f997318b40e94d678aa765000b4d5fe {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_9f997318b40e94d678aa765000b4d5fe.html"]
+    dir_9f997318b40e94d678aa765000b4d5fe [shape=plaintext, label="3.25.2"];
+  dir_73ce674ebb5bb9234830335b694ac02e [shape=box, label="CompilerIdC", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_73ce674ebb5bb9234830335b694ac02e.html"];
+  dir_c147e5bda61b94687a3d63ebeb1b55b0 [shape=box, label="CompilerIdCXX", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_c147e5bda61b94687a3d63ebeb1b55b0.html"];
+  }
+  }
+}

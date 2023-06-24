@@ -1,0 +1,17 @@
+digraph "C:/Users/Nikola/CLionProjects/OOP_RE/Text_Processor"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_a8ac36c77f7638b11fe92e62811e9ad2 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", style="filled,dashed,", label="OOP_RE", fontname="Helvetica", fontsize="10", URL="dir_a8ac36c77f7638b11fe92e62811e9ad2.html"]
+  subgraph clusterdir_ef7d681dfafc76b440731fb5281964f3 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_ef7d681dfafc76b440731fb5281964f3.html"]
+    dir_ef7d681dfafc76b440731fb5281964f3 [shape=plaintext, label="Text_Processor"];
+  dir_91f4556948e037aed8d4b2d8ffe3ce09 [shape=box, label="classes", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_91f4556948e037aed8d4b2d8ffe3ce09.html"];
+  dir_bc792cffba73426a4688d91fde8d99e7 [shape=box, label="cmake-build-debug", style="filled,", fillcolor="#a2b4d6", color="grey25", URL="dir_bc792cffba73426a4688d91fde8d99e7.html"];
+  }
+  }
+  dir_ef7d681dfafc76b440731fb5281964f3->dir_91f4556948e037aed8d4b2d8ffe3ce09 [headlabel="13", labeldistance=1.5 headhref="dir_000012_000001.html"];
+}

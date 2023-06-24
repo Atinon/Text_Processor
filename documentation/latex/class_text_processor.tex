@@ -1,0 +1,264 @@
+\hypertarget{class_text_processor}{}\doxysection{Text\+Processor Class Reference}
+\label{class_text_processor}\index{TextProcessor@{TextProcessor}}
+
+
+{\ttfamily \#include $<$Text\+Processor.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_text_processor_a136eff379c292555bd5ca4039a15d6f6}{Text\+Processor}} (\mbox{\hyperlink{class_i_config}{IConfig}} $\ast$config)
+\item 
+\mbox{\hyperlink{class_text_processor_af017c250315f2f2d70eeeef5a183c82a}{Text\+Processor}} (const \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&)=delete
+\item 
+\mbox{\hyperlink{class_text_processor_a1d54fd4bd37562955a6f7f47655f7094}{Text\+Processor}} (\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&\&)=delete
+\item 
+\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \& \mbox{\hyperlink{class_text_processor_a98c48da93b2077037c789462fc16e7e9}{operator=}} (const \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&)=delete
+\item 
+\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \& \mbox{\hyperlink{class_text_processor_a57753bbc07d45edfa017047097571683}{operator=}} (\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_text_processor_a90e1990e7801a7f71b0e42745e74b818}{open}} (const std\+::string \&file\+Name)
+\item 
+void \mbox{\hyperlink{class_text_processor_afe16129bd0efb84e2e7252d45ff0d8f0}{save}} ()
+\item 
+void \mbox{\hyperlink{class_text_processor_a3280f814654ddf9f3795bf079f99e203}{save\+As}} (const std\+::string \&file\+Name)
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \& \mbox{\hyperlink{class_text_processor_a1384523e99fb6f698f0f8b85ea81f140}{get\+Lines}} () const
+\item 
+void \mbox{\hyperlink{class_text_processor_a84071f98f1a22732e12e5b481a8878db}{sort}} ()
+\item 
+void \mbox{\hyperlink{class_text_processor_ac3c6bdbd90833d65463525f49907d950}{add\+Single\+Line}} (size\+\_\+t index, const std\+::string \&raw\+Data)
+\item 
+void \mbox{\hyperlink{class_text_processor_afe70ef8b4645e62616329d22d4a377ce}{add\+Many\+Lines}} (size\+\_\+t index, const std\+::vector$<$ std\+::string $>$ \&raw\+Data)
+\item 
+void \mbox{\hyperlink{class_text_processor_a838f88ab975cb15294eb543f24a03a19}{remove\+Single\+Line}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_aa8f550d371dc930d547e7cd8725e4361}{remove\+Many\+Lines}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+void \mbox{\hyperlink{class_text_processor_ab13d832b4b72a4e0fd2ca55ad91b8137}{set\+Block}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+void \mbox{\hyperlink{class_text_processor_a0daf87c0a9a102fcadad0173e072d9aa}{unset\+Block}} ()
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \& \mbox{\hyperlink{class_text_processor_a2f3791c7a5dfce60c6889415c63e6a9b}{get\+Block}} () const
+\item 
+void \mbox{\hyperlink{class_text_processor_aea468f622bbfc93d131f42cad0777f51}{to\+Upper\+Single\+Line}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_a23c92fa374844860b04decc79828a427}{to\+Lower\+Single\+Line}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_aaeb6b1ead4d6ec89f784fc397c29a369}{trim\+Left\+Single\+Line}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_a9a944139673fec533612640189680a93}{trim\+Right\+Single\+Line}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_aeb15172bf02a8e709a4bd4c12a300359}{to\+Upper\+Many\+Lines}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+void \mbox{\hyperlink{class_text_processor_a100621d75ae75f1bf399f7c2a0d443bb}{to\+Lower\+Many\+Lines}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+void \mbox{\hyperlink{class_text_processor_adbf5f7a67ab8a077aa1b86f58401ca95}{trim\+Left\+Many\+Lines}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+void \mbox{\hyperlink{class_text_processor_a4ec08684e2b5cfb0dd182630b4053faf}{trim\+Right\+Many\+Lines}} (size\+\_\+t index\+Start, size\+\_\+t index\+End)
+\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{class_text_processor_a82a7cdd0cd5a84347ba4bd93a0a7a964}{get\+Opened\+File\+Names}} ()
+\item 
+void \mbox{\hyperlink{class_text_processor_af584728b9cdf93b4e1a13bcc02f1f2e8}{set\+Current\+File}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_aeac1686492a4774e97c978a5378ce4fb}{close\+File}} (size\+\_\+t index)
+\item 
+void \mbox{\hyperlink{class_text_processor_a33acc3d5ef126139c1524bbb66561244}{undo}} ()
+\item 
+\mbox{\hyperlink{class_text_processor_a1e80c2eda0757d8f3b1b51257a4eb3a3}{$\sim$\+Text\+Processor}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This is the main class that fits all of the components together and provides complete methods. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_text_processor_a136eff379c292555bd5ca4039a15d6f6}\label{class_text_processor_a136eff379c292555bd5ca4039a15d6f6}} 
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{TextProcessor()}{TextProcessor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Text\+Processor\+::\+Text\+Processor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_i_config}{IConfig}} $\ast$}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{class_text_processor_af017c250315f2f2d70eeeef5a183c82a}\label{class_text_processor_af017c250315f2f2d70eeeef5a183c82a}} 
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{TextProcessor()}{TextProcessor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Text\+Processor\+::\+Text\+Processor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_text_processor_a1d54fd4bd37562955a6f7f47655f7094}\label{class_text_processor_a1d54fd4bd37562955a6f7f47655f7094}} 
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\index{TextProcessor@{TextProcessor}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{TextProcessor()}{TextProcessor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Text\+Processor\+::\+Text\+Processor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_text_processor_a1e80c2eda0757d8f3b1b51257a4eb3a3}\label{class_text_processor_a1e80c2eda0757d8f3b1b51257a4eb3a3}} 
+\index{TextProcessor@{TextProcessor}!````~TextProcessor@{$\sim$TextProcessor}}
+\index{````~TextProcessor@{$\sim$TextProcessor}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{$\sim$TextProcessor()}{~TextProcessor()}}
+{\footnotesize\ttfamily Text\+Processor\+::$\sim$\+Text\+Processor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_processor_afe70ef8b4645e62616329d22d4a377ce}\label{class_text_processor_afe70ef8b4645e62616329d22d4a377ce}} 
+\index{TextProcessor@{TextProcessor}!addManyLines@{addManyLines}}
+\index{addManyLines@{addManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{addManyLines()}{addManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::add\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const std\+::vector$<$ std\+::string $>$ \&}]{raw\+Data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_ac3c6bdbd90833d65463525f49907d950}\label{class_text_processor_ac3c6bdbd90833d65463525f49907d950}} 
+\index{TextProcessor@{TextProcessor}!addSingleLine@{addSingleLine}}
+\index{addSingleLine@{addSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{addSingleLine()}{addSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::add\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const std\+::string \&}]{raw\+Data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_aeac1686492a4774e97c978a5378ce4fb}\label{class_text_processor_aeac1686492a4774e97c978a5378ce4fb}} 
+\index{TextProcessor@{TextProcessor}!closeFile@{closeFile}}
+\index{closeFile@{closeFile}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{closeFile()}{closeFile()}}
+{\footnotesize\ttfamily void Text\+Processor\+::close\+File (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a2f3791c7a5dfce60c6889415c63e6a9b}\label{class_text_processor_a2f3791c7a5dfce60c6889415c63e6a9b}} 
+\index{TextProcessor@{TextProcessor}!getBlock@{getBlock}}
+\index{getBlock@{getBlock}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{getBlock()}{getBlock()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \& Text\+Processor\+::get\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_text_processor_a1384523e99fb6f698f0f8b85ea81f140}\label{class_text_processor_a1384523e99fb6f698f0f8b85ea81f140}} 
+\index{TextProcessor@{TextProcessor}!getLines@{getLines}}
+\index{getLines@{getLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{getLines()}{getLines()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \& Text\+Processor\+::get\+Lines (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_text_processor_a82a7cdd0cd5a84347ba4bd93a0a7a964}\label{class_text_processor_a82a7cdd0cd5a84347ba4bd93a0a7a964}} 
+\index{TextProcessor@{TextProcessor}!getOpenedFileNames@{getOpenedFileNames}}
+\index{getOpenedFileNames@{getOpenedFileNames}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{getOpenedFileNames()}{getOpenedFileNames()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ Text\+Processor\+::get\+Opened\+File\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a90e1990e7801a7f71b0e42745e74b818}\label{class_text_processor_a90e1990e7801a7f71b0e42745e74b818}} 
+\index{TextProcessor@{TextProcessor}!open@{open}}
+\index{open@{open}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily void Text\+Processor\+::open (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a98c48da93b2077037c789462fc16e7e9}\label{class_text_processor_a98c48da93b2077037c789462fc16e7e9}} 
+\index{TextProcessor@{TextProcessor}!operator=@{operator=}}
+\index{operator=@{operator=}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \& Text\+Processor\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_text_processor_a57753bbc07d45edfa017047097571683}\label{class_text_processor_a57753bbc07d45edfa017047097571683}} 
+\index{TextProcessor@{TextProcessor}!operator=@{operator=}}
+\index{operator=@{operator=}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_text_processor}{Text\+Processor}} \& Text\+Processor\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_text_processor}{Text\+Processor}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_text_processor_aa8f550d371dc930d547e7cd8725e4361}\label{class_text_processor_aa8f550d371dc930d547e7cd8725e4361}} 
+\index{TextProcessor@{TextProcessor}!removeManyLines@{removeManyLines}}
+\index{removeManyLines@{removeManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{removeManyLines()}{removeManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::remove\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a838f88ab975cb15294eb543f24a03a19}\label{class_text_processor_a838f88ab975cb15294eb543f24a03a19}} 
+\index{TextProcessor@{TextProcessor}!removeSingleLine@{removeSingleLine}}
+\index{removeSingleLine@{removeSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{removeSingleLine()}{removeSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::remove\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_afe16129bd0efb84e2e7252d45ff0d8f0}\label{class_text_processor_afe16129bd0efb84e2e7252d45ff0d8f0}} 
+\index{TextProcessor@{TextProcessor}!save@{save}}
+\index{save@{save}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void Text\+Processor\+::save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a3280f814654ddf9f3795bf079f99e203}\label{class_text_processor_a3280f814654ddf9f3795bf079f99e203}} 
+\index{TextProcessor@{TextProcessor}!saveAs@{saveAs}}
+\index{saveAs@{saveAs}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{saveAs()}{saveAs()}}
+{\footnotesize\ttfamily void Text\+Processor\+::save\+As (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{file\+Name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_ab13d832b4b72a4e0fd2ca55ad91b8137}\label{class_text_processor_ab13d832b4b72a4e0fd2ca55ad91b8137}} 
+\index{TextProcessor@{TextProcessor}!setBlock@{setBlock}}
+\index{setBlock@{setBlock}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{setBlock()}{setBlock()}}
+{\footnotesize\ttfamily void Text\+Processor\+::set\+Block (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_af584728b9cdf93b4e1a13bcc02f1f2e8}\label{class_text_processor_af584728b9cdf93b4e1a13bcc02f1f2e8}} 
+\index{TextProcessor@{TextProcessor}!setCurrentFile@{setCurrentFile}}
+\index{setCurrentFile@{setCurrentFile}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{setCurrentFile()}{setCurrentFile()}}
+{\footnotesize\ttfamily void Text\+Processor\+::set\+Current\+File (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a84071f98f1a22732e12e5b481a8878db}\label{class_text_processor_a84071f98f1a22732e12e5b481a8878db}} 
+\index{TextProcessor@{TextProcessor}!sort@{sort}}
+\index{sort@{sort}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{sort()}{sort()}}
+{\footnotesize\ttfamily void Text\+Processor\+::sort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a100621d75ae75f1bf399f7c2a0d443bb}\label{class_text_processor_a100621d75ae75f1bf399f7c2a0d443bb}} 
+\index{TextProcessor@{TextProcessor}!toLowerManyLines@{toLowerManyLines}}
+\index{toLowerManyLines@{toLowerManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{toLowerManyLines()}{toLowerManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::to\+Lower\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a23c92fa374844860b04decc79828a427}\label{class_text_processor_a23c92fa374844860b04decc79828a427}} 
+\index{TextProcessor@{TextProcessor}!toLowerSingleLine@{toLowerSingleLine}}
+\index{toLowerSingleLine@{toLowerSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{toLowerSingleLine()}{toLowerSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::to\+Lower\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_aeb15172bf02a8e709a4bd4c12a300359}\label{class_text_processor_aeb15172bf02a8e709a4bd4c12a300359}} 
+\index{TextProcessor@{TextProcessor}!toUpperManyLines@{toUpperManyLines}}
+\index{toUpperManyLines@{toUpperManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{toUpperManyLines()}{toUpperManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::to\+Upper\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_aea468f622bbfc93d131f42cad0777f51}\label{class_text_processor_aea468f622bbfc93d131f42cad0777f51}} 
+\index{TextProcessor@{TextProcessor}!toUpperSingleLine@{toUpperSingleLine}}
+\index{toUpperSingleLine@{toUpperSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{toUpperSingleLine()}{toUpperSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::to\+Upper\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_adbf5f7a67ab8a077aa1b86f58401ca95}\label{class_text_processor_adbf5f7a67ab8a077aa1b86f58401ca95}} 
+\index{TextProcessor@{TextProcessor}!trimLeftManyLines@{trimLeftManyLines}}
+\index{trimLeftManyLines@{trimLeftManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{trimLeftManyLines()}{trimLeftManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::trim\+Left\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_aaeb6b1ead4d6ec89f784fc397c29a369}\label{class_text_processor_aaeb6b1ead4d6ec89f784fc397c29a369}} 
+\index{TextProcessor@{TextProcessor}!trimLeftSingleLine@{trimLeftSingleLine}}
+\index{trimLeftSingleLine@{trimLeftSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{trimLeftSingleLine()}{trimLeftSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::trim\+Left\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a4ec08684e2b5cfb0dd182630b4053faf}\label{class_text_processor_a4ec08684e2b5cfb0dd182630b4053faf}} 
+\index{TextProcessor@{TextProcessor}!trimRightManyLines@{trimRightManyLines}}
+\index{trimRightManyLines@{trimRightManyLines}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{trimRightManyLines()}{trimRightManyLines()}}
+{\footnotesize\ttfamily void Text\+Processor\+::trim\+Right\+Many\+Lines (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+Start,  }\item[{size\+\_\+t}]{index\+End }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a9a944139673fec533612640189680a93}\label{class_text_processor_a9a944139673fec533612640189680a93}} 
+\index{TextProcessor@{TextProcessor}!trimRightSingleLine@{trimRightSingleLine}}
+\index{trimRightSingleLine@{trimRightSingleLine}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{trimRightSingleLine()}{trimRightSingleLine()}}
+{\footnotesize\ttfamily void Text\+Processor\+::trim\+Right\+Single\+Line (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a33acc3d5ef126139c1524bbb66561244}\label{class_text_processor_a33acc3d5ef126139c1524bbb66561244}} 
+\index{TextProcessor@{TextProcessor}!undo@{undo}}
+\index{undo@{undo}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{undo()}{undo()}}
+{\footnotesize\ttfamily void Text\+Processor\+::undo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_text_processor_a0daf87c0a9a102fcadad0173e072d9aa}\label{class_text_processor_a0daf87c0a9a102fcadad0173e072d9aa}} 
+\index{TextProcessor@{TextProcessor}!unsetBlock@{unsetBlock}}
+\index{unsetBlock@{unsetBlock}!TextProcessor@{TextProcessor}}
+\doxysubsubsection{\texorpdfstring{unsetBlock()}{unsetBlock()}}
+{\footnotesize\ttfamily void Text\+Processor\+::unset\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/\mbox{\hyperlink{_text_processor_8h}{Text\+Processor.\+h}}\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/\mbox{\hyperlink{_text_processor_8cpp}{Text\+Processor.\+cpp}}\end{DoxyCompactItemize}

@@ -3,6 +3,9 @@
 
 #include "BaseLine.h"
 
+/**
+ * This class is inherited by Line classes that have the ability to change the casing of their letters.
+ */
 class CaseConverter {
 protected:
     static void toLower_(std::string &stringRef);
@@ -19,6 +22,9 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/**
+ * This class is inherited by Line classes that have the ability trim excess whitespace characters.
+ */
 class WhitespaceTrimmer {
 protected:
     static void trimLeft_(std::string &stringRef);
@@ -35,6 +41,9 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/**
+ * This class represents all Lines that don't fit in the other categories. Just plain text.
+ */
 class RegularLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
 
 public:
@@ -57,6 +66,9 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/**
+ * This class represents single and multi-line text that starts and ends with quotes.
+ */
 class QuotedLine : public BaseLine {
 
 public:
@@ -71,6 +83,9 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/**
+ * This class represents text that starts with a number followed by a dot. For example: 1. Lorem Ipsum...
+ */
 class NumberAndDotLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
 
 public:
@@ -93,6 +108,9 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/**
+ * This class represents numbers. It's value can be interpreted as a numeric one.
+ */
 class NumberLine : public BaseLine, public WhitespaceTrimmer {
 
 public:

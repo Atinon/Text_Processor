@@ -9,11 +9,17 @@
 #include "line/LineComparator.h"
 
 
+/**
+ * This is the main class that fits all of the components together and provides complete methods.
+ */
 class TextProcessor final {
 private:
     const static size_t NPOS_;
     const static short UNDO_STACK_LIMIT_;
 
+    /**
+ * This struct represents opened files.
+ */
     struct FileData {
         std::string fileName;
         std::vector<BaseLine*> lines_;

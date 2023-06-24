@@ -1,0 +1,126 @@
+\hypertarget{class_base_line}{}\doxysection{Base\+Line Class Reference}
+\label{class_base_line}\index{BaseLine@{BaseLine}}
+
+
+{\ttfamily \#include $<$Base\+Line.\+h$>$}
+
+
+
+Inheritance diagram for Base\+Line\+:
+% FIG 0
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}{Line\+Types}} \{ \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cba96ad3e01a3d6f3a56695c23ce0636253}{REGULAR}}
+, \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cba4ddf43fa575c1ab361ab31102781f0c6}{QUOTED}}
+, \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cba0f33ee8a4b17991dbf8fcb5ec29a46a6}{NUMBER\+\_\+\+AND\+\_\+\+DOT}}
+, \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cbab2f03deb6ff70be161d31fa78c242de1}{NUMBER}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_base_line_a110277442ae976b89374eb73f5cbe872}{Base\+Line}} (const std\+::string \&string\+Value)
+\item 
+virtual \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}{Line\+Types}} \mbox{\hyperlink{class_base_line_a1c88f3b606539617b3438d7fc784d6ba}{get\+Type}} () const =0
+\item 
+const std\+::string \& \mbox{\hyperlink{class_base_line_a9ce27a6f43b4a3f27c28473c7a6fa735}{get\+String\+Value}} () const
+\item 
+virtual void \mbox{\hyperlink{class_base_line_ab4f9d66b07cc1309d2dcfdf1c1515ba6}{set\+String\+Value}} (const std\+::string \&string\+Value)=0
+\item 
+virtual \mbox{\hyperlink{class_base_line_a2e7f2f99a95cb28ba5156aec58cc53db}{$\sim$\+Base\+Line}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_base_line_a989bc363274c50f37f8362d58294dd5b}{string\+Value\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract Line class for shared functionality for all of it\textquotesingle{}s derived ones. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}\label{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}} 
+\index{BaseLine@{BaseLine}!LineTypes@{LineTypes}}
+\index{LineTypes@{LineTypes}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{LineTypes}{LineTypes}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}{Base\+Line\+::\+Line\+Types}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGULAR@{REGULAR}!BaseLine@{BaseLine}}\index{BaseLine@{BaseLine}!REGULAR@{REGULAR}}}\mbox{\Hypertarget{class_base_line_a3b8006cf3286dc162d6c4b09732112cba96ad3e01a3d6f3a56695c23ce0636253}\label{class_base_line_a3b8006cf3286dc162d6c4b09732112cba96ad3e01a3d6f3a56695c23ce0636253}} 
+REGULAR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{QUOTED@{QUOTED}!BaseLine@{BaseLine}}\index{BaseLine@{BaseLine}!QUOTED@{QUOTED}}}\mbox{\Hypertarget{class_base_line_a3b8006cf3286dc162d6c4b09732112cba4ddf43fa575c1ab361ab31102781f0c6}\label{class_base_line_a3b8006cf3286dc162d6c4b09732112cba4ddf43fa575c1ab361ab31102781f0c6}} 
+QUOTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER\_AND\_DOT@{NUMBER\_AND\_DOT}!BaseLine@{BaseLine}}\index{BaseLine@{BaseLine}!NUMBER\_AND\_DOT@{NUMBER\_AND\_DOT}}}\mbox{\Hypertarget{class_base_line_a3b8006cf3286dc162d6c4b09732112cba0f33ee8a4b17991dbf8fcb5ec29a46a6}\label{class_base_line_a3b8006cf3286dc162d6c4b09732112cba0f33ee8a4b17991dbf8fcb5ec29a46a6}} 
+NUMBER\+\_\+\+AND\+\_\+\+DOT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUMBER@{NUMBER}!BaseLine@{BaseLine}}\index{BaseLine@{BaseLine}!NUMBER@{NUMBER}}}\mbox{\Hypertarget{class_base_line_a3b8006cf3286dc162d6c4b09732112cbab2f03deb6ff70be161d31fa78c242de1}\label{class_base_line_a3b8006cf3286dc162d6c4b09732112cbab2f03deb6ff70be161d31fa78c242de1}} 
+NUMBER&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_base_line_a110277442ae976b89374eb73f5cbe872}\label{class_base_line_a110277442ae976b89374eb73f5cbe872}} 
+\index{BaseLine@{BaseLine}!BaseLine@{BaseLine}}
+\index{BaseLine@{BaseLine}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{BaseLine()}{BaseLine()}}
+{\footnotesize\ttfamily Base\+Line\+::\+Base\+Line (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{string\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{class_base_line_a2e7f2f99a95cb28ba5156aec58cc53db}\label{class_base_line_a2e7f2f99a95cb28ba5156aec58cc53db}} 
+\index{BaseLine@{BaseLine}!````~BaseLine@{$\sim$BaseLine}}
+\index{````~BaseLine@{$\sim$BaseLine}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{$\sim$BaseLine()}{~BaseLine()}}
+{\footnotesize\ttfamily virtual Base\+Line\+::$\sim$\+Base\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_base_line_a9ce27a6f43b4a3f27c28473c7a6fa735}\label{class_base_line_a9ce27a6f43b4a3f27c28473c7a6fa735}} 
+\index{BaseLine@{BaseLine}!getStringValue@{getStringValue}}
+\index{getStringValue@{getStringValue}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{getStringValue()}{getStringValue()}}
+{\footnotesize\ttfamily const std\+::string \& Base\+Line\+::get\+String\+Value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{class_base_line_a1c88f3b606539617b3438d7fc784d6ba}\label{class_base_line_a1c88f3b606539617b3438d7fc784d6ba}} 
+\index{BaseLine@{BaseLine}!getType@{getType}}
+\index{getType@{getType}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{class_base_line_a3b8006cf3286dc162d6c4b09732112cb}{Line\+Types}} Base\+Line\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_regular_line_a535d1697d0c83a13afaa4ac40e4bab3a}{Regular\+Line}}, \mbox{\hyperlink{class_quoted_line_aeb278e97b8fff9724e9f0f29a404873c}{Quoted\+Line}}, \mbox{\hyperlink{class_number_and_dot_line_adba2d8569b45376ee5866edda9d0acb6}{Number\+And\+Dot\+Line}}, and \mbox{\hyperlink{class_number_line_a06e89a03e2d6552b23c43ff50c6a8710}{Number\+Line}}.
+
+\mbox{\Hypertarget{class_base_line_ab4f9d66b07cc1309d2dcfdf1c1515ba6}\label{class_base_line_ab4f9d66b07cc1309d2dcfdf1c1515ba6}} 
+\index{BaseLine@{BaseLine}!setStringValue@{setStringValue}}
+\index{setStringValue@{setStringValue}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{setStringValue()}{setStringValue()}}
+{\footnotesize\ttfamily virtual void Base\+Line\+::set\+String\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{string\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{class_regular_line_a3200ff50f434f0c7e566a46a51e85474}{Regular\+Line}}, \mbox{\hyperlink{class_quoted_line_a8cd5837efd906d46e0d62fbef78616dd}{Quoted\+Line}}, \mbox{\hyperlink{class_number_and_dot_line_af1a0c7b5dcc29ac19baaaf1c252bcd2b}{Number\+And\+Dot\+Line}}, and \mbox{\hyperlink{class_number_line_ae77e8918a43f71680bbbb7ab875b8c37}{Number\+Line}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_base_line_a989bc363274c50f37f8362d58294dd5b}\label{class_base_line_a989bc363274c50f37f8362d58294dd5b}} 
+\index{BaseLine@{BaseLine}!stringValue\_@{stringValue\_}}
+\index{stringValue\_@{stringValue\_}!BaseLine@{BaseLine}}
+\doxysubsubsection{\texorpdfstring{stringValue\_}{stringValue\_}}
+{\footnotesize\ttfamily std\+::string Base\+Line\+::string\+Value\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/line/\mbox{\hyperlink{_base_line_8h}{Base\+Line.\+h}}\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/line/\mbox{\hyperlink{_base_line_8cpp}{Base\+Line.\+cpp}}\end{DoxyCompactItemize}

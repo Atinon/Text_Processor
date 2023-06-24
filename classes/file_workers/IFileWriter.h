@@ -6,6 +6,9 @@
 
 class BaseLine;
 
+/**
+ * Interface for file writing operations.
+ */
 class IFileWriter {
 public:
     virtual void writeFileContent(const std::vector<BaseLine*> &vec) = 0;

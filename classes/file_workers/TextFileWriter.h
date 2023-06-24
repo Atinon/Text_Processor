@@ -5,6 +5,10 @@
 #include "IFileWriter.h"
 #include <fstream>
 
+
+/**
+ * Implements the IFileWriter interface and provides definitions for it's methods.
+ */
 class TextFileWriter: public IFileWriter {
 private:
     std::string fileName_;

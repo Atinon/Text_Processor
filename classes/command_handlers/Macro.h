@@ -4,6 +4,11 @@
 #include <string>
 #include <vector>
 
+/**
+ * Basic class defined to hold a macro name and a series of commands for it.
+ *
+ * Used in ConsoleCommandHandler.
+ */
 class Macro {
 public:
     std::string name;

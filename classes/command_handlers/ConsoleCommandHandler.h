@@ -11,9 +11,14 @@
 #include <stdexcept>
 #include <iostream>
 
-
+/**
+ * Class for console commands, implements the ICommandHandler interface.
+ */
 class ConsoleCommandHandler : public ICommandHandler<std::string> {
 private:
+    /**
+ * Command struct template acting as a map between console commands and actual functions.
+ */
     template<typename ClassName, typename ReturnType, typename ...Args>
     struct Command {
         std::string stringValue;

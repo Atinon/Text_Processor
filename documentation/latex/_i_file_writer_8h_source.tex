@@ -1,0 +1,27 @@
+\hypertarget{_i_file_writer_8h_source}{}\doxysection{IFile\+Writer.\+h}
+\label{_i_file_writer_8h_source}\index{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/file\_workers/IFileWriter.h@{C:/Users/Nikola/CLionProjects/OOP\_RE/Text\_Processor/classes/file\_workers/IFileWriter.h}}
+\mbox{\hyperlink{_i_file_writer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TEXT\_PROCESSOR\_IFILEWRITER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TEXT\_PROCESSOR\_IFILEWRITER\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_base_line}{BaseLine}};}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{12 \textcolor{keyword}{class }\mbox{\hyperlink{class_i_file_writer}{IFileWriter}} \{}
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_i_file_writer_a390903ff980b730946c010ed6af79c7d}{writeFileContent}}(\textcolor{keyword}{const} std::vector<BaseLine*> \&vec) = 0;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keyword}{virtual} \textcolor{keyword}{const} std::string \&\mbox{\hyperlink{class_i_file_writer_ae6857923628ab7347e194309ca7bdc6c}{getFileName}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{class_i_file_writer_ad89f04f4df5c5f03ccf409c0b86b2e1c}{setFileName}}(\textcolor{keyword}{const} std::string \&fileName) = 0;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{virtual} \mbox{\hyperlink{class_i_file_writer_a9a889c8c86f4157f633e80d389d0fc3f}{\string~IFileWriter}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{21 \};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//TEXT\_PROCESSOR\_IFILEWRITER\_H}}
+
+\end{DoxyCode}

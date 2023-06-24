@@ -5,6 +5,9 @@
 #include "IFileReader.h"
 #include <fstream>
 
+/**
+ * Implements the IFileReader interface and provides definitions for it's methods.
+ */
 class TextFileReader : public IFileReader {
 private:
     std::string fileName_;

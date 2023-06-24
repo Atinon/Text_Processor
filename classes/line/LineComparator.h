@@ -4,6 +4,11 @@
 
 #include "BaseLine.h"
 
+/**
+ * This class provides a sorting operator to use with sorting functions.
+ *
+ * It fits the criteria required.
+ */
 struct LineComparator {
     bool operator()(const BaseLine* lineOne, const BaseLine* lineTwo);
 };

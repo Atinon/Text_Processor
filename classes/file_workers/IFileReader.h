@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 
+/**
+ * Interface for file reading operations.
+ */
 class IFileReader {
 public:
     virtual std::vector<std::string> readFileContent() = 0;

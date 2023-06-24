@@ -3,7 +3,9 @@
 
 #include <string>
 
-// Abstract Line class for shared functionality
+/**
+ * Abstract Line class for shared functionality for all of it's derived ones.
+ */
 class BaseLine {
 protected:
     std::string stringValue_;

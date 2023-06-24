@@ -5,6 +5,7 @@
 #include "file_workers/IFileReader.h"
 #include "file_workers/IFileWriter.h"
 
+
 class IConfig {
 public:
     virtual IFileReader* getFileReader() = 0;
@@ -14,7 +15,11 @@ public:
     virtual ~IConfig() = default;
 };
 
-
+/**
+* Class used for creating objects.
+ *
+ * Dependency Injection.
+*/
 class DefaultConfig : public IConfig {
 private:
     IFileReader *fileReader_;

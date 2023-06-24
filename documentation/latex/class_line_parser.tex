@@ -1,0 +1,109 @@
+\hypertarget{class_line_parser}{}\doxysection{Line\+Parser Class Reference}
+\label{class_line_parser}\index{LineParser@{LineParser}}
+
+
+{\ttfamily \#include $<$Line\+Parser.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_line_parser_a9299f20e8180f02b9f265c4fb678aa4c}{Line\+Parser}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ \mbox{\hyperlink{class_line_parser_a5db0fba93d81e2687e4634bd26e49d5b}{create\+From\+String\+Vector}} (const std\+::vector$<$ std\+::string $>$ \&raw\+Data)
+\item 
+static \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ \mbox{\hyperlink{class_line_parser_afa94a6d05f536adceefc41d577b3b804}{create\+From\+String}} (const std\+::string \&raw\+Data)
+\item 
+static \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ \mbox{\hyperlink{class_line_parser_a14e8fd70306a7a596e7e9404306a6438}{parse\+Type\+And\+Create\+Copy}} (\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$line)
+\item 
+static bool \mbox{\hyperlink{class_line_parser_a05c8444e76030afa4597aceaede6e5c5}{is\+Number\+Line}} (const std\+::string \&s)
+\item 
+static bool \mbox{\hyperlink{class_line_parser_aad2bbbcbf5b30134d72017bb95681a81}{is\+Number\+And\+Dot\+Line}} (const std\+::string \&s)
+\item 
+static bool \mbox{\hyperlink{class_line_parser_a1712ed5c064ce805d1e964ef1955bf8b}{is\+Quoted\+Line}} (const std\+::string \&s)
+\item 
+static bool \mbox{\hyperlink{class_line_parser_a8a1630b24833f5f730846615c259b0fe}{is\+Regular\+Line}} (const std\+::string \&s)
+\item 
+static \mbox{\hyperlink{class_case_converter}{Case\+Converter}} $\ast$ \mbox{\hyperlink{class_line_parser_a247a7230690b4f766d8f7b9c9aac565c}{cast\+To\+Case\+Converter}} (\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$line)
+\item 
+static \mbox{\hyperlink{class_whitespace_trimmer}{Whitespace\+Trimmer}} $\ast$ \mbox{\hyperlink{class_line_parser_a5406bddfb423f55ed9afe69e99580c1d}{cast\+To\+Whitespace\+Trimmer}} (\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$line)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is used for parsing raw strings, or vectors of such, and producing Line objects.
+
+Also provides methods for copying lines. Includes a dynamic\+\_\+cast wrapper as well. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_line_parser_a9299f20e8180f02b9f265c4fb678aa4c}\label{class_line_parser_a9299f20e8180f02b9f265c4fb678aa4c}} 
+\index{LineParser@{LineParser}!LineParser@{LineParser}}
+\index{LineParser@{LineParser}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{LineParser()}{LineParser()}}
+{\footnotesize\ttfamily Line\+Parser\+::\+Line\+Parser (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_line_parser_a247a7230690b4f766d8f7b9c9aac565c}\label{class_line_parser_a247a7230690b4f766d8f7b9c9aac565c}} 
+\index{LineParser@{LineParser}!castToCaseConverter@{castToCaseConverter}}
+\index{castToCaseConverter@{castToCaseConverter}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{castToCaseConverter()}{castToCaseConverter()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_case_converter}{Case\+Converter}} $\ast$ Line\+Parser\+::cast\+To\+Case\+Converter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a5406bddfb423f55ed9afe69e99580c1d}\label{class_line_parser_a5406bddfb423f55ed9afe69e99580c1d}} 
+\index{LineParser@{LineParser}!castToWhitespaceTrimmer@{castToWhitespaceTrimmer}}
+\index{castToWhitespaceTrimmer@{castToWhitespaceTrimmer}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{castToWhitespaceTrimmer()}{castToWhitespaceTrimmer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_whitespace_trimmer}{Whitespace\+Trimmer}} $\ast$ Line\+Parser\+::cast\+To\+Whitespace\+Trimmer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_afa94a6d05f536adceefc41d577b3b804}\label{class_line_parser_afa94a6d05f536adceefc41d577b3b804}} 
+\index{LineParser@{LineParser}!createFromString@{createFromString}}
+\index{createFromString@{createFromString}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{createFromString()}{createFromString()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ Line\+Parser\+::create\+From\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{raw\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a5db0fba93d81e2687e4634bd26e49d5b}\label{class_line_parser_a5db0fba93d81e2687e4634bd26e49d5b}} 
+\index{LineParser@{LineParser}!createFromStringVector@{createFromStringVector}}
+\index{createFromStringVector@{createFromStringVector}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{createFromStringVector()}{createFromStringVector()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ $>$ Line\+Parser\+::create\+From\+String\+Vector (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::string $>$ \&}]{raw\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_aad2bbbcbf5b30134d72017bb95681a81}\label{class_line_parser_aad2bbbcbf5b30134d72017bb95681a81}} 
+\index{LineParser@{LineParser}!isNumberAndDotLine@{isNumberAndDotLine}}
+\index{isNumberAndDotLine@{isNumberAndDotLine}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{isNumberAndDotLine()}{isNumberAndDotLine()}}
+{\footnotesize\ttfamily bool Line\+Parser\+::is\+Number\+And\+Dot\+Line (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a05c8444e76030afa4597aceaede6e5c5}\label{class_line_parser_a05c8444e76030afa4597aceaede6e5c5}} 
+\index{LineParser@{LineParser}!isNumberLine@{isNumberLine}}
+\index{isNumberLine@{isNumberLine}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{isNumberLine()}{isNumberLine()}}
+{\footnotesize\ttfamily bool Line\+Parser\+::is\+Number\+Line (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a1712ed5c064ce805d1e964ef1955bf8b}\label{class_line_parser_a1712ed5c064ce805d1e964ef1955bf8b}} 
+\index{LineParser@{LineParser}!isQuotedLine@{isQuotedLine}}
+\index{isQuotedLine@{isQuotedLine}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{isQuotedLine()}{isQuotedLine()}}
+{\footnotesize\ttfamily bool Line\+Parser\+::is\+Quoted\+Line (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a8a1630b24833f5f730846615c259b0fe}\label{class_line_parser_a8a1630b24833f5f730846615c259b0fe}} 
+\index{LineParser@{LineParser}!isRegularLine@{isRegularLine}}
+\index{isRegularLine@{isRegularLine}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{isRegularLine()}{isRegularLine()}}
+{\footnotesize\ttfamily bool Line\+Parser\+::is\+Regular\+Line (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_line_parser_a14e8fd70306a7a596e7e9404306a6438}\label{class_line_parser_a14e8fd70306a7a596e7e9404306a6438}} 
+\index{LineParser@{LineParser}!parseTypeAndCreateCopy@{parseTypeAndCreateCopy}}
+\index{parseTypeAndCreateCopy@{parseTypeAndCreateCopy}!LineParser@{LineParser}}
+\doxysubsubsection{\texorpdfstring{parseTypeAndCreateCopy()}{parseTypeAndCreateCopy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$ Line\+Parser\+::parse\+Type\+And\+Create\+Copy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_base_line}{Base\+Line}} $\ast$}]{line }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/line/\mbox{\hyperlink{_line_parser_8h}{Line\+Parser.\+h}}\item 
+C\+:/\+Users/\+Nikola/\+CLion\+Projects/\+OOP\+\_\+\+RE/\+Text\+\_\+\+Processor/classes/line/\mbox{\hyperlink{_line_parser_8cpp}{Line\+Parser.\+cpp}}\end{DoxyCompactItemize}
