@@ -51,33 +51,39 @@ private:
                     {"unset_block", &TextProcessor::unsetBlock},
             };
 
+    const std::vector<Command<TextProcessor, std::vector<std::string>>>
+            textProcessorNoArgsCommandsVectorStringPrinting_ =
+            {
+                    {"print_open_files", &TextProcessor::getOpenedFileNames},
+            };
+
     const std::vector<CommandConstPrinting<
             TextProcessor,
             const std::vector<BaseLine *> &,
             ConsoleCommandHandler,
             void,
             const std::vector<BaseLine *> &>>
-            textProcessorNoArgsCommandsVectorPrinting_ =
+            textProcessorNoArgsCommandsVectorLinesPrinting_ =
             {
                     {
                             "print",
                             &TextProcessor::getLines,
-                            &ConsoleCommandHandler::printRegular_
+                            &ConsoleCommandHandler::printLinesRegular_
                     },
                     {
                             "print_centered",
                             &TextProcessor::getLines,
-                            &ConsoleCommandHandler::printCentered_
+                            &ConsoleCommandHandler::printLinesCentered_
                     },
                     {
                             "print_block",
                             &TextProcessor::getBlock,
-                            &ConsoleCommandHandler::printRegular_
+                            &ConsoleCommandHandler::printLinesRegular_
                     },
                     {
                             "print_block_centered",
                             &TextProcessor::getBlock,
-                            &ConsoleCommandHandler::printCentered_
+                            &ConsoleCommandHandler::printLinesCentered_
                     },
 
             };
@@ -92,6 +98,7 @@ private:
     const std::vector<Command<TextProcessor, void, size_t>> textProcessorOneArgCommandsVoidNum_ =
             {
                     {"remove_line", &TextProcessor::removeSingleLine},
+                    {"set_current_file", &TextProcessor::setCurrentFile},
             };
 
     const std::vector<Command<TextProcessor, void, size_t, const std::string &>>
@@ -123,9 +130,9 @@ private:
 
     static std::vector<std::string> getMultiLineInput_();
 
-    void printRegular_(const std::vector<BaseLine *> &lines);
+    void printLinesRegular_(const std::vector<BaseLine *> &lines);
 
-    void printCentered_(const std::vector<BaseLine *> &lines);
+    void printLinesCentered_(const std::vector<BaseLine *> &lines);
 
     void handleNoArgCommand_(const std::vector<std::string> &commandTokens);
 

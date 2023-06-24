@@ -131,13 +131,33 @@ void ConsoleCommandHandler::handleNoArgCommand_(const std::vector<std::string> &
         }
     }
 
-    // textProcessorNoArgsCommandsVectorPrinting_
+    // textProcessorNoArgsCommandsVectorStringPrinting_
+    for(const Command<TextProcessor, std::vector<std::string>> &c : textProcessorNoArgsCommandsVectorStringPrinting_){
+        if(c.stringValue == currentCommand){
+            try{
+                const std::vector<std::string> &valuesRef = (textProcessor_->*c.func)();
+                for(size_t i = 0; i < valuesRef.size(); ++i){
+                    std::cout
+                            << "idx: " << i
+                            << "|  " << valuesRef[i]
+                            << std::endl;
+                }
+                return;
+            }
+            catch(...){
+                std::cout << "Internal error when printing file names!" << std::endl;
+                return;
+            }
+        }
+    }
+
+    // textProcessorNoArgsCommandsVectorLinesPrinting_
     for (const CommandConstPrinting<
                 TextProcessor,
                 const std::vector<BaseLine *> &,
                 ConsoleCommandHandler,
                 void,
-                const std::vector<BaseLine *> &> &c: textProcessorNoArgsCommandsVectorPrinting_) {
+                const std::vector<BaseLine *> &> &c: textProcessorNoArgsCommandsVectorLinesPrinting_) {
         if (c.stringValue == currentCommand) {
             try{
                 const std::vector<BaseLine *> &lines = (textProcessor_->*c.func)();
@@ -312,7 +332,7 @@ void ConsoleCommandHandler::handleTwoArgCommand_(const std::vector<std::string> 
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
-void ConsoleCommandHandler::printRegular_(const std::vector<BaseLine *> &lines) {
+void ConsoleCommandHandler::printLinesRegular_(const std::vector<BaseLine *> &lines) {
     for (int i = 0; i < lines.size(); ++i) {
         std::cout
                 << "idx: " << i
@@ -322,7 +342,7 @@ void ConsoleCommandHandler::printRegular_(const std::vector<BaseLine *> &lines) 
     }
 }
 
-void ConsoleCommandHandler::printCentered_(const std::vector<BaseLine *> &lines) {
+void ConsoleCommandHandler::printLinesCentered_(const std::vector<BaseLine *> &lines) {
     size_t maxWidth = getMaxLineWidth_(lines);
 
     for (int i = 0; i < lines.size(); ++i) {

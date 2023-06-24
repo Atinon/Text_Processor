@@ -12,32 +12,54 @@
 
 class TextProcessor final {
 private:
-    struct Block{
+    const static size_t NPOS_;
+
+    struct FileData {
+        std::string fileName;
+        std::vector<BaseLine*> lines_;
+    };
+
+    struct Block {
         const static size_t NPOS_ = -1;
+        size_t fileId;
         size_t indexStart;
         size_t indexEnd;
         std::vector<BaseLine*> vectorLinePtr;
-        Block() : indexStart(NPOS_), indexEnd(NPOS_){};
+        Block() : fileId(NPOS_), indexStart(NPOS_), indexEnd(NPOS_){};
     };
 
     IFileReader *fileReader_;
     IFileWriter *fileWriter_;
 
-    std::vector<BaseLine*> lines_;
+    std::vector<FileData> files_;
+    size_t currentFileIndex_;
 
     Block block_;
 
     static void deAllocSingleLine_(BaseLine *&line);
 
-    void deAllocAllLines_();
+    static void deAllocAllLines_(std::vector<BaseLine *> &vectorRef);
+
+    void checkIfAnyOpenFilesOrThrow_() const;
+
+    std::vector<BaseLine *> &getCurrentLinesRefOrThrow_();
+
+    const std::vector<BaseLine *> &getCurrentLinesConstRefOrThrow_() const;
+
+    std::string &getCurrentFileNameRefOrThrow_();
 
     bool blockExists_() const;
 
-    void parseIndexOrSetToLast_(size_t &indexRef);
+    bool blockForCurrentFile_() const;
 
-    void parseIndexOrThrow_(size_t index);
+    template<typename T>
+    void parseIndexOrSetToLast_(size_t &indexRef, const std::vector<T> &vec);
 
-    void parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd);
+    template<typename T>
+    void parseIndexOrThrow_(size_t index, const std::vector<T> &vec);
+
+    template<typename T>
+    void parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd, const std::vector<T> &vec);
 
 public:
     explicit TextProcessor(IConfig *config);
@@ -72,6 +94,10 @@ public:
     const std::vector<BaseLine*> &getBlock() const; // TODO: added print and print_centered so far
 
     // TODO: ADD toUpper, toLower, trimLeft, trimRight to methods!! Also for block
+
+    std::vector<std::string> getOpenedFileNames();
+
+    void setCurrentFile(size_t index);
 
     ~TextProcessor();
 };

@@ -3,35 +3,77 @@
 #include "line/BaseLineDerivedClasses.h"
 
 
+const size_t TextProcessor::NPOS_ = -1;
+
 TextProcessor::TextProcessor(IConfig *config) : fileReader_(config->getFileReader()),
-                                                fileWriter_(config->getFileWriter()) {}
+                                                fileWriter_(config->getFileWriter()),
+                                                currentFileIndex_(NPOS_) {}
 
 TextProcessor::~TextProcessor() {
-    deAllocAllLines_();
+    for(FileData &fdRef : files_){
+        deAllocAllLines_(fdRef.lines_);
+    }
 }
 
-bool TextProcessor::blockExists_() const {
-    return block_.indexStart != Block::NPOS_ && block_.indexEnd != Block::NPOS_;
+void TextProcessor::deAllocSingleLine_(BaseLine *&line) {
+    delete line;
+    line = nullptr;
 }
 
-void TextProcessor::parseIndexOrSetToLast_(size_t &indexRef) {
-    indexRef = indexRef > lines_.size() ? lines_.size() : indexRef;
+void TextProcessor::deAllocAllLines_(std::vector<BaseLine *> &vectorRef) {
+    if (!vectorRef.empty()) {
+        for (BaseLine *&line: vectorRef) {
+            deAllocSingleLine_(line);
+        }
+    }
 }
 
-void TextProcessor::parseIndexOrThrow_(size_t index) {
-    if (index >= lines_.size()) {
+template<typename T>
+void TextProcessor::parseIndexOrSetToLast_(size_t &indexRef, const std::vector<T> &vec) {
+    indexRef = indexRef > vec.size() ? vec.size() : indexRef;
+}
+
+template<typename T>
+void TextProcessor::parseIndexOrThrow_(size_t index, const std::vector<T> &vec) {
+    if (index >= vec.size()) {
         throw std::runtime_error("Invalid index.");
     }
 }
 
-
-void TextProcessor::parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd) {
+template<typename T>
+void TextProcessor::parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd, const std::vector<T> &vec) {
     if (indexStart >= indexEnd) {
         throw std::runtime_error("Inversed index range.");
     }
-    parseIndexOrThrow_(indexEnd);
+    parseIndexOrThrow_(indexEnd, vec);
     // If indexStart < indexEnd && indexEnd in range, assumes correct boundaries
 }
+
+void TextProcessor::checkIfAnyOpenFilesOrThrow_() const {
+    if(currentFileIndex_ == NPOS_){
+        throw std::runtime_error("No file open.");
+    }
+}
+
+std::vector<BaseLine *> &TextProcessor::getCurrentLinesRefOrThrow_() {
+    checkIfAnyOpenFilesOrThrow_();
+
+    return files_[currentFileIndex_].lines_;
+}
+
+const std::vector<BaseLine *> &TextProcessor::getCurrentLinesConstRefOrThrow_() const {
+    checkIfAnyOpenFilesOrThrow_();
+
+    return files_[currentFileIndex_].lines_;
+}
+
+std::string &TextProcessor::getCurrentFileNameRefOrThrow_() {
+    checkIfAnyOpenFilesOrThrow_();
+
+    return files_[currentFileIndex_].fileName;
+}
+
+
 
 void TextProcessor::open(const std::string &fileName) {
     std::vector<std::string> rawData;
@@ -45,28 +87,43 @@ void TextProcessor::open(const std::string &fileName) {
         throw;
     }
 
+    FileData fd;
+    fd.fileName = fileName;
     try {
-        // Can add a separate vector to store backup data in case creating fails
-        deAllocAllLines_();
-        lines_ = LineParser::createFromStringVector(rawData);
+        fd.lines_ = LineParser::createFromStringVector(rawData);
     }
     catch (const std::invalid_argument &e) {
         throw std::runtime_error(e.what());
     }
+    catch(const std::bad_alloc &){
+        throw std::runtime_error("Not enough memory to open a new file.");
+    }
     catch (...) {
         throw;
     }
+
+    try{
+        files_.push_back(fd);
+    }
+    catch(const std::bad_alloc &){
+        deAllocAllLines_(fd.lines_);
+        throw std::runtime_error("Not enough memory to add file to current files.");
+    }
+
+    currentFileIndex_ = files_.size() - 1;
 }
 
 void TextProcessor::save() {
-    saveAs(fileReader_->getFileName());
+    saveAs(getCurrentFileNameRefOrThrow_());
 }
 
 void TextProcessor::saveAs(const std::string &fileName) {
+    const std::vector<BaseLine *> &currentLines = getCurrentLinesConstRefOrThrow_();
+
     fileWriter_->setFileName(fileName);
 
     try {
-        fileWriter_->writeFileContent(lines_);
+        fileWriter_->writeFileContent(currentLines);
     }
     catch (...) {
         throw;
@@ -74,20 +131,7 @@ void TextProcessor::saveAs(const std::string &fileName) {
 }
 
 const std::vector<BaseLine *> &TextProcessor::getLines() const {
-    return lines_;
-}
-
-void TextProcessor::deAllocSingleLine_(BaseLine *&line) {
-    delete line;
-    line = nullptr;
-}
-
-void TextProcessor::deAllocAllLines_() {
-    if (!lines_.empty()) {
-        for (BaseLine *&line: lines_) {
-            deAllocSingleLine_(line);
-        }
-    }
+    return getCurrentLinesConstRefOrThrow_();
 }
 
 void TextProcessor::sort() {
@@ -99,9 +143,11 @@ void TextProcessor::sort() {
     // Separate NumberAndDotLine objects from the rest
     std::vector<NumberDotLinePositions> numberAndDotLines;
     std::vector<BaseLine *> otherLines;
+
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
     try {
-        for (size_t i = 0; i < lines_.size(); ++i) {
-            BaseLine *currentLine = lines_[i];
+        for (size_t i = 0; i < currentLinesRef.size(); ++i) {
+            BaseLine *currentLine = currentLinesRef[i];
             if (currentLine->getType() == BaseLine::NUMBER_AND_DOT) {
                 numberAndDotLines.push_back(NumberDotLinePositions{i, currentLine});
                 continue;
@@ -115,7 +161,7 @@ void TextProcessor::sort() {
 
     std::vector<BaseLine *> backup;
     try {
-        backup = lines_;
+        backup = currentLinesRef;
     }
     catch (...) {
         throw std::runtime_error("Internal sorting function error. Stage: 2");
@@ -126,21 +172,23 @@ void TextProcessor::sort() {
         std::sort(otherLines.begin(), otherLines.end(), LineComparator());
 
         // Combine the sorted lines and insert NumberAndDot lines at their previous indexes
-        lines_.clear();
-        lines_.reserve(otherLines.size() + numberAndDotLines.size());
-        lines_.insert(lines_.begin(), otherLines.begin(), otherLines.end());
+        currentLinesRef.clear();
+        currentLinesRef.reserve(otherLines.size() + numberAndDotLines.size());
+        currentLinesRef.insert(currentLinesRef.begin(), otherLines.begin(), otherLines.end());
         for (const NumberDotLinePositions &line: numberAndDotLines) {
-            lines_.insert(lines_.begin() + line.idx, line.line);
+            currentLinesRef.insert(currentLinesRef.begin() + line.idx, line.line);
         }
     } catch (...) {
-        lines_.clear();
-        lines_ = backup;
+        currentLinesRef.clear();
+        currentLinesRef = backup;
         throw std::runtime_error("Internal sorting function error. Stage: 3");
     }
 }
 
 void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
-    parseIndexOrSetToLast_(index);
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexOrSetToLast_(index, currentLinesRef);
 
     BaseLine *newLine;
     try {
@@ -154,7 +202,7 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
     }
 
     try {
-        lines_.insert(lines_.begin() + index, newLine);
+        currentLinesRef.insert(currentLinesRef.begin() + index, newLine);
     }
     catch (...) {
         deAllocSingleLine_(newLine);
@@ -163,7 +211,9 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
 }
 
 void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &rawData) {
-    parseIndexOrSetToLast_(index);
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexOrSetToLast_(index, currentLinesRef);
     std::vector<BaseLine *> linesToAdd;
     try {
         linesToAdd = LineParser::createFromStringVector(rawData);
@@ -176,8 +226,8 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
     }
 
     try {
-        lines_.reserve(linesToAdd.size());
-        lines_.insert(lines_.begin() + index, linesToAdd.begin(), linesToAdd.end());
+        currentLinesRef.reserve(linesToAdd.size());
+        currentLinesRef.insert(currentLinesRef.begin() + index, linesToAdd.begin(), linesToAdd.end());
     }
     catch (...) {
         throw std::runtime_error("Unable to allocate space for new lines.");
@@ -185,11 +235,13 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
 }
 
 void TextProcessor::removeSingleLine(size_t index) {
-    parseIndexOrThrow_(index);
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexOrThrow_(index, currentLinesRef);
 
     try {
-        BaseLine *currentLine = lines_[index];
-        lines_.erase(lines_.begin() + index);
+        BaseLine *currentLine = currentLinesRef[index];
+        currentLinesRef.erase(currentLinesRef.begin() + index);
         deAllocSingleLine_(currentLine);
     }
     catch (...) {
@@ -198,14 +250,16 @@ void TextProcessor::removeSingleLine(size_t index) {
 }
 
 void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
-    parseIndexRangeOrThrow_(indexStart, indexEnd);
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
 
     std::vector<BaseLine *> pointersToFree;
 
     try {
         // inclusive
         for (size_t i = indexStart; i <= indexEnd; ++i) {
-            pointersToFree.push_back(lines_[i]);
+            pointersToFree.push_back(currentLinesRef[i]);
         }
     }
     catch (const std::bad_alloc &) {
@@ -213,7 +267,7 @@ void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
     }
 
     try {
-        lines_.erase(lines_.begin() + indexStart, lines_.begin() + indexEnd + 1);
+        currentLinesRef.erase(currentLinesRef.begin() + indexStart, currentLinesRef.begin() + indexEnd + 1);
     }
     catch (...) {
         throw std::runtime_error("Failed to remove lines. State should not have been changed.");
@@ -224,22 +278,32 @@ void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
     }
 }
 
-void TextProcessor::setBlock(size_t indexStart, size_t indexEnd) {
-    parseIndexRangeOrThrow_(indexStart, indexEnd);
+bool TextProcessor::blockExists_() const {
+    return block_.indexStart != Block::NPOS_ && block_.indexEnd != Block::NPOS_;
+}
 
+bool TextProcessor::blockForCurrentFile_() const {
+    return block_.fileId == currentFileIndex_;
+}
+
+void TextProcessor::setBlock(size_t indexStart, size_t indexEnd) {
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+
+    block_.fileId = currentFileIndex_;
     block_.indexStart = indexStart;
     block_.indexEnd = indexEnd;
 
     try{
         // inclusive
         block_.vectorLinePtr.assign
-                (lines_.begin() + block_.indexStart, lines_.begin() + block_.indexEnd + 1);
+                (currentLinesRef.begin() + block_.indexStart, currentLinesRef.begin() + block_.indexEnd + 1);
     }
     catch(const std::bad_alloc &){
         unsetBlock();
         throw std::runtime_error("Error setting block. Memory allocation failure.");
     }
-
 }
 
 void TextProcessor::unsetBlock() {
@@ -247,6 +311,7 @@ void TextProcessor::unsetBlock() {
         throw std::runtime_error("No block set.");
     }
     block_.vectorLinePtr.clear();
+    block_.fileId = Block::NPOS_;
     block_.indexStart = Block::NPOS_;
     block_.indexEnd = Block::NPOS_;
 }
@@ -255,7 +320,32 @@ const std::vector<BaseLine *> &TextProcessor::getBlock() const {
     if (!blockExists_()) {
         throw std::runtime_error("No block set.");
     }
+
+    if(!blockForCurrentFile_()){
+        throw std::runtime_error("Block not set for current file. Please update block.");
+    }
+
     return block_.vectorLinePtr;
 }
 
+std::vector<std::string> TextProcessor::getOpenedFileNames() {
+    std::vector<std::string> result;
+
+    result.reserve(files_.size());
+    for (const FileData &fd : files_) {
+        result.push_back(fd.fileName);
+    }
+
+    return result;
+}
+
+void TextProcessor::setCurrentFile(size_t index) {
+    parseIndexOrThrow_(index, files_);
+
+    if(index == currentFileIndex_){
+        throw std::runtime_error("This file is the current file set.");
+    }
+
+    currentFileIndex_ = index;
+}
 
