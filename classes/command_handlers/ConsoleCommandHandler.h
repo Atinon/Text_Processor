@@ -3,6 +3,7 @@
 
 
 #include "ICommandHandler.h"
+#include "ConsoleCommandHandlerUtil.h"
 #include "../TextProcessor.h"
 #include "Macro.h"
 #include <string>
@@ -42,6 +43,8 @@ private:
     const static char *SPACE_DELIM_;
 
     const static std::string EXIT_COMMAND_;
+
+    const static std::string HELP_COMMAND_;
 
     const static std::string COMMAND_SUCCESS_MSG_;
 

@@ -4,6 +4,8 @@ const char *ConsoleCommandHandler::SPACE_DELIM_ = " ";
 
 const std::string ConsoleCommandHandler::EXIT_COMMAND_ = "exit";
 
+const std::string ConsoleCommandHandler::HELP_COMMAND_ = "help";
+
 const std::string ConsoleCommandHandler::COMMAND_SUCCESS_MSG_ = "Command successful.";
 
 const std::string ConsoleCommandHandler::INVALID_COMMAND_MSG_ = "Invalid Command.";
@@ -92,6 +94,11 @@ void ConsoleCommandHandler::handleCommand(const std::string &command) {
 
     if (commandTokens.size() == 1) {
         if (commandTokens[0] == EXIT_COMMAND_) {
+            return;
+        }
+
+        if(commandTokens[0] == HELP_COMMAND_){
+            printCommandInfo();
             return;
         }
 
