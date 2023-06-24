@@ -136,8 +136,6 @@ const std::vector<BaseLine *> &TextProcessor::getLines() const {
 }
 
 void TextProcessor::sort() {
-    pushCurrentStateToStackOrClearOnFailure_();
-
     struct NumberDotLinePositions {
         size_t idx;
         BaseLine *line;
@@ -148,6 +146,9 @@ void TextProcessor::sort() {
     std::vector<BaseLine *> otherLines;
 
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    pushCurrentStateToStackOrClearOnFailure_();
+
     try {
         for (size_t i = 0; i < currentLinesRef.size(); ++i) {
             BaseLine *currentLine = currentLinesRef[i];
@@ -189,11 +190,11 @@ void TextProcessor::sort() {
 }
 
 void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
-    pushCurrentStateToStackOrClearOnFailure_();
-
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrSetToLast_(index, currentLinesRef);
+
+    pushCurrentStateToStackOrClearOnFailure_();
 
     BaseLine *newLine;
     try {
@@ -216,11 +217,12 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
 }
 
 void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &rawData) {
-    pushCurrentStateToStackOrClearOnFailure_();
-
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrSetToLast_(index, currentLinesRef);
+
+    pushCurrentStateToStackOrClearOnFailure_();
+
     std::vector<BaseLine *> linesToAdd;
     try {
         linesToAdd = LineParser::createFromStringVector(rawData);
@@ -242,11 +244,11 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
 }
 
 void TextProcessor::removeSingleLine(size_t index) {
-    pushCurrentStateToStackOrClearOnFailure_();
-
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrThrow_(index, currentLinesRef);
+
+    pushCurrentStateToStackOrClearOnFailure_();
 
     try {
         BaseLine *currentLine = currentLinesRef[index];
@@ -259,11 +261,11 @@ void TextProcessor::removeSingleLine(size_t index) {
 }
 
 void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
-    pushCurrentStateToStackOrClearOnFailure_();
-
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+
+    pushCurrentStateToStackOrClearOnFailure_();
 
     std::vector<BaseLine *> pointersToFree;
 
@@ -409,6 +411,11 @@ void TextProcessor::pushCurrentStateToStackOrClearOnFailure_() {
     try{
         pushCurrentStateToStack_();
     }
+    catch(const std::bad_alloc &){
+        clearUndoStack_();
+        throw std::runtime_error("Internal memory error during undo stack operation.");
+    }
+
     catch(...){
         clearUndoStack_();
     }
@@ -461,4 +468,145 @@ void TextProcessor::undo() {
 
     deAllocAllLines_(linesToPerformUndoOnRef);
     linesToPerformUndoOnRef = uh.previousState;
+}
+
+void TextProcessor::changeCasingSingle_(size_t index, bool toUpper) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexOrSetToLast_(index, currentLinesRef);
+
+    BaseLine* currentLine = currentLinesRef[index];
+    CaseConverter *line = LineParser::castToCaseConverter(currentLine);
+
+    if(line){
+        if(toUpper){
+            line->toUpper();
+        }
+        else{
+            line->toLower();
+        }
+    }
+    else{
+        throw std::runtime_error("This type of line cannot have it's case changed.");
+    }
+}
+
+size_t TextProcessor::changeCasingMulti_(size_t indexStart, size_t indexEnd, bool toUpper) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+
+    size_t successCount = 0;
+
+    for (size_t i = indexStart; i <= indexEnd; ++i) {
+        try{
+            changeCasingSingle_(i, toUpper);
+            successCount++;
+        }
+        catch(...){
+            continue;
+        }
+    }
+
+    return successCount;
+}
+
+void TextProcessor::trimLineSingle_(size_t index, bool trimLeft) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexOrSetToLast_(index, currentLinesRef);
+
+    WhitespaceTrimmer *line = LineParser::castToWhitespaceTrimmer(currentLinesRef[index]);
+
+    if(line){
+        if(trimLeft){
+            line->trimLeft();
+        }
+        else{
+            line->trimRight();
+        }
+    }
+    else{
+        throw std::runtime_error("This type of line cannot be trimmed.");
+    }
+}
+
+size_t TextProcessor::trimLineMulti_(size_t indexStart, size_t indexEnd, bool trimLeft) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+
+    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+
+    size_t successCount = 0;
+
+    for (size_t i = indexStart; i <= indexEnd; ++i) {
+        try{
+            trimLineSingle_(i, trimLeft);
+            successCount++;
+        }
+        catch(...){
+            continue;
+        }
+    }
+
+    return successCount;
+}
+
+void TextProcessor::toUpperSingleLine(size_t index) {
+    pushCurrentStateToStackOrClearOnFailure_();
+    changeCasingSingle_(index, true);
+}
+
+void TextProcessor::toLowerSingleLine(size_t index) {
+    pushCurrentStateToStackOrClearOnFailure_();
+    changeCasingSingle_(index, false);
+}
+
+void TextProcessor::trimLeftSingleLine(size_t index) {
+    pushCurrentStateToStackOrClearOnFailure_();
+    trimLineSingle_(index, true);
+}
+
+void TextProcessor::trimRightSingleLine(size_t index) {
+    pushCurrentStateToStackOrClearOnFailure_();
+    trimLineSingle_(index, false);
+}
+
+void TextProcessor::toUpperManyLines(size_t indexStart, size_t indexEnd) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
+    size_t successCount = changeCasingMulti_(indexStart, indexEnd, true);
+
+    if(successCount == 0){
+        throw std::runtime_error("No lines were eligible to have their casing changed.");
+    }
+}
+
+void TextProcessor::toLowerManyLines(size_t indexStart, size_t indexEnd) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
+    size_t successCount = changeCasingMulti_(indexStart, indexEnd, false);
+
+    if(successCount == 0){
+        throw std::runtime_error("No lines were eligible to have their casing changed.");
+    }
+}
+
+void TextProcessor::trimLeftManyLines(size_t indexStart, size_t indexEnd) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
+    size_t successCount = trimLineMulti_(indexStart, indexEnd, true);
+
+    if(successCount == 0){
+        throw std::runtime_error("No lines were eligible to be trimmed.");
+    }
+}
+
+void TextProcessor::trimRightManyLines(size_t indexStart, size_t indexEnd) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
+    size_t successCount = trimLineMulti_(indexStart, indexEnd, false);
+
+    if(successCount == 0){
+        throw std::runtime_error("No lines were eligible to be trimmed.");
+    }
 }

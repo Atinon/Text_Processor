@@ -237,3 +237,11 @@ BaseLine *LineParser::parseTypeAndCreateCopy(BaseLine *line) {
 
     return copiedLine;
 }
+
+CaseConverter *LineParser::castToCaseConverter(BaseLine *line) {
+    return dynamic_cast<CaseConverter *>(line);
+}
+
+WhitespaceTrimmer *LineParser::castToWhitespaceTrimmer(BaseLine *line) {
+    return dynamic_cast<WhitespaceTrimmer *>(line);
+}

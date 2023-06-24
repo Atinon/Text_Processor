@@ -79,6 +79,11 @@ private:
 
     void removeOldestFromUndoStackIfLimitReached_();
 
+    void changeCasingSingle_(size_t index, bool toUpper);
+    size_t changeCasingMulti_(size_t indexStart, size_t indexEnd ,bool toUpper);
+
+    void trimLineSingle_(size_t index, bool trimLeft);
+    size_t trimLineMulti_(size_t indexStart, size_t indexEnd ,bool trimLeft);
 
 public:
     explicit TextProcessor(IConfig *config);
@@ -111,6 +116,17 @@ public:
     void unsetBlock();
 
     const std::vector<BaseLine*> &getBlock() const; // TODO: added print and print_centered so far
+
+    // TODO: Add in console commands
+    void toUpperSingleLine(size_t index);
+    void toLowerSingleLine(size_t index);
+    void trimLeftSingleLine(size_t index);
+    void trimRightSingleLine(size_t index);
+
+    void toUpperManyLines(size_t indexStart, size_t indexEnd);
+    void toLowerManyLines(size_t indexStart, size_t indexEnd);
+    void trimLeftManyLines(size_t indexStart, size_t indexEnd);
+    void trimRightManyLines(size_t indexStart, size_t indexEnd);
 
     // TODO: ADD toUpper, toLower, trimLeft, trimRight to methods!! Also for block
 

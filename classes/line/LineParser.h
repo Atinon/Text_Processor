@@ -8,6 +8,9 @@
 #include <string>
 #include <stdexcept>
 
+class CaseConverter;
+class WhitespaceTrimmer;
+
 class LineParser {
 private:
     static const size_t NPOS_;
@@ -45,6 +48,9 @@ public:
     static bool isQuotedLine(const std::string &s);
 
     static bool isRegularLine(const std::string &s);
+
+    static CaseConverter* castToCaseConverter(BaseLine *line);
+    static WhitespaceTrimmer* castToWhitespaceTrimmer(BaseLine *line);
 };
 
 

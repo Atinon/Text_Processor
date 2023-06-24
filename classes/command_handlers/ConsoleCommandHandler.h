@@ -105,6 +105,10 @@ private:
                     {"remove_line", &TextProcessor::removeSingleLine},
                     {"set_current_file", &TextProcessor::setCurrentFile},
                     {"close", &TextProcessor::closeFile},
+                    {"to_upper", &TextProcessor::toUpperSingleLine},
+                    {"to_lower", &TextProcessor::toLowerSingleLine},
+                    {"trim_left", &TextProcessor::trimLeftSingleLine},
+                    {"trim_right", &TextProcessor::trimRightSingleLine},
             };
 
     const std::vector<Command<TextProcessor, void, size_t, const std::string &>>
@@ -132,6 +136,10 @@ private:
             {
                     {"remove_lines_range", &TextProcessor::removeManyLines},
                     {"set_block",          &TextProcessor::setBlock},
+                    {"to_upper_range", &TextProcessor::toUpperManyLines},
+                    {"to_lower_range", &TextProcessor::toLowerManyLines},
+                    {"trim_left_range", &TextProcessor::trimLeftManyLines},
+                    {"trim_right_range", &TextProcessor::trimRightManyLines},
             };
 
     static void basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef);
