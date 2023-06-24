@@ -454,7 +454,7 @@ void TextProcessor::undo() {
         throw std::runtime_error("No undo history.");
     }
 
-    UndoHistory &uh = undoStack_.back();
+    UndoHistory uh = undoStack_.back();
     undoStack_.pop_back();
 
     try{
