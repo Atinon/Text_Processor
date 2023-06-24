@@ -46,8 +46,9 @@ private:
     //NoArgsCommands ---------------------------------------------------------------------------------------------------
     const std::vector<Command<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
             {
-                    {"save", &TextProcessor::save},
-                    {"sort", &TextProcessor::sort},
+                    {"save",        &TextProcessor::save},
+                    {"sort",        &TextProcessor::sort},
+                    {"unset_block", &TextProcessor::unsetBlock},
             };
 
     const std::vector<CommandConstPrinting<
@@ -68,13 +69,23 @@ private:
                             &TextProcessor::getLines,
                             &ConsoleCommandHandler::printCentered_
                     },
+                    {
+                            "print_block",
+                            &TextProcessor::getBlock,
+                            &ConsoleCommandHandler::printRegular_
+                    },
+                    {
+                            "print_block_centered",
+                            &TextProcessor::getBlock,
+                            &ConsoleCommandHandler::printCentered_
+                    },
 
             };
 
     //OneArgCommands ---------------------------------------------------------------------------------------------------
     const std::vector<Command<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoidString_ =
             {
-                    {"open",    &TextProcessor::open},
+                    {"open", &TextProcessor::open},
                     {"save_as", &TextProcessor::saveAs},
             };
 
@@ -99,6 +110,7 @@ private:
     const std::vector<Command<TextProcessor, void, size_t, size_t>> textProcessorTwoArgCommandsVoidNum_ =
             {
                     {"remove_lines_range", &TextProcessor::removeManyLines},
+                    {"set_block",          &TextProcessor::setBlock},
             };
 
     static void basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef);

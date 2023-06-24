@@ -11,14 +11,27 @@
 
 
 class TextProcessor final {
-private: // TODO: MAKE PRIVATE
+private:
+    struct Block{
+        const static size_t NPOS_ = -1;
+        size_t indexStart;
+        size_t indexEnd;
+        std::vector<BaseLine*> vectorLinePtr;
+        Block() : indexStart(NPOS_), indexEnd(NPOS_){};
+    };
+
     IFileReader *fileReader_;
     IFileWriter *fileWriter_;
 
     std::vector<BaseLine*> lines_;
 
+    Block block_;
+
     static void deAllocSingleLine_(BaseLine *&line);
+
     void deAllocAllLines_();
+
+    bool blockExists_() const;
 
     void parseIndexOrSetToLast_(size_t &indexRef);
 
@@ -27,8 +40,7 @@ private: // TODO: MAKE PRIVATE
     void parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd);
 
 public:
-    explicit TextProcessor(IConfig *config) : fileReader_(config->getFileReader()),
-                                              fileWriter_(config->getFileWriter()) {};
+    explicit TextProcessor(IConfig *config);
 
     TextProcessor(const TextProcessor&) = delete;
     TextProcessor(TextProcessor&&) = delete;
@@ -52,6 +64,14 @@ public:
     void removeSingleLine(size_t index);
 
     void removeManyLines(size_t indexStart, size_t indexEnd);
+
+    void setBlock(size_t indexStart, size_t indexEnd);
+
+    void unsetBlock();
+
+    const std::vector<BaseLine*> &getBlock() const; // TODO: added print and print_centered so far
+
+    // TODO: ADD toUpper, toLower, trimLeft, trimRight to methods!! Also for block
 
     ~TextProcessor();
 };

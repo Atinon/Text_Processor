@@ -139,9 +139,16 @@ void ConsoleCommandHandler::handleNoArgCommand_(const std::vector<std::string> &
                 void,
                 const std::vector<BaseLine *> &> &c: textProcessorNoArgsCommandsVectorPrinting_) {
         if (c.stringValue == currentCommand) {
-            const std::vector<BaseLine *> &lines = (textProcessor_->*c.func)();
-            (this->*c.printFunc)(lines);
-            return;
+            try{
+                const std::vector<BaseLine *> &lines = (textProcessor_->*c.func)();
+                (this->*c.printFunc)(lines);
+                return;
+            }
+            catch(const std::runtime_error &e){
+                std::cout << e.what() << std::endl;
+                return;
+            }
+
         }
     }
 

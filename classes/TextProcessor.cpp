@@ -2,8 +2,16 @@
 #include "TextProcessor.h"
 #include "line/BaseLineDerivedClasses.h"
 
+
+TextProcessor::TextProcessor(IConfig *config) : fileReader_(config->getFileReader()),
+                                                fileWriter_(config->getFileWriter()) {}
+
 TextProcessor::~TextProcessor() {
     deAllocAllLines_();
+}
+
+bool TextProcessor::blockExists_() const {
+    return block_.indexStart != Block::NPOS_ && block_.indexEnd != Block::NPOS_;
 }
 
 void TextProcessor::parseIndexOrSetToLast_(size_t &indexRef) {
@@ -11,14 +19,14 @@ void TextProcessor::parseIndexOrSetToLast_(size_t &indexRef) {
 }
 
 void TextProcessor::parseIndexOrThrow_(size_t index) {
-    if(index >= lines_.size()){
+    if (index >= lines_.size()) {
         throw std::runtime_error("Invalid index.");
     }
 }
 
 
 void TextProcessor::parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd) {
-    if(indexStart >= indexEnd){
+    if (indexStart >= indexEnd) {
         throw std::runtime_error("Inversed index range.");
     }
     parseIndexOrThrow_(indexEnd);
@@ -106,10 +114,10 @@ void TextProcessor::sort() {
     }
 
     std::vector<BaseLine *> backup;
-    try{
+    try {
         backup = lines_;
     }
-    catch(...){
+    catch (...) {
         throw std::runtime_error("Internal sorting function error. Stage: 2");
     }
 
@@ -134,21 +142,21 @@ void TextProcessor::sort() {
 void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
     parseIndexOrSetToLast_(index);
 
-    BaseLine* newLine;
-    try{
+    BaseLine *newLine;
+    try {
         newLine = LineParser::createFromString(rawData);
     }
-    catch(const std::invalid_argument &e){
+    catch (const std::invalid_argument &e) {
         throw std::runtime_error(e.what());
     }
-    catch(const std::bad_alloc &){
+    catch (const std::bad_alloc &) {
         throw std::runtime_error("Unable to allocate space for new line.");
     }
 
-    try{
+    try {
         lines_.insert(lines_.begin() + index, newLine);
     }
-    catch(...){
+    catch (...) {
         deAllocSingleLine_(newLine);
         throw std::runtime_error("Internal error. Unable to add line to existing lines.");
     }
@@ -157,21 +165,21 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
 void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &rawData) {
     parseIndexOrSetToLast_(index);
     std::vector<BaseLine *> linesToAdd;
-    try{
+    try {
         linesToAdd = LineParser::createFromStringVector(rawData);
     }
-    catch(const std::invalid_argument &e){
+    catch (const std::invalid_argument &e) {
         throw std::runtime_error(e.what());
     }
-    catch(...){
+    catch (...) {
         throw;
     }
 
-    try{
+    try {
         lines_.reserve(linesToAdd.size());
         lines_.insert(lines_.begin() + index, linesToAdd.begin(), linesToAdd.end());
     }
-    catch(...){
+    catch (...) {
         throw std::runtime_error("Unable to allocate space for new lines.");
     }
 }
@@ -179,12 +187,12 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
 void TextProcessor::removeSingleLine(size_t index) {
     parseIndexOrThrow_(index);
 
-    try{
+    try {
         BaseLine *currentLine = lines_[index];
         lines_.erase(lines_.begin() + index);
         deAllocSingleLine_(currentLine);
     }
-    catch(...){
+    catch (...) {
         throw std::runtime_error("Error removing line at index: " + std::to_string(index));
     }
 }
@@ -194,26 +202,60 @@ void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
 
     std::vector<BaseLine *> pointersToFree;
 
-    try{
+    try {
         // inclusive
         for (size_t i = indexStart; i <= indexEnd; ++i) {
             pointersToFree.push_back(lines_[i]);
         }
     }
-    catch(const std::bad_alloc &){
+    catch (const std::bad_alloc &) {
         throw std::runtime_error("Internal memory allocation error.");
     }
 
-    try{
+    try {
         lines_.erase(lines_.begin() + indexStart, lines_.begin() + indexEnd + 1);
     }
-    catch(...){
+    catch (...) {
         throw std::runtime_error("Failed to remove lines. State should not have been changed.");
     }
 
-    for (BaseLine *&line : pointersToFree) {
+    for (BaseLine *&line: pointersToFree) {
         deAllocSingleLine_(line);
     }
+}
+
+void TextProcessor::setBlock(size_t indexStart, size_t indexEnd) {
+    parseIndexRangeOrThrow_(indexStart, indexEnd);
+
+    block_.indexStart = indexStart;
+    block_.indexEnd = indexEnd;
+
+    try{
+        // inclusive
+        block_.vectorLinePtr.assign
+                (lines_.begin() + block_.indexStart, lines_.begin() + block_.indexEnd + 1);
+    }
+    catch(const std::bad_alloc &){
+        unsetBlock();
+        throw std::runtime_error("Error setting block. Memory allocation failure.");
+    }
+
+}
+
+void TextProcessor::unsetBlock() {
+    if (!blockExists_()) {
+        throw std::runtime_error("No block set.");
+    }
+    block_.vectorLinePtr.clear();
+    block_.indexStart = Block::NPOS_;
+    block_.indexEnd = Block::NPOS_;
+}
+
+const std::vector<BaseLine *> &TextProcessor::getBlock() const {
+    if (!blockExists_()) {
+        throw std::runtime_error("No block set.");
+    }
+    return block_.vectorLinePtr;
 }
 
 
