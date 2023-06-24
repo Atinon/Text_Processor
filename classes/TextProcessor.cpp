@@ -349,3 +349,13 @@ void TextProcessor::setCurrentFile(size_t index) {
     currentFileIndex_ = index;
 }
 
+void TextProcessor::closeFile(size_t index) {
+    parseIndexOrThrow_(index, files_);
+
+    deAllocAllLines_(files_[index].lines_);
+    files_.erase(files_.begin() + index);
+
+    // set current file to last opened one. Will be set to NPOS_ if files_ is empty
+    currentFileIndex_ = files_.size() - 1;
+}
+

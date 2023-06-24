@@ -98,6 +98,8 @@ public:
 
     void setCurrentFile(size_t index);
 
+    void closeFile(size_t index);
+
     ~TextProcessor();
 };
 

@@ -103,6 +103,7 @@ private:
             {
                     {"remove_line", &TextProcessor::removeSingleLine},
                     {"set_current_file", &TextProcessor::setCurrentFile},
+                    {"close", &TextProcessor::closeFile},
             };
 
     const std::vector<Command<TextProcessor, void, size_t, const std::string &>>
