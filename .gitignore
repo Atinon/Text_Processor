@@ -1,7 +1,7 @@
 cmake-build-debug
 .idea
 sample_files
-documentation
+/documentation/
 
 # Prerequisites
 *.d
