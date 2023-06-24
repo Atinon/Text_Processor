@@ -218,3 +218,22 @@ void LineParser::pushNewLineToVectorOrThrow_(std::vector<BaseLine *> &resultRef,
         throw std::runtime_error("Failed to allocate enough memory.");
     }
 }
+
+BaseLine *LineParser::parseTypeAndCreateCopy(BaseLine *line) {
+    BaseLine *copiedLine = nullptr;
+
+    if (NumberLine *numberLine = dynamic_cast<NumberLine *>(line)) {
+        copiedLine = new (std::nothrow) NumberLine(*numberLine);
+    }
+    else if (NumberAndDotLine *numberAndDotLine = dynamic_cast<NumberAndDotLine *>(line)) {
+        copiedLine = new (std::nothrow) NumberAndDotLine(*numberAndDotLine);
+    }
+    else if (QuotedLine *quotedLine = dynamic_cast<QuotedLine *>(line)) {
+        copiedLine = new (std::nothrow) QuotedLine(*quotedLine);
+    }
+    else if (RegularLine *regularLine = dynamic_cast<RegularLine *>(line)) {
+        copiedLine = new (std::nothrow) RegularLine(*regularLine);
+    }
+
+    return copiedLine;
+}

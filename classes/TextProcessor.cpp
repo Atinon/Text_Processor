@@ -4,6 +4,7 @@
 
 
 const size_t TextProcessor::NPOS_ = -1;
+const short TextProcessor::UNDO_STACK_LIMIT_ = 3;
 
 TextProcessor::TextProcessor(IConfig *config) : fileReader_(config->getFileReader()),
                                                 fileWriter_(config->getFileWriter()),
@@ -135,6 +136,8 @@ const std::vector<BaseLine *> &TextProcessor::getLines() const {
 }
 
 void TextProcessor::sort() {
+    pushCurrentStateToStackOrClearOnFailure_();
+
     struct NumberDotLinePositions {
         size_t idx;
         BaseLine *line;
@@ -186,6 +189,8 @@ void TextProcessor::sort() {
 }
 
 void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrSetToLast_(index, currentLinesRef);
@@ -211,6 +216,8 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
 }
 
 void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &rawData) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrSetToLast_(index, currentLinesRef);
@@ -235,6 +242,8 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
 }
 
 void TextProcessor::removeSingleLine(size_t index) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexOrThrow_(index, currentLinesRef);
@@ -250,6 +259,8 @@ void TextProcessor::removeSingleLine(size_t index) {
 }
 
 void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
+    pushCurrentStateToStackOrClearOnFailure_();
+
     std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
 
     parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
@@ -359,3 +370,95 @@ void TextProcessor::closeFile(size_t index) {
     currentFileIndex_ = files_.size() - 1;
 }
 
+void TextProcessor::pushCurrentStateToStack_() {
+    checkIfAnyOpenFilesOrThrow_();
+
+    removeOldestFromUndoStackIfLimitReached_();
+
+    UndoHistory uh;
+    uh.fileId = currentFileIndex_;
+
+    try{
+        uh.previousState = getDeepCopyLinesVector_(getCurrentLinesConstRefOrThrow_());
+    }
+    catch(const std::bad_alloc &){
+        throw;
+    }
+    catch(...){
+        throw std::runtime_error("Previous state not pushed to stack.");
+    }
+
+    undoStack_.push_back(uh);
+}
+
+void TextProcessor::removeOldestFromUndoStackIfLimitReached_() {
+    if(undoStack_.size() >= UNDO_STACK_LIMIT_){
+        deAllocAllLines_(undoStack_[0].previousState);
+        undoStack_.erase(undoStack_.begin());
+    }
+}
+
+void TextProcessor::clearUndoStack_() {
+    for(UndoHistory &uh : undoStack_){
+        deAllocAllLines_(uh.previousState);
+    }
+    undoStack_.clear();
+}
+
+void TextProcessor::pushCurrentStateToStackOrClearOnFailure_() {
+    try{
+        pushCurrentStateToStack_();
+    }
+    catch(...){
+        clearUndoStack_();
+    }
+}
+
+std::vector<BaseLine *> TextProcessor::getDeepCopyLinesVector_(const std::vector<BaseLine *> &lines) {
+    std::vector<BaseLine *> result;
+
+    try {
+        result.reserve(lines.size());
+        for (BaseLine *originalLine: lines) {
+            if (originalLine != nullptr) {
+                BaseLine *copiedLine = LineParser::parseTypeAndCreateCopy(originalLine);
+
+                if(copiedLine == nullptr){
+                    continue;
+                }
+
+                result.push_back(copiedLine);
+            }
+        }
+    }
+    catch(...){
+        deAllocAllLines_(result);
+        result.clear();
+        throw;
+    }
+
+    return result;
+}
+
+
+
+void TextProcessor::undo() {
+    if(undoStack_.empty()){
+        throw std::runtime_error("No undo history.");
+    }
+
+    UndoHistory &uh = undoStack_.back();
+    undoStack_.pop_back();
+
+    try{
+        parseIndexOrThrow_(uh.fileId, files_);
+    }
+    catch(const std::runtime_error &){
+        throw std::runtime_error("Undo operation could not be performed. Associated file not open.");
+    }
+
+    std::vector<BaseLine *> &linesToPerformUndoOnRef = files_[uh.fileId].lines_;
+
+    deAllocAllLines_(linesToPerformUndoOnRef);
+    linesToPerformUndoOnRef = uh.previousState;
+}

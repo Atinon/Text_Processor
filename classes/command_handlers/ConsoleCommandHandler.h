@@ -53,6 +53,7 @@ private:
                     {"save",        &TextProcessor::save},
                     {"sort",        &TextProcessor::sort},
                     {"unset_block", &TextProcessor::unsetBlock},
+                    {"undo", &TextProcessor::undo},
             };
 
     const std::vector<Command<TextProcessor, std::vector<std::string>>>

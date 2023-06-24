@@ -12,6 +12,7 @@
 class TextProcessor final {
 private:
     const static size_t NPOS_;
+    const static short UNDO_STACK_LIMIT_;
 
     struct FileData {
         std::string fileName;
@@ -19,12 +20,18 @@ private:
     };
 
     struct Block {
-        const static size_t NPOS_ = -1;
+        const static size_t NPOS_ = -1; // remove later and use TextProcessor::NPOS_ instead
         size_t fileId;
         size_t indexStart;
         size_t indexEnd;
         std::vector<BaseLine*> vectorLinePtr;
         Block() : fileId(NPOS_), indexStart(NPOS_), indexEnd(NPOS_){};
+    };
+
+    struct UndoHistory {
+        size_t fileId;
+        std::vector<BaseLine*> previousState;
+        UndoHistory() : fileId(NPOS_){};
     };
 
     IFileReader *fileReader_;
@@ -35,9 +42,13 @@ private:
 
     Block block_;
 
+    std::vector<UndoHistory> undoStack_; // will be used as a stack
+
     static void deAllocSingleLine_(BaseLine *&line);
 
     static void deAllocAllLines_(std::vector<BaseLine *> &vectorRef);
+
+    static std::vector<BaseLine *> getDeepCopyLinesVector_(const std::vector<BaseLine *> &lines);
 
     void checkIfAnyOpenFilesOrThrow_() const;
 
@@ -59,6 +70,15 @@ private:
 
     template<typename T>
     void parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd, const std::vector<T> &vec);
+
+    void pushCurrentStateToStack_();
+
+    void clearUndoStack_();
+
+    void pushCurrentStateToStackOrClearOnFailure_();
+
+    void removeOldestFromUndoStackIfLimitReached_();
+
 
 public:
     explicit TextProcessor(IConfig *config);
@@ -99,6 +119,8 @@ public:
     void setCurrentFile(size_t index);
 
     void closeFile(size_t index);
+
+    void undo();
 
     ~TextProcessor();
 };
