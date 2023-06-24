@@ -9,7 +9,6 @@
 #include "line/LineComparator.h"
 
 
-
 class TextProcessor final {
 private:
     const static size_t NPOS_;

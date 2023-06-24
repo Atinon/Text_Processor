@@ -4,6 +4,7 @@
 
 #include "ICommandHandler.h"
 #include "../TextProcessor.h"
+#include "Macro.h"
 #include <string>
 #include <vector>
 #include <cstring>
@@ -42,6 +43,9 @@ private:
     const static std::string INVALID_COMMAND_MSG_;
 
     TextProcessor *textProcessor_;
+
+    // Macro support was added last moment, so definitely needs improving and code refactoring
+    std::vector<Macro> macros_;
 
     //NoArgsCommands ---------------------------------------------------------------------------------------------------
     const std::vector<Command<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
@@ -113,6 +117,14 @@ private:
                     {"add_lines_many", &TextProcessor::addManyLines},
             };
 
+    const std::vector<Command<ConsoleCommandHandler, void, const std::string &>>
+            commandHandlerOneArgCommandsVoidString_ =
+            {
+                    {"do_macro", &ConsoleCommandHandler::executeMacro_},
+                    {"add_macro", &ConsoleCommandHandler::addMacroAndFillFromConsole_},
+                    {"remove_macro", &ConsoleCommandHandler::removeMacro_},
+            };
+
     //TwoArgCommands ---------------------------------------------------------------------------------------------------
     const std::vector<Command<TextProcessor, void, size_t, size_t>> textProcessorTwoArgCommandsVoidNum_ =
             {
@@ -139,6 +151,14 @@ private:
     void handleOneArgCommand_(const std::vector<std::string> &commandTokens);
 
     void handleTwoArgCommand_(const std::vector<std::string> &commandTokens);
+
+    void executeMacro_(const std::string &macroName);
+
+    void addMacroAndFillFromConsole_(const std::string &macroName);
+
+    void removeMacro_(const std::string &macroName);
+
+    void promptForSaveIfFilesOpened_();
 
 public:
     explicit ConsoleCommandHandler(TextProcessor *textProcessor) : textProcessor_(textProcessor) {};

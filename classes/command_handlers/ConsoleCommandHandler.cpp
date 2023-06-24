@@ -77,6 +77,7 @@ void ConsoleCommandHandler::startConsoleUi() {
         std::getline(std::cin, command);
         handleCommand(command);
     } while (command != EXIT_COMMAND_);
+    promptForSaveIfFilesOpened_();
     std::cout << "Exiting..." << std::endl;
 }
 
@@ -297,6 +298,25 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
         }
     }
 
+    //commandHandlerOneArgCommandsVoidString_
+    for(const Command<ConsoleCommandHandler, void, const std::string &> &c : commandHandlerOneArgCommandsVoidString_){
+        if(c.stringValue == currentCommand){
+            try{
+                (this->*c.func)(argOne);
+                std::cout << "Macro operation finished successfully." << std::endl;
+                return;
+            }
+            catch(const std::bad_alloc &){
+                std::cout << "Too many lines entered. Insufficient memory." << std::endl;
+                return;
+            }
+            catch(const std::runtime_error &e){
+                std::cout << e.what() << std::endl;
+                return;
+            }
+        }
+    }
+
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
@@ -368,5 +388,58 @@ void ConsoleCommandHandler::printLinesCentered_(const std::vector<BaseLine *> &l
         }
 
         std::cout << "  |Type: " << lines[i]->getType() << std::endl;
+    }
+}
+
+void ConsoleCommandHandler::executeMacro_(const std::string &macroName) {
+    for (const Macro &m : macros_) {
+        if(m.name == macroName){
+            for(const std::string &commandName : m.commands){
+                std::cout << "-- Executing Command: [" << commandName << ']' << std::endl;
+                handleCommand(commandName);
+            }
+            return;
+        }
+    }
+    throw std::runtime_error("No such macro found.");
+}
+
+void ConsoleCommandHandler::addMacroAndFillFromConsole_(const std::string &macroName) {
+    for (const Macro &m : macros_) {
+        if(m.name == macroName){
+            throw std::runtime_error("Macro with this name already exists.");
+        }
+    }
+    std::cout << "Enter commands line by line (blank line to stop): " << std::endl;
+    std::vector<std::string> userCommands =  getMultiLineInput_();
+
+    macros_.emplace_back(macroName, userCommands);
+}
+
+void ConsoleCommandHandler::removeMacro_(const std::string &macroName) {
+    for (int i = 0; i < macros_.size(); ++i) {
+        if(macros_[i].name == macroName){
+            macros_.erase(macros_.begin() + i);
+            return;
+        }
+    }
+    throw std::runtime_error("No macro exists with this name.");
+}
+
+void ConsoleCommandHandler::promptForSaveIfFilesOpened_() {
+    std::vector<std::string> openedFileNames = textProcessor_->getOpenedFileNames();
+    for (size_t i = 0; i < openedFileNames.size(); ++i) {
+        std::string input;
+        std::cout
+        << "File: " << openedFileNames[i] << " is open, would you like to save changes to it? (y/n)" << std::endl;
+        do{
+            input = getSingleLineInput_();
+            if(input == "y"){
+                std::cout << "Attempting to execute saving commands..." << std::endl;
+                handleCommand("set_current_file " + std::to_string(i));
+                handleCommand("save");
+            }
+        }
+        while(input != "y" && input != "n");
     }
 }

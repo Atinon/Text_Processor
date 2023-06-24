@@ -29,4 +29,6 @@ add_executable(Text_Processor
         classes/command_handlers/ICommandHandler.cpp
         classes/command_handlers/ConsoleCommandHandler.h
         classes/command_handlers/ConsoleCommandHandler.cpp
+        classes/command_handlers/Macro.h
+        classes/command_handlers/Macro.cpp
 )
