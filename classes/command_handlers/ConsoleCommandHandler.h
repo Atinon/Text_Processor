@@ -81,22 +81,22 @@ private:
                     {
                             "print",
                             &TextProcessor::getLines,
-                            &ConsoleCommandHandler::printLinesRegular_
+                            &ConsoleCommandHandler::printLinesRegular
                     },
                     {
                             "print_centered",
                             &TextProcessor::getLines,
-                            &ConsoleCommandHandler::printLinesCentered_
+                            &ConsoleCommandHandler::printLinesCentered
                     },
                     {
                             "print_block",
                             &TextProcessor::getBlock,
-                            &ConsoleCommandHandler::printLinesRegular_
+                            &ConsoleCommandHandler::printLinesRegular
                     },
                     {
                             "print_block_centered",
                             &TextProcessor::getBlock,
-                            &ConsoleCommandHandler::printLinesCentered_
+                            &ConsoleCommandHandler::printLinesCentered
                     },
 
             };
@@ -134,9 +134,9 @@ private:
     const std::vector<Command<ConsoleCommandHandler, void, const std::string &>>
             commandHandlerOneArgCommandsVoidString_ =
             {
-                    {"do_macro", &ConsoleCommandHandler::executeMacro_},
-                    {"add_macro", &ConsoleCommandHandler::addMacroAndFillFromConsole_},
-                    {"remove_macro", &ConsoleCommandHandler::removeMacro_},
+                    {"do_macro", &ConsoleCommandHandler::executeMacro},
+                    {"add_macro", &ConsoleCommandHandler::addMacroAndFillFromConsole},
+                    {"remove_macro", &ConsoleCommandHandler::removeMacro},
             };
 
     //TwoArgCommands ---------------------------------------------------------------------------------------------------
@@ -150,33 +150,33 @@ private:
                     {"trim_right_range", &TextProcessor::trimRightManyLines},
             };
 
-    static void basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef);
+    static void basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef);
 
-    static size_t getMaxLineWidth_(const std::vector<BaseLine *> &lines);
+    static size_t getMaxLineWidth(const std::vector<BaseLine *> &lines);
 
-    static size_t parseStringToUll_(const std::string &stringValue);
+    static size_t parseStringToUll(const std::string &stringValue);
 
-    static std::string getSingleLineInput_();
+    static std::string getSingleLineInput();
 
-    static std::vector<std::string> getMultiLineInput_();
+    static std::vector<std::string> getMultiLineInput();
 
-    void printLinesRegular_(const std::vector<BaseLine *> &lines);
+    void printLinesRegular(const std::vector<BaseLine *> &lines);
 
-    void printLinesCentered_(const std::vector<BaseLine *> &lines);
+    void printLinesCentered(const std::vector<BaseLine *> &lines);
 
-    void handleNoArgCommand_(const std::vector<std::string> &commandTokens);
+    void handleNoArgCommand(const std::vector<std::string> &commandTokens);
 
-    void handleOneArgCommand_(const std::vector<std::string> &commandTokens);
+    void handleOneArgCommand(const std::vector<std::string> &commandTokens);
 
-    void handleTwoArgCommand_(const std::vector<std::string> &commandTokens);
+    void handleTwoArgCommand(const std::vector<std::string> &commandTokens);
 
-    void executeMacro_(const std::string &macroName);
+    void executeMacro(const std::string &macroName);
 
-    void addMacroAndFillFromConsole_(const std::string &macroName);
+    void addMacroAndFillFromConsole(const std::string &macroName);
 
-    void removeMacro_(const std::string &macroName);
+    void removeMacro(const std::string &macroName);
 
-    void promptForSaveIfFilesOpened_();
+    void promptForSaveIfFilesOpened();
 
 public:
     explicit ConsoleCommandHandler(TextProcessor *textProcessor) : textProcessor_(textProcessor) {};

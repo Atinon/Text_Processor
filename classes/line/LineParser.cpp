@@ -13,22 +13,22 @@ std::vector<BaseLine *> LineParser::createFromStringVector(const std::vector<std
 
     for (size_t i = 0; i < rawData.size(); ++i) {
         if (isNumberLine(rawData[i])) {
-            pushNewLineToVectorOrThrow_(result, BaseLine::NUMBER, rawData[i]);
+            pushNewLineToVectorOrThrow(result, BaseLine::NUMBER, rawData[i]);
             continue;
         }
 
         if (isNumberAndDotLine(rawData[i])) {
-            pushNewLineToVectorOrThrow_(result, BaseLine::NUMBER_AND_DOT, rawData[i]);
+            pushNewLineToVectorOrThrow(result, BaseLine::NUMBER_AND_DOT, rawData[i]);
             continue;
         }
 
-        if(createQuotedLineIfQualify_(i, rawData, result)){
+        if(createQuotedLineIfQualify(i, rawData, result)){
             continue;
         }
 
         //Default case
         //Might need to parsing for /n symbol later if vector is not previously curated
-        pushNewLineToVectorOrThrow_(result, BaseLine::REGULAR, rawData[i]);
+        pushNewLineToVectorOrThrow(result, BaseLine::REGULAR, rawData[i]);
     }
 
     return result;
@@ -109,8 +109,8 @@ bool LineParser::isQuotedLine(const std::string &s) {
         return false;
     }
 
-    if(getStringIndexIfStartsWithQuote_(s) != NPOS_){
-        if(getStringIndexIfEndsWithQuote_(s) != NPOS_){
+    if(getStringIndexIfStartsWithQuote(s) != NPOS_){
+        if(getStringIndexIfEndsWithQuote(s) != NPOS_){
             return true;
         }
     }
@@ -126,7 +126,7 @@ bool LineParser::isRegularLine(const std::string &s) {
     return true;
 }
 
-size_t LineParser::getStringIndexIfStartsWithQuote_(const std::string &s) {
+size_t LineParser::getStringIndexIfStartsWithQuote(const std::string &s) {
     for (size_t i = 0; i < s.length(); ++i) {
         if (iswspace(s[i]) || s[i] == SPACE_CHAR_) {
             continue;
@@ -139,7 +139,7 @@ size_t LineParser::getStringIndexIfStartsWithQuote_(const std::string &s) {
     return NPOS_;
 }
 
-size_t LineParser::getStringIndexIfEndsWithQuote_(const std::string &s) {
+size_t LineParser::getStringIndexIfEndsWithQuote(const std::string &s) {
     for (size_t i = s.length(); i > 0; --i) {
         // First char should not be inspected, as it is presumed to be the opening quote
         if(i == 1){
@@ -157,7 +157,7 @@ size_t LineParser::getStringIndexIfEndsWithQuote_(const std::string &s) {
     return NPOS_;
 }
 
-size_t LineParser::getVectorIndexIfEndQuoteFound_
+size_t LineParser::getVectorIndexIfEndQuoteFound
         (const std::vector<std::string> &rawData, size_t vectorStartIndex, size_t stringStartIndex) {
     for (size_t lineIndex = vectorStartIndex; lineIndex < rawData.size(); ++lineIndex) {
         for (size_t charIndex = stringStartIndex; charIndex < rawData[lineIndex].length(); ++charIndex) {
@@ -169,20 +169,20 @@ size_t LineParser::getVectorIndexIfEndQuoteFound_
     return NPOS_;
 }
 
-bool LineParser::createQuotedLineIfQualify_
+bool LineParser::createQuotedLineIfQualify
         (size_t &rawDataIndexRef, const std::vector<std::string> &rawData, std::vector<BaseLine*> &resultRef) {
-    size_t openQuoteIndex = getStringIndexIfStartsWithQuote_(rawData[rawDataIndexRef]);
+    size_t openQuoteIndex = getStringIndexIfStartsWithQuote(rawData[rawDataIndexRef]);
     if (openQuoteIndex != NPOS_) {
         size_t stringStartingIndex = openQuoteIndex + 1;
         size_t vectorLineIndexWithClosingQuote =
-                getVectorIndexIfEndQuoteFound_(rawData, rawDataIndexRef, stringStartingIndex);
+                getVectorIndexIfEndQuoteFound(rawData, rawDataIndexRef, stringStartingIndex);
         if(vectorLineIndexWithClosingQuote != NPOS_){
             std::string resultingString;
             for (size_t j = rawDataIndexRef; j < vectorLineIndexWithClosingQuote + 1; ++j) {
                 resultingString += rawData[j];
                 if(j < vectorLineIndexWithClosingQuote) resultingString += '\n';
             }
-            pushNewLineToVectorOrThrow_(resultRef, BaseLine::QUOTED, resultingString);
+            pushNewLineToVectorOrThrow(resultRef, BaseLine::QUOTED, resultingString);
             rawDataIndexRef = vectorLineIndexWithClosingQuote;
             return true;
         }
@@ -190,8 +190,8 @@ bool LineParser::createQuotedLineIfQualify_
     return false;
 }
 
-void LineParser::pushNewLineToVectorOrThrow_(std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type,
-                                             const std::string &stringValue) {
+void LineParser::pushNewLineToVectorOrThrow(std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type,
+                                            const std::string &stringValue) {
     try{
         switch(type){
             case BaseLine::REGULAR:

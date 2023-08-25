@@ -2,13 +2,13 @@
 #include "LineParser.h"
 
 
-void CaseConverter::toLower_(std::string &stringRef) {
+void CaseConverter::toLowerDefault(std::string &stringRef) {
     for (char &c: stringRef){
         c = tolower(c);
     }
 }
 
-void CaseConverter::toUpper_(std::string &stringRef) {
+void CaseConverter::toUpperDefault(std::string &stringRef) {
     for (char &c: stringRef){
         c = toupper(c);
     }
@@ -16,7 +16,7 @@ void CaseConverter::toUpper_(std::string &stringRef) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-void WhitespaceTrimmer::trimLeft_(std::string &stringRef) {
+void WhitespaceTrimmer::trimLeftDefault(std::string &stringRef) {
     size_t firstNotWhiteSpace = 0;
 
     while (firstNotWhiteSpace < stringRef.length() && isspace(stringRef[firstNotWhiteSpace])){
@@ -26,7 +26,7 @@ void WhitespaceTrimmer::trimLeft_(std::string &stringRef) {
     stringRef = stringRef.substr(firstNotWhiteSpace);
 }
 
-void WhitespaceTrimmer::trimRight_(std::string &stringRef) {
+void WhitespaceTrimmer::trimRightDefault(std::string &stringRef) {
     size_t lastNotWhiteSpace = stringRef.length();
 
     while (lastNotWhiteSpace > 0 && isspace(stringRef[lastNotWhiteSpace - 1])){
@@ -49,19 +49,19 @@ void RegularLine::setStringValue(const std::string &stringValue) {
 }
 
 void RegularLine::toLower() {
-    CaseConverter::toLower_(stringValue_);
+    CaseConverter::toLowerDefault(stringValue_);
 }
 
 void RegularLine::toUpper() {
-    CaseConverter::toUpper_(stringValue_);
+    CaseConverter::toUpperDefault(stringValue_);
 }
 
 void RegularLine::trimLeft() {
-    WhitespaceTrimmer::trimLeft_(stringValue_);
+    WhitespaceTrimmer::trimLeftDefault(stringValue_);
 }
 
 void RegularLine::trimRight() {
-    WhitespaceTrimmer::trimRight_(stringValue_);
+    WhitespaceTrimmer::trimRightDefault(stringValue_);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -97,19 +97,19 @@ void NumberAndDotLine::setStringValue(const std::string &stringValue) {
 }
 
 void NumberAndDotLine::toLower() {
-    CaseConverter::toLower_(stringValue_);
+    CaseConverter::toLowerDefault(stringValue_);
 }
 
 void NumberAndDotLine::toUpper() {
-    CaseConverter::toUpper_(stringValue_);
+    CaseConverter::toUpperDefault(stringValue_);
 }
 
 void NumberAndDotLine::trimLeft() {
-    WhitespaceTrimmer::trimLeft_(stringValue_);
+    WhitespaceTrimmer::trimLeftDefault(stringValue_);
 }
 
 void NumberAndDotLine::trimRight() {
-    WhitespaceTrimmer::trimRight_(stringValue_);
+    WhitespaceTrimmer::trimRightDefault(stringValue_);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -129,17 +129,17 @@ void NumberLine::setStringValue(const std::string &stringValue) {
 }
 
 void NumberLine::trimLeft() {
-    WhitespaceTrimmer::trimLeft_(stringValue_);
+    WhitespaceTrimmer::trimLeftDefault(stringValue_);
 }
 
 void NumberLine::trimRight() {
-    WhitespaceTrimmer::trimRight_(stringValue_);
+    WhitespaceTrimmer::trimRightDefault(stringValue_);
 }
 
 long long NumberLine::getNumericValue() const {
 //    std::string temp = stringValue_;
-//    WhitespaceTrimmer::trimLeft_(temp);
-//    WhitespaceTrimmer::trimRight_(temp);
+//    WhitespaceTrimmer::trimLeftDefault(temp);
+//    WhitespaceTrimmer::trimRightDefault(temp);
 
     long long result;
 

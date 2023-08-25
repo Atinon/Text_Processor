@@ -10,7 +10,7 @@ const std::string ConsoleCommandHandler::COMMAND_SUCCESS_MSG_ = "Command success
 
 const std::string ConsoleCommandHandler::INVALID_COMMAND_MSG_ = "Invalid Command.";
 
-void ConsoleCommandHandler::basicTokenizingFunction_(const std::string &command, std::vector<std::string> &vectorRef) {
+void ConsoleCommandHandler::basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef) {
     char *dup = strdup(command.c_str());
     char *tokPtr = strtok(dup, SPACE_DELIM_);
     while (tokPtr != nullptr) {
@@ -20,7 +20,7 @@ void ConsoleCommandHandler::basicTokenizingFunction_(const std::string &command,
     delete[] dup;
 }
 
-size_t ConsoleCommandHandler::getMaxLineWidth_(const std::vector<BaseLine *> &lines) {
+size_t ConsoleCommandHandler::getMaxLineWidth(const std::vector<BaseLine *> &lines) {
     size_t maxWidth = 0;
     for (const BaseLine *line: lines) {
         size_t lineWidth = line->getStringValue().length();
@@ -31,7 +31,7 @@ size_t ConsoleCommandHandler::getMaxLineWidth_(const std::vector<BaseLine *> &li
     return maxWidth;
 }
 
-size_t ConsoleCommandHandler::parseStringToUll_(const std::string &stringValue) {
+size_t ConsoleCommandHandler::parseStringToUll(const std::string &stringValue) {
     try {
         return std::stoull(stringValue);
     }
@@ -40,7 +40,7 @@ size_t ConsoleCommandHandler::parseStringToUll_(const std::string &stringValue) 
     }
 }
 
-std::string ConsoleCommandHandler::getSingleLineInput_() {
+std::string ConsoleCommandHandler::getSingleLineInput() {
     std::string result;
 
     if(!std::getline(std::cin, result)){
@@ -50,7 +50,7 @@ std::string ConsoleCommandHandler::getSingleLineInput_() {
     return result;
 }
 
-std::vector<std::string> ConsoleCommandHandler::getMultiLineInput_() {
+std::vector<std::string> ConsoleCommandHandler::getMultiLineInput() {
     std::vector<std::string> result;
     std::string currentString;
 
@@ -79,13 +79,13 @@ void ConsoleCommandHandler::startConsoleUi() {
         std::getline(std::cin, command);
         handleCommand(command);
     } while (command != EXIT_COMMAND_);
-    promptForSaveIfFilesOpened_();
+    promptForSaveIfFilesOpened();
     std::cout << "Exiting..." << std::endl;
 }
 
 void ConsoleCommandHandler::handleCommand(const std::string &command) {
     std::vector<std::string> commandTokens;
-    basicTokenizingFunction_(command, commandTokens);
+    basicTokenizingFunction(command, commandTokens);
 
     if (commandTokens.empty()) {
         std::cout << "Please provide a command." << std::endl;
@@ -102,17 +102,17 @@ void ConsoleCommandHandler::handleCommand(const std::string &command) {
             return;
         }
 
-        handleNoArgCommand_(commandTokens);
+        handleNoArgCommand(commandTokens);
         return;
     }
 
     else if (commandTokens.size() == 2) {
-        handleOneArgCommand_(commandTokens);
+        handleOneArgCommand(commandTokens);
         return;
     }
 
     else if (commandTokens.size() == 3) {
-        handleTwoArgCommand_(commandTokens);
+        handleTwoArgCommand(commandTokens);
         return;
     }
 
@@ -121,7 +121,7 @@ void ConsoleCommandHandler::handleCommand(const std::string &command) {
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
-void ConsoleCommandHandler::handleNoArgCommand_(const std::vector<std::string> &commandTokens) {
+void ConsoleCommandHandler::handleNoArgCommand(const std::vector<std::string> &commandTokens) {
     const std::string &currentCommand = commandTokens[0];
 
     // textProcessorNoArgsCommandsVoid_
@@ -183,7 +183,7 @@ void ConsoleCommandHandler::handleNoArgCommand_(const std::vector<std::string> &
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
-void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> &commandTokens) {
+void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &commandTokens) {
     const std::string &currentCommand = commandTokens[0];
     const std::string &argOne = commandTokens[1];
 
@@ -207,7 +207,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
         if (c.stringValue == currentCommand) {
             size_t indexVal;
             try {
-                indexVal = parseStringToUll_(argOne);
+                indexVal = parseStringToUll(argOne);
             }
             catch (const std::runtime_error &e) {
                 std::cout << e.what() << std::endl;
@@ -234,7 +234,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
         if (c.stringValue == currentCommand) {
             size_t indexVal;
             try {
-                indexVal = parseStringToUll_(argOne);
+                indexVal = parseStringToUll(argOne);
             }
             catch (const std::runtime_error &e) {
                 std::cout << e.what() << std::endl;
@@ -244,7 +244,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
             std::string input;
             std::cout << "Enter the line you want to enter: " << std::endl;
             try{
-                input = getSingleLineInput_();
+                input = getSingleLineInput();
             }
             catch(const std::runtime_error &e){
                 std::cout << e.what() << std::endl;
@@ -272,7 +272,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
         if (c.stringValue == currentCommand) {
             size_t indexVal;
             try {
-                indexVal = parseStringToUll_(argOne);
+                indexVal = parseStringToUll(argOne);
             }
             catch (const std::runtime_error &e) {
                 std::cout << e.what() << std::endl;
@@ -282,7 +282,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
             std::vector<std::string> input;
             std::cout << "Enter the lines you want to enter (blank line to stop): " << std::endl;
             try {
-                input = getMultiLineInput_();
+                input = getMultiLineInput();
             }
             catch (const std::bad_alloc &) {
                 std::cout << "Too many lines entered. Insufficient memory." << std::endl;
@@ -327,7 +327,7 @@ void ConsoleCommandHandler::handleOneArgCommand_(const std::vector<std::string> 
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
-void ConsoleCommandHandler::handleTwoArgCommand_(const std::vector<std::string> &commandTokens) {
+void ConsoleCommandHandler::handleTwoArgCommand(const std::vector<std::string> &commandTokens) {
     const std::string &currentCommand = commandTokens[0];
     const std::string &argOne = commandTokens[1];
     const std::string &argTwo = commandTokens[2];
@@ -337,8 +337,8 @@ void ConsoleCommandHandler::handleTwoArgCommand_(const std::vector<std::string> 
         if (c.stringValue == currentCommand) {
             size_t firstIndexVal, secondIndexVal;
             try {
-                firstIndexVal = parseStringToUll_(argOne);
-                secondIndexVal = parseStringToUll_(argTwo);
+                firstIndexVal = parseStringToUll(argOne);
+                secondIndexVal = parseStringToUll(argTwo);
             }
             catch (const std::runtime_error &e) {
                 std::cout << e.what() << std::endl;
@@ -359,7 +359,7 @@ void ConsoleCommandHandler::handleTwoArgCommand_(const std::vector<std::string> 
     std::cout << INVALID_COMMAND_MSG_ << std::endl;
 }
 
-void ConsoleCommandHandler::printLinesRegular_(const std::vector<BaseLine *> &lines) {
+void ConsoleCommandHandler::printLinesRegular(const std::vector<BaseLine *> &lines) {
     for (int i = 0; i < lines.size(); ++i) {
         std::cout
                 << "idx: " << i
@@ -369,8 +369,8 @@ void ConsoleCommandHandler::printLinesRegular_(const std::vector<BaseLine *> &li
     }
 }
 
-void ConsoleCommandHandler::printLinesCentered_(const std::vector<BaseLine *> &lines) {
-    size_t maxWidth = getMaxLineWidth_(lines);
+void ConsoleCommandHandler::printLinesCentered(const std::vector<BaseLine *> &lines) {
+    size_t maxWidth = getMaxLineWidth(lines);
 
     for (int i = 0; i < lines.size(); ++i) {
         std::cout << "idx: " << i << "|  ";
@@ -398,7 +398,7 @@ void ConsoleCommandHandler::printLinesCentered_(const std::vector<BaseLine *> &l
     }
 }
 
-void ConsoleCommandHandler::executeMacro_(const std::string &macroName) {
+void ConsoleCommandHandler::executeMacro(const std::string &macroName) {
     for (const Macro &m : macros_) {
         if(m.name == macroName){
             for(const std::string &commandName : m.commands){
@@ -411,19 +411,19 @@ void ConsoleCommandHandler::executeMacro_(const std::string &macroName) {
     throw std::runtime_error("No such macro found.");
 }
 
-void ConsoleCommandHandler::addMacroAndFillFromConsole_(const std::string &macroName) {
+void ConsoleCommandHandler::addMacroAndFillFromConsole(const std::string &macroName) {
     for (const Macro &m : macros_) {
         if(m.name == macroName){
             throw std::runtime_error("Macro with this name already exists.");
         }
     }
     std::cout << "Enter commands line by line (blank line to stop): " << std::endl;
-    std::vector<std::string> userCommands =  getMultiLineInput_();
+    std::vector<std::string> userCommands = getMultiLineInput();
 
     macros_.emplace_back(macroName, userCommands);
 }
 
-void ConsoleCommandHandler::removeMacro_(const std::string &macroName) {
+void ConsoleCommandHandler::removeMacro(const std::string &macroName) {
     for (int i = 0; i < macros_.size(); ++i) {
         if(macros_[i].name == macroName){
             macros_.erase(macros_.begin() + i);
@@ -433,14 +433,14 @@ void ConsoleCommandHandler::removeMacro_(const std::string &macroName) {
     throw std::runtime_error("No macro exists with this name.");
 }
 
-void ConsoleCommandHandler::promptForSaveIfFilesOpened_() {
+void ConsoleCommandHandler::promptForSaveIfFilesOpened() {
     std::vector<std::string> openedFileNames = textProcessor_->getOpenedFileNames();
     for (size_t i = 0; i < openedFileNames.size(); ++i) {
         std::string input;
         std::cout
         << "File: " << openedFileNames[i] << " is open, would you like to save changes to it? (y/n)" << std::endl;
         do{
-            input = getSingleLineInput_();
+            input = getSingleLineInput();
             if(input == "y"){
                 std::cout << "Attempting to execute saving commands..." << std::endl;
                 handleCommand("set_current_file " + std::to_string(i));

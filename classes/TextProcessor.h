@@ -50,46 +50,46 @@ private:
 
     std::vector<UndoHistory> undoStack_; // will be used as a stack
 
-    static void deAllocSingleLine_(BaseLine *&line);
+    static void deAllocSingleLine(BaseLine *&line);
 
-    static void deAllocAllLines_(std::vector<BaseLine *> &vectorRef);
+    static void deAllocAllLines(std::vector<BaseLine *> &vectorRef);
 
-    static std::vector<BaseLine *> getDeepCopyLinesVector_(const std::vector<BaseLine *> &lines);
+    static std::vector<BaseLine *> getDeepCopyLinesVector(const std::vector<BaseLine *> &lines);
 
-    void checkIfAnyOpenFilesOrThrow_() const;
+    void checkIfAnyOpenFilesOrThrow() const;
 
-    std::vector<BaseLine *> &getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &getCurrentLinesRefOrThrow();
 
-    const std::vector<BaseLine *> &getCurrentLinesConstRefOrThrow_() const;
+    const std::vector<BaseLine *> &getCurrentLinesConstRefOrThrow() const;
 
-    std::string &getCurrentFileNameRefOrThrow_();
+    std::string &getCurrentFileNameRefOrThrow();
 
-    bool blockExists_() const;
+    bool blockExists() const;
 
-    bool blockForCurrentFile_() const;
-
-    template<typename T>
-    void parseIndexOrSetToLast_(size_t &indexRef, const std::vector<T> &vec);
+    bool blockForCurrentFile() const;
 
     template<typename T>
-    void parseIndexOrThrow_(size_t index, const std::vector<T> &vec);
+    void parseIndexOrSetToLast(size_t &indexRef, const std::vector<T> &vec);
 
     template<typename T>
-    void parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd, const std::vector<T> &vec);
+    void parseIndexOrThrow(size_t index, const std::vector<T> &vec);
 
-    void pushCurrentStateToStack_();
+    template<typename T>
+    void parseIndexRangeOrThrow(size_t indexStart, size_t indexEnd, const std::vector<T> &vec);
 
-    void clearUndoStack_();
+    void pushCurrentStateToStack();
 
-    void pushCurrentStateToStackOrClearOnFailure_();
+    void clearUndoStack();
 
-    void removeOldestFromUndoStackIfLimitReached_();
+    void pushCurrentStateToStackOrClearOnFailure();
 
-    void changeCasingSingle_(size_t index, bool toUpper);
-    size_t changeCasingMulti_(size_t indexStart, size_t indexEnd ,bool toUpper);
+    void removeOldestFromUndoStackIfLimitReached();
 
-    void trimLineSingle_(size_t index, bool trimLeft);
-    size_t trimLineMulti_(size_t indexStart, size_t indexEnd ,bool trimLeft);
+    void changeCasingSingle(size_t index, bool toUpper);
+    size_t changeCasingMulti(size_t indexStart, size_t indexEnd , bool toUpper);
+
+    void trimLineSingle(size_t index, bool trimLeft);
+    size_t trimLineMulti(size_t indexStart, size_t indexEnd , bool trimLeft);
 
 public:
     explicit TextProcessor(IConfig *config);

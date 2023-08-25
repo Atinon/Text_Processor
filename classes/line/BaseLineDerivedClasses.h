@@ -8,9 +8,9 @@
  */
 class CaseConverter {
 protected:
-    static void toLower_(std::string &stringRef);
+    static void toLowerDefault(std::string &stringRef);
 
-    static void toUpper_(std::string &stringRef);
+    static void toUpperDefault(std::string &stringRef);
 
 public:
     virtual void toLower() = 0;
@@ -27,9 +27,9 @@ public:
  */
 class WhitespaceTrimmer {
 protected:
-    static void trimLeft_(std::string &stringRef);
+    static void trimLeftDefault(std::string &stringRef);
 
-    static void trimRight_(std::string &stringRef);
+    static void trimRightDefault(std::string &stringRef);
 
 public:
     virtual void trimLeft() = 0;

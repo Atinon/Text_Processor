@@ -12,66 +12,66 @@ TextProcessor::TextProcessor(IConfig *config) : fileReader_(config->getFileReade
 
 TextProcessor::~TextProcessor() {
     for(FileData &fdRef : files_){
-        deAllocAllLines_(fdRef.lines_);
+        deAllocAllLines(fdRef.lines_);
     }
 
-    clearUndoStack_();
+    clearUndoStack();
 }
 
-void TextProcessor::deAllocSingleLine_(BaseLine *&line) {
+void TextProcessor::deAllocSingleLine(BaseLine *&line) {
     delete line;
     line = nullptr;
 }
 
-void TextProcessor::deAllocAllLines_(std::vector<BaseLine *> &vectorRef) {
+void TextProcessor::deAllocAllLines(std::vector<BaseLine *> &vectorRef) {
     if (!vectorRef.empty()) {
         for (BaseLine *&line: vectorRef) {
-            deAllocSingleLine_(line);
+            deAllocSingleLine(line);
         }
     }
 }
 
 template<typename T>
-void TextProcessor::parseIndexOrSetToLast_(size_t &indexRef, const std::vector<T> &vec) {
+void TextProcessor::parseIndexOrSetToLast(size_t &indexRef, const std::vector<T> &vec) {
     indexRef = indexRef > vec.size() ? vec.size() : indexRef;
 }
 
 template<typename T>
-void TextProcessor::parseIndexOrThrow_(size_t index, const std::vector<T> &vec) {
+void TextProcessor::parseIndexOrThrow(size_t index, const std::vector<T> &vec) {
     if (index >= vec.size()) {
         throw std::runtime_error("Invalid index.");
     }
 }
 
 template<typename T>
-void TextProcessor::parseIndexRangeOrThrow_(size_t indexStart, size_t indexEnd, const std::vector<T> &vec) {
+void TextProcessor::parseIndexRangeOrThrow(size_t indexStart, size_t indexEnd, const std::vector<T> &vec) {
     if (indexStart >= indexEnd) {
         throw std::runtime_error("Inversed index range.");
     }
-    parseIndexOrThrow_(indexEnd, vec);
+    parseIndexOrThrow(indexEnd, vec);
     // If indexStart < indexEnd && indexEnd in range, assumes correct boundaries
 }
 
-void TextProcessor::checkIfAnyOpenFilesOrThrow_() const {
+void TextProcessor::checkIfAnyOpenFilesOrThrow() const {
     if(currentFileIndex_ == NPOS_){
         throw std::runtime_error("No file open.");
     }
 }
 
-std::vector<BaseLine *> &TextProcessor::getCurrentLinesRefOrThrow_() {
-    checkIfAnyOpenFilesOrThrow_();
+std::vector<BaseLine *> &TextProcessor::getCurrentLinesRefOrThrow() {
+    checkIfAnyOpenFilesOrThrow();
 
     return files_[currentFileIndex_].lines_;
 }
 
-const std::vector<BaseLine *> &TextProcessor::getCurrentLinesConstRefOrThrow_() const {
-    checkIfAnyOpenFilesOrThrow_();
+const std::vector<BaseLine *> &TextProcessor::getCurrentLinesConstRefOrThrow() const {
+    checkIfAnyOpenFilesOrThrow();
 
     return files_[currentFileIndex_].lines_;
 }
 
-std::string &TextProcessor::getCurrentFileNameRefOrThrow_() {
-    checkIfAnyOpenFilesOrThrow_();
+std::string &TextProcessor::getCurrentFileNameRefOrThrow() {
+    checkIfAnyOpenFilesOrThrow();
 
     return files_[currentFileIndex_].fileName;
 }
@@ -109,7 +109,7 @@ void TextProcessor::open(const std::string &fileName) {
         files_.push_back(fd);
     }
     catch(const std::bad_alloc &){
-        deAllocAllLines_(fd.lines_);
+        deAllocAllLines(fd.lines_);
         throw std::runtime_error("Not enough memory to add file to current files.");
     }
 
@@ -117,11 +117,11 @@ void TextProcessor::open(const std::string &fileName) {
 }
 
 void TextProcessor::save() {
-    saveAs(getCurrentFileNameRefOrThrow_());
+    saveAs(getCurrentFileNameRefOrThrow());
 }
 
 void TextProcessor::saveAs(const std::string &fileName) {
-    const std::vector<BaseLine *> &currentLines = getCurrentLinesConstRefOrThrow_();
+    const std::vector<BaseLine *> &currentLines = getCurrentLinesConstRefOrThrow();
 
     fileWriter_->setFileName(fileName);
 
@@ -134,7 +134,7 @@ void TextProcessor::saveAs(const std::string &fileName) {
 }
 
 const std::vector<BaseLine *> &TextProcessor::getLines() const {
-    return getCurrentLinesConstRefOrThrow_();
+    return getCurrentLinesConstRefOrThrow();
 }
 
 void TextProcessor::sort() {
@@ -147,9 +147,9 @@ void TextProcessor::sort() {
     std::vector<NumberDotLinePositions> numberAndDotLines;
     std::vector<BaseLine *> otherLines;
 
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
     try {
         for (size_t i = 0; i < currentLinesRef.size(); ++i) {
@@ -192,11 +192,11 @@ void TextProcessor::sort() {
 }
 
 void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexOrSetToLast_(index, currentLinesRef);
+    parseIndexOrSetToLast(index, currentLinesRef);
 
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
     BaseLine *newLine;
     try {
@@ -213,17 +213,17 @@ void TextProcessor::addSingleLine(size_t index, const std::string &rawData) {
         currentLinesRef.insert(currentLinesRef.begin() + index, newLine);
     }
     catch (...) {
-        deAllocSingleLine_(newLine);
+        deAllocSingleLine(newLine);
         throw std::runtime_error("Internal error. Unable to add line to existing lines.");
     }
 }
 
 void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &rawData) {
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexOrSetToLast_(index, currentLinesRef);
+    parseIndexOrSetToLast(index, currentLinesRef);
 
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
     std::vector<BaseLine *> linesToAdd;
     try {
@@ -246,16 +246,16 @@ void TextProcessor::addManyLines(size_t index, const std::vector<std::string> &r
 }
 
 void TextProcessor::removeSingleLine(size_t index) {
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexOrThrow_(index, currentLinesRef);
+    parseIndexOrThrow(index, currentLinesRef);
 
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
     try {
         BaseLine *currentLine = currentLinesRef[index];
         currentLinesRef.erase(currentLinesRef.begin() + index);
-        deAllocSingleLine_(currentLine);
+        deAllocSingleLine(currentLine);
     }
     catch (...) {
         throw std::runtime_error("Error removing line at index: " + std::to_string(index));
@@ -263,11 +263,11 @@ void TextProcessor::removeSingleLine(size_t index) {
 }
 
 void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+    parseIndexRangeOrThrow(indexStart, indexEnd, currentLinesRef);
 
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
     std::vector<BaseLine *> pointersToFree;
 
@@ -289,22 +289,22 @@ void TextProcessor::removeManyLines(size_t indexStart, size_t indexEnd) {
     }
 
     for (BaseLine *&line: pointersToFree) {
-        deAllocSingleLine_(line);
+        deAllocSingleLine(line);
     }
 }
 
-bool TextProcessor::blockExists_() const {
+bool TextProcessor::blockExists() const {
     return block_.indexStart != Block::NPOS_ && block_.indexEnd != Block::NPOS_;
 }
 
-bool TextProcessor::blockForCurrentFile_() const {
+bool TextProcessor::blockForCurrentFile() const {
     return block_.fileId == currentFileIndex_;
 }
 
 void TextProcessor::setBlock(size_t indexStart, size_t indexEnd) {
-    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow_();
+    std::vector<BaseLine *> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+    parseIndexRangeOrThrow(indexStart, indexEnd, currentLinesRef);
 
     block_.fileId = currentFileIndex_;
     block_.indexStart = indexStart;
@@ -322,7 +322,7 @@ void TextProcessor::setBlock(size_t indexStart, size_t indexEnd) {
 }
 
 void TextProcessor::unsetBlock() {
-    if (!blockExists_()) {
+    if (!blockExists()) {
         throw std::runtime_error("No block set.");
     }
     block_.vectorLinePtr.clear();
@@ -332,11 +332,11 @@ void TextProcessor::unsetBlock() {
 }
 
 const std::vector<BaseLine *> &TextProcessor::getBlock() const {
-    if (!blockExists_()) {
+    if (!blockExists()) {
         throw std::runtime_error("No block set.");
     }
 
-    if(!blockForCurrentFile_()){
+    if(!blockForCurrentFile()){
         throw std::runtime_error("Block not set for current file. Please update block.");
     }
 
@@ -355,7 +355,7 @@ std::vector<std::string> TextProcessor::getOpenedFileNames() {
 }
 
 void TextProcessor::setCurrentFile(size_t index) {
-    parseIndexOrThrow_(index, files_);
+    parseIndexOrThrow(index, files_);
 
     if(index == currentFileIndex_){
         throw std::runtime_error("This file is the current file set.");
@@ -365,25 +365,25 @@ void TextProcessor::setCurrentFile(size_t index) {
 }
 
 void TextProcessor::closeFile(size_t index) {
-    parseIndexOrThrow_(index, files_);
+    parseIndexOrThrow(index, files_);
 
-    deAllocAllLines_(files_[index].lines_);
+    deAllocAllLines(files_[index].lines_);
     files_.erase(files_.begin() + index);
 
     // set current file to last opened one. Will be set to NPOS_ if files_ is empty
     currentFileIndex_ = files_.size() - 1;
 }
 
-void TextProcessor::pushCurrentStateToStack_() {
-    checkIfAnyOpenFilesOrThrow_();
+void TextProcessor::pushCurrentStateToStack() {
+    checkIfAnyOpenFilesOrThrow();
 
-    removeOldestFromUndoStackIfLimitReached_();
+    removeOldestFromUndoStackIfLimitReached();
 
     UndoHistory uh;
     uh.fileId = currentFileIndex_;
 
     try{
-        uh.previousState = getDeepCopyLinesVector_(getCurrentLinesConstRefOrThrow_());
+        uh.previousState = getDeepCopyLinesVector(getCurrentLinesConstRefOrThrow());
     }
     catch(const std::bad_alloc &){
         throw;
@@ -395,35 +395,35 @@ void TextProcessor::pushCurrentStateToStack_() {
     undoStack_.push_back(uh);
 }
 
-void TextProcessor::removeOldestFromUndoStackIfLimitReached_() {
+void TextProcessor::removeOldestFromUndoStackIfLimitReached() {
     if(undoStack_.size() >= UNDO_STACK_LIMIT_){
-        deAllocAllLines_(undoStack_[0].previousState);
+        deAllocAllLines(undoStack_[0].previousState);
         undoStack_.erase(undoStack_.begin());
     }
 }
 
-void TextProcessor::clearUndoStack_() {
+void TextProcessor::clearUndoStack() {
     for(UndoHistory &uh : undoStack_){
-        deAllocAllLines_(uh.previousState);
+        deAllocAllLines(uh.previousState);
     }
     undoStack_.clear();
 }
 
-void TextProcessor::pushCurrentStateToStackOrClearOnFailure_() {
+void TextProcessor::pushCurrentStateToStackOrClearOnFailure() {
     try{
-        pushCurrentStateToStack_();
+        pushCurrentStateToStack();
     }
     catch(const std::bad_alloc &){
-        clearUndoStack_();
+        clearUndoStack();
         throw std::runtime_error("Internal memory error during undo stack operation.");
     }
 
     catch(...){
-        clearUndoStack_();
+        clearUndoStack();
     }
 }
 
-std::vector<BaseLine *> TextProcessor::getDeepCopyLinesVector_(const std::vector<BaseLine *> &lines) {
+std::vector<BaseLine *> TextProcessor::getDeepCopyLinesVector(const std::vector<BaseLine *> &lines) {
     std::vector<BaseLine *> result;
 
     try {
@@ -441,7 +441,7 @@ std::vector<BaseLine *> TextProcessor::getDeepCopyLinesVector_(const std::vector
         }
     }
     catch(...){
-        deAllocAllLines_(result);
+        deAllocAllLines(result);
         result.clear();
         throw;
     }
@@ -460,7 +460,7 @@ void TextProcessor::undo() {
     undoStack_.pop_back();
 
     try{
-        parseIndexOrThrow_(uh.fileId, files_);
+        parseIndexOrThrow(uh.fileId, files_);
     }
     catch(const std::runtime_error &){
         throw std::runtime_error("Undo operation could not be performed. Associated file not open.");
@@ -468,14 +468,14 @@ void TextProcessor::undo() {
 
     std::vector<BaseLine *> &linesToPerformUndoOnRef = files_[uh.fileId].lines_;
 
-    deAllocAllLines_(linesToPerformUndoOnRef);
+    deAllocAllLines(linesToPerformUndoOnRef);
     linesToPerformUndoOnRef = uh.previousState;
 }
 
-void TextProcessor::changeCasingSingle_(size_t index, bool toUpper) {
-    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+void TextProcessor::changeCasingSingle(size_t index, bool toUpper) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexOrSetToLast_(index, currentLinesRef);
+    parseIndexOrSetToLast(index, currentLinesRef);
 
     BaseLine* currentLine = currentLinesRef[index];
     CaseConverter *line = LineParser::castToCaseConverter(currentLine);
@@ -493,16 +493,16 @@ void TextProcessor::changeCasingSingle_(size_t index, bool toUpper) {
     }
 }
 
-size_t TextProcessor::changeCasingMulti_(size_t indexStart, size_t indexEnd, bool toUpper) {
-    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+size_t TextProcessor::changeCasingMulti(size_t indexStart, size_t indexEnd, bool toUpper) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+    parseIndexRangeOrThrow(indexStart, indexEnd, currentLinesRef);
 
     size_t successCount = 0;
 
     for (size_t i = indexStart; i <= indexEnd; ++i) {
         try{
-            changeCasingSingle_(i, toUpper);
+            changeCasingSingle(i, toUpper);
             successCount++;
         }
         catch(...){
@@ -513,10 +513,10 @@ size_t TextProcessor::changeCasingMulti_(size_t indexStart, size_t indexEnd, boo
     return successCount;
 }
 
-void TextProcessor::trimLineSingle_(size_t index, bool trimLeft) {
-    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+void TextProcessor::trimLineSingle(size_t index, bool trimLeft) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexOrSetToLast_(index, currentLinesRef);
+    parseIndexOrSetToLast(index, currentLinesRef);
 
     WhitespaceTrimmer *line = LineParser::castToWhitespaceTrimmer(currentLinesRef[index]);
 
@@ -533,16 +533,16 @@ void TextProcessor::trimLineSingle_(size_t index, bool trimLeft) {
     }
 }
 
-size_t TextProcessor::trimLineMulti_(size_t indexStart, size_t indexEnd, bool trimLeft) {
-    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow_();
+size_t TextProcessor::trimLineMulti(size_t indexStart, size_t indexEnd, bool trimLeft) {
+    std::vector<BaseLine*> &currentLinesRef = getCurrentLinesRefOrThrow();
 
-    parseIndexRangeOrThrow_(indexStart, indexEnd, currentLinesRef);
+    parseIndexRangeOrThrow(indexStart, indexEnd, currentLinesRef);
 
     size_t successCount = 0;
 
     for (size_t i = indexStart; i <= indexEnd; ++i) {
         try{
-            trimLineSingle_(i, trimLeft);
+            trimLineSingle(i, trimLeft);
             successCount++;
         }
         catch(...){
@@ -554,29 +554,29 @@ size_t TextProcessor::trimLineMulti_(size_t indexStart, size_t indexEnd, bool tr
 }
 
 void TextProcessor::toUpperSingleLine(size_t index) {
-    pushCurrentStateToStackOrClearOnFailure_();
-    changeCasingSingle_(index, true);
+    pushCurrentStateToStackOrClearOnFailure();
+    changeCasingSingle(index, true);
 }
 
 void TextProcessor::toLowerSingleLine(size_t index) {
-    pushCurrentStateToStackOrClearOnFailure_();
-    changeCasingSingle_(index, false);
+    pushCurrentStateToStackOrClearOnFailure();
+    changeCasingSingle(index, false);
 }
 
 void TextProcessor::trimLeftSingleLine(size_t index) {
-    pushCurrentStateToStackOrClearOnFailure_();
-    trimLineSingle_(index, true);
+    pushCurrentStateToStackOrClearOnFailure();
+    trimLineSingle(index, true);
 }
 
 void TextProcessor::trimRightSingleLine(size_t index) {
-    pushCurrentStateToStackOrClearOnFailure_();
-    trimLineSingle_(index, false);
+    pushCurrentStateToStackOrClearOnFailure();
+    trimLineSingle(index, false);
 }
 
 void TextProcessor::toUpperManyLines(size_t indexStart, size_t indexEnd) {
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
-    size_t successCount = changeCasingMulti_(indexStart, indexEnd, true);
+    size_t successCount = changeCasingMulti(indexStart, indexEnd, true);
 
     if(successCount == 0){
         throw std::runtime_error("No lines were eligible to have their casing changed.");
@@ -584,9 +584,9 @@ void TextProcessor::toUpperManyLines(size_t indexStart, size_t indexEnd) {
 }
 
 void TextProcessor::toLowerManyLines(size_t indexStart, size_t indexEnd) {
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
-    size_t successCount = changeCasingMulti_(indexStart, indexEnd, false);
+    size_t successCount = changeCasingMulti(indexStart, indexEnd, false);
 
     if(successCount == 0){
         throw std::runtime_error("No lines were eligible to have their casing changed.");
@@ -594,9 +594,9 @@ void TextProcessor::toLowerManyLines(size_t indexStart, size_t indexEnd) {
 }
 
 void TextProcessor::trimLeftManyLines(size_t indexStart, size_t indexEnd) {
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
-    size_t successCount = trimLineMulti_(indexStart, indexEnd, true);
+    size_t successCount = trimLineMulti(indexStart, indexEnd, true);
 
     if(successCount == 0){
         throw std::runtime_error("No lines were eligible to be trimmed.");
@@ -604,9 +604,9 @@ void TextProcessor::trimLeftManyLines(size_t indexStart, size_t indexEnd) {
 }
 
 void TextProcessor::trimRightManyLines(size_t indexStart, size_t indexEnd) {
-    pushCurrentStateToStackOrClearOnFailure_();
+    pushCurrentStateToStackOrClearOnFailure();
 
-    size_t successCount = trimLineMulti_(indexStart, indexEnd, false);
+    size_t successCount = trimLineMulti(indexStart, indexEnd, false);
 
     if(successCount == 0){
         throw std::runtime_error("No lines were eligible to be trimmed.");

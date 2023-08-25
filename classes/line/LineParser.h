@@ -24,17 +24,17 @@ private:
 
     static const char NEWLINE_CHAR_;
 
-    static void pushNewLineToVectorOrThrow_
+    static void pushNewLineToVectorOrThrow
             (std::vector<BaseLine *> &resultRef, BaseLine::LineTypes type, const std::string &stringValue);
 
-    static size_t getStringIndexIfStartsWithQuote_(const std::string &s);
+    static size_t getStringIndexIfStartsWithQuote(const std::string &s);
 
-    static size_t getStringIndexIfEndsWithQuote_(const std::string &s);
+    static size_t getStringIndexIfEndsWithQuote(const std::string &s);
 
-    static size_t getVectorIndexIfEndQuoteFound_
+    static size_t getVectorIndexIfEndQuoteFound
             (const std::vector<std::string> &rawData, size_t vectorStartIndex, size_t stringStartIndex);
 
-    static bool createQuotedLineIfQualify_
+    static bool createQuotedLineIfQualify
     (size_t &rawDataIndexRef, const std::vector<std::string> &rawData, std::vector<BaseLine*> &resultRef);
 
 public:
