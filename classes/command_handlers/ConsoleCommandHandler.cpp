@@ -38,7 +38,7 @@ void ConsoleCommandHandler::handleCommand(const std::string &command) {
         }
 
         if(commandTokens[0] == HELP_COMMAND_){
-            printCommandInfo();
+            Printer::printCommandInfo();
             return;
         }
     }

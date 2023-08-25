@@ -4,7 +4,6 @@
 #include "Command.h"
 #include "CommandFactory.h"
 #include "ICommandHandler.h"
-#include "ConsoleCommandHandlerUtil.h"
 #include "../TextProcessor.h"
 #include "Macro.h"
 #include <string>
