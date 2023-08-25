@@ -14,6 +14,8 @@ TextProcessor::~TextProcessor() {
     for(FileData &fdRef : files_){
         deAllocAllLines_(fdRef.lines_);
     }
+
+    clearUndoStack_();
 }
 
 void TextProcessor::deAllocSingleLine_(BaseLine *&line) {
