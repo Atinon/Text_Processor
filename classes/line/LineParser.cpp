@@ -219,25 +219,6 @@ void LineParser::pushNewLineToVectorOrThrow(std::vector<BaseLine *> &resultRef, 
     }
 }
 
-BaseLine *LineParser::parseTypeAndCreateCopy(BaseLine *line) {
-    BaseLine *copiedLine = nullptr;
-
-    if (NumberLine *numberLine = dynamic_cast<NumberLine *>(line)) {
-        copiedLine = new (std::nothrow) NumberLine(*numberLine);
-    }
-    else if (BulletPointLine *numberAndDotLine = dynamic_cast<BulletPointLine *>(line)) {
-        copiedLine = new (std::nothrow) BulletPointLine(*numberAndDotLine);
-    }
-    else if (QuotedLine *quotedLine = dynamic_cast<QuotedLine *>(line)) {
-        copiedLine = new (std::nothrow) QuotedLine(*quotedLine);
-    }
-    else if (RegularLine *regularLine = dynamic_cast<RegularLine *>(line)) {
-        copiedLine = new (std::nothrow) RegularLine(*regularLine);
-    }
-
-    return copiedLine;
-}
-
 CaseConverter *LineParser::castToCaseConverter(BaseLine *line) {
     return dynamic_cast<CaseConverter *>(line);
 }

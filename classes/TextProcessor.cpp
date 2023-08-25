@@ -430,7 +430,7 @@ std::vector<BaseLine *> TextProcessor::getDeepCopyLinesVector(const std::vector<
         result.reserve(lines.size());
         for (BaseLine *originalLine: lines) {
             if (originalLine != nullptr) {
-                BaseLine *copiedLine = LineParser::parseTypeAndCreateCopy(originalLine);
+                BaseLine *copiedLine = originalLine->clone();
 
                 if(copiedLine == nullptr){
                     continue;

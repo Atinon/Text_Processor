@@ -44,8 +44,6 @@ public:
 
     static BaseLine* createFromString(const std::string &rawData);
 
-    static BaseLine* parseTypeAndCreateCopy(BaseLine* line);
-
     static bool isNumberLine(const std::string &s);
 
     static bool isNumberAndDotLine(const std::string &s);
