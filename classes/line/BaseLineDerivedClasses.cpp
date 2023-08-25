@@ -64,6 +64,10 @@ void RegularLine::trimRight() {
     WhitespaceTrimmer::trimRightDefault(stringValue_);
 }
 
+BaseLine *RegularLine::clone() {
+    return new RegularLine(*this);
+}
+
 // ---------------------------------------------------------------------------------------------------------------------
 
 QuotedLine::QuotedLine(const std::string &stringValue) : BaseLine(stringValue) {}
@@ -78,6 +82,10 @@ void QuotedLine::setStringValue(const std::string &stringValue) {
         return;
     }
     throw std::invalid_argument("Provided value is not fit for QuotedLine.");
+}
+
+BaseLine *QuotedLine::clone() {
+    return new QuotedLine(*this);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -110,6 +118,10 @@ void NumberAndDotLine::trimLeft() {
 
 void NumberAndDotLine::trimRight() {
     WhitespaceTrimmer::trimRightDefault(stringValue_);
+}
+
+BaseLine *NumberAndDotLine::clone() {
+    return new NumberAndDotLine(*this);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -154,4 +166,8 @@ long long NumberLine::getNumericValue() const {
     }
 
     return result;
+}
+
+BaseLine *NumberLine::clone() {
+    return new NumberLine(*this);
 }

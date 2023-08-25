@@ -26,6 +26,8 @@ public:
 
     virtual void setStringValue(const std::string &stringValue) = 0;
 
+    virtual BaseLine *clone() = 0;
+
     virtual ~BaseLine() = default;
 };
 

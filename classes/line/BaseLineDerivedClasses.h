@@ -61,6 +61,8 @@ public:
 
     void trimRight() override;
 
+    BaseLine *clone() override;
+
     ~RegularLine() override = default;
 };
 
@@ -77,6 +79,8 @@ public:
     LineTypes getType() const override;
 
     void setStringValue(const std::string &stringValue) override;
+
+    BaseLine *clone() override;
 
     ~QuotedLine() override = default;
 };
@@ -103,6 +107,8 @@ public:
 
     void trimRight() override;
 
+    BaseLine *clone() override;
+
     ~NumberAndDotLine() override = default;
 };
 
@@ -123,6 +129,8 @@ public:
     void trimLeft() override;
 
     void trimRight() override;
+
+    BaseLine *clone() override;
 
     long long getNumericValue() const;
 
