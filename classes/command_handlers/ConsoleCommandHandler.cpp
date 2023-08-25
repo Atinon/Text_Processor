@@ -1,14 +1,15 @@
 #include "ConsoleCommandHandler.h"
 
+
 const char *ConsoleCommandHandler::SPACE_DELIM_ = " ";
 
 const std::string ConsoleCommandHandler::EXIT_COMMAND_ = "exit";
 
 const std::string ConsoleCommandHandler::HELP_COMMAND_ = "help";
 
-const std::string ConsoleCommandHandler::COMMAND_SUCCESS_MSG_ = "Command successful.";
+const std::string ConsoleCommandHandler::COMMAND_SUCCESS_MSG_ = "CommandOld successful.";
 
-const std::string ConsoleCommandHandler::INVALID_COMMAND_MSG_ = "Invalid Command.";
+const std::string ConsoleCommandHandler::INVALID_COMMAND_MSG_ = "Invalid CommandOld.";
 
 void ConsoleCommandHandler::basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef) {
     char *dup = strdup(command.c_str());
@@ -125,7 +126,7 @@ void ConsoleCommandHandler::handleNoArgCommand(const std::vector<std::string> &c
     const std::string &currentCommand = commandTokens[0];
 
     // textProcessorNoArgsCommandsVoid_
-    for (const Command<TextProcessor, void> &c: textProcessorNoArgsCommandsVoid_) {
+    for (const CommandOld<TextProcessor, void> &c: textProcessorNoArgsCommandsVoid_) {
         if (c.stringValue == currentCommand) {
             try {
                 (textProcessor_->*c.func)();
@@ -140,7 +141,7 @@ void ConsoleCommandHandler::handleNoArgCommand(const std::vector<std::string> &c
     }
 
     // textProcessorNoArgsCommandsVectorStringPrinting_
-    for(const Command<TextProcessor, std::vector<std::string>> &c : textProcessorNoArgsCommandsVectorStringPrinting_){
+    for(const CommandOld<TextProcessor, std::vector<std::string>> &c : textProcessorNoArgsCommandsVectorStringPrinting_){
         if(c.stringValue == currentCommand){
             try{
                 const std::vector<std::string> &valuesRef = (textProcessor_->*c.func)();
@@ -188,7 +189,7 @@ void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &
     const std::string &argOne = commandTokens[1];
 
     // textProcessorOneArgCommandsVoidString_
-    for (const Command<TextProcessor, void, const std::string &> &c: textProcessorOneArgCommandsVoidString_) {
+    for (const CommandOld<TextProcessor, void, const std::string &> &c: textProcessorOneArgCommandsVoidString_) {
         if (c.stringValue == currentCommand) {
             try {
                 (textProcessor_->*c.func)(argOne);
@@ -203,7 +204,7 @@ void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &
     }
 
     // textProcessorOneArgCommandsVoidNum_
-    for (const Command<TextProcessor, void, size_t> &c: textProcessorOneArgCommandsVoidNum_) {
+    for (const CommandOld<TextProcessor, void, size_t> &c: textProcessorOneArgCommandsVoidNum_) {
         if (c.stringValue == currentCommand) {
             size_t indexVal;
             try {
@@ -226,7 +227,7 @@ void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &
     }
 
     // textProcessorOneArgsCommandsVoidNumPromptLine_
-    for (const Command<
+    for (const CommandOld<
                 TextProcessor,
                 void,
                 size_t,
@@ -264,7 +265,7 @@ void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &
     }
 
     //textProcessorOneArgsCommandsVoidNumPromptLineMulti_
-    for (const Command<
+    for (const CommandOld<
                 TextProcessor,
                 void,
                 size_t,
@@ -306,7 +307,7 @@ void ConsoleCommandHandler::handleOneArgCommand(const std::vector<std::string> &
     }
 
     //commandHandlerOneArgCommandsVoidString_
-    for(const Command<ConsoleCommandHandler, void, const std::string &> &c : commandHandlerOneArgCommandsVoidString_){
+    for(const CommandOld<ConsoleCommandHandler, void, const std::string &> &c : commandHandlerOneArgCommandsVoidString_){
         if(c.stringValue == currentCommand){
             try{
                 (this->*c.func)(argOne);
@@ -333,7 +334,7 @@ void ConsoleCommandHandler::handleTwoArgCommand(const std::vector<std::string> &
     const std::string &argTwo = commandTokens[2];
 
     // textProcessorTwoArgCommandsVoidNum_
-    for (const Command<TextProcessor, void, size_t, size_t> &c: textProcessorTwoArgCommandsVoidNum_) {
+    for (const CommandOld<TextProcessor, void, size_t, size_t> &c: textProcessorTwoArgCommandsVoidNum_) {
         if (c.stringValue == currentCommand) {
             size_t firstIndexVal, secondIndexVal;
             try {
@@ -402,7 +403,7 @@ void ConsoleCommandHandler::executeMacro(const std::string &macroName) {
     for (const Macro &m : macros_) {
         if(m.name == macroName){
             for(const std::string &commandName : m.commands){
-                std::cout << "-- Executing Command: [" << commandName << ']' << std::endl;
+                std::cout << "-- Executing CommandOld: [" << commandName << ']' << std::endl;
                 handleCommand(commandName);
             }
             return;
@@ -448,5 +449,22 @@ void ConsoleCommandHandler::promptForSaveIfFilesOpened() {
             }
         }
         while(input != "y" && input != "n");
+    }
+}
+
+void ConsoleCommandHandler::executeCommand(const std::vector<std::string> &commandTokens) {
+    if(!textProcessor_){
+        std::cout << "Internal Error. TextProcessor is a nullptr." << std::endl;
+        return;
+    }
+    Command *command = nullptr;
+    try{
+        command = CommandFactory::createCommand(commandTokens);
+        command->execute(*textProcessor_);
+        delete command;
+    }
+    catch(const std::exception &e){
+        std::cout << e.what() << std::endl;
+        delete command;
     }
 }

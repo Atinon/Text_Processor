@@ -1,7 +1,8 @@
 #ifndef TEXT_PROCESSOR_CONSOLECOMMANDHANDLER_H
 #define TEXT_PROCESSOR_CONSOLECOMMANDHANDLER_H
 
-
+#include "Command.h"
+#include "CommandFactory.h"
 #include "ICommandHandler.h"
 #include "ConsoleCommandHandlerUtil.h"
 #include "../TextProcessor.h"
@@ -18,10 +19,10 @@
 class ConsoleCommandHandler : public ICommandHandler<std::string> {
 private:
     /**
- * Command struct template acting as a map between console commands and actual functions.
+ * CommandOld struct template acting as a map between console commands and actual functions.
  */
     template<typename ClassName, typename ReturnType, typename ...Args>
-    struct Command {
+    struct CommandOld {
         std::string stringValue;
 
         ReturnType (ClassName::*func)(Args...);
@@ -56,7 +57,7 @@ private:
     std::vector<Macro> macros_;
 
     //NoArgsCommands ---------------------------------------------------------------------------------------------------
-    const std::vector<Command<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
+    const std::vector<CommandOld<TextProcessor, void>> textProcessorNoArgsCommandsVoid_ =
             {
                     {"save",        &TextProcessor::save},
                     {"sort",        &TextProcessor::sort},
@@ -64,7 +65,7 @@ private:
                     {"undo", &TextProcessor::undo},
             };
 
-    const std::vector<Command<TextProcessor, std::vector<std::string>>>
+    const std::vector<CommandOld<TextProcessor, std::vector<std::string>>>
             textProcessorNoArgsCommandsVectorStringPrinting_ =
             {
                     {"print_open_files", &TextProcessor::getOpenedFileNames},
@@ -102,13 +103,13 @@ private:
             };
 
     //OneArgCommands ---------------------------------------------------------------------------------------------------
-    const std::vector<Command<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoidString_ =
+    const std::vector<CommandOld<TextProcessor, void, const std::string &>> textProcessorOneArgCommandsVoidString_ =
             {
                     {"open", &TextProcessor::open},
                     {"save_as", &TextProcessor::saveAs},
             };
 
-    const std::vector<Command<TextProcessor, void, size_t>> textProcessorOneArgCommandsVoidNum_ =
+    const std::vector<CommandOld<TextProcessor, void, size_t>> textProcessorOneArgCommandsVoidNum_ =
             {
                     {"remove_line", &TextProcessor::removeSingleLine},
                     {"set_current_file", &TextProcessor::setCurrentFile},
@@ -119,19 +120,19 @@ private:
                     {"trim_right", &TextProcessor::trimRightSingleLine},
             };
 
-    const std::vector<Command<TextProcessor, void, size_t, const std::string &>>
+    const std::vector<CommandOld<TextProcessor, void, size_t, const std::string &>>
             textProcessorOneArgsCommandsVoidNumPromptLine_ =
             {
                     {"add_line", &TextProcessor::addSingleLine},
             };
 
-    const std::vector<Command<TextProcessor, void, size_t, const std::vector<std::string> &>>
+    const std::vector<CommandOld<TextProcessor, void, size_t, const std::vector<std::string> &>>
             textProcessorOneArgsCommandsVoidNumPromptLineMulti_ =
             {
                     {"add_lines_many", &TextProcessor::addManyLines},
             };
 
-    const std::vector<Command<ConsoleCommandHandler, void, const std::string &>>
+    const std::vector<CommandOld<ConsoleCommandHandler, void, const std::string &>>
             commandHandlerOneArgCommandsVoidString_ =
             {
                     {"do_macro", &ConsoleCommandHandler::executeMacro},
@@ -140,7 +141,7 @@ private:
             };
 
     //TwoArgCommands ---------------------------------------------------------------------------------------------------
-    const std::vector<Command<TextProcessor, void, size_t, size_t>> textProcessorTwoArgCommandsVoidNum_ =
+    const std::vector<CommandOld<TextProcessor, void, size_t, size_t>> textProcessorTwoArgCommandsVoidNum_ =
             {
                     {"remove_lines_range", &TextProcessor::removeManyLines},
                     {"set_block",          &TextProcessor::setBlock},
@@ -177,6 +178,8 @@ private:
     void removeMacro(const std::string &macroName);
 
     void promptForSaveIfFilesOpened();
+
+    void executeCommand(const std::vector<std::string> &commandTokens);
 
 public:
     explicit ConsoleCommandHandler(TextProcessor *textProcessor) : textProcessor_(textProcessor) {};
