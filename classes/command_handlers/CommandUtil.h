@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cstring>
 #include "../line/BaseLine.h"
 
 class Printer {
@@ -26,5 +27,7 @@ public:
 class InputParser {
 public:
     static size_t parseStringToUll(const std::string &stringValue);
+
+    static void basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef);
 };
 #endif //TEXT_PROCESSOR_COMMANDUTIL_H

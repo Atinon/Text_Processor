@@ -96,3 +96,15 @@ size_t InputParser::parseStringToUll(const std::string &stringValue) {
         throw std::runtime_error("Please enter a valid number.");
     }
 }
+
+void InputParser::basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef) {
+    static const char* SPACE_DELIM = " ";
+
+    char *dup = strdup(command.c_str());
+    char *tokPtr = strtok(dup, SPACE_DELIM);
+    while (tokPtr != nullptr) {
+        vectorRef.emplace_back(tokPtr);
+        tokPtr = strtok(nullptr, SPACE_DELIM);
+    }
+    delete[] dup;
+}
