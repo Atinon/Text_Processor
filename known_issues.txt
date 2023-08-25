@@ -1,4 +1,7 @@
 undo - indexing with multiple files causes wrong file to have content replaced (check commit history for more info)
 * - possibly similar issue with lines?
 
+Line constructors - no parsing - can create any line type with any string value
+* - must check why it was made that way
+
 todo: check for more just in case
