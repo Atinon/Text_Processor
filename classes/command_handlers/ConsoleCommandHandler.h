@@ -41,7 +41,7 @@ private:
     void executeCommand(const std::vector<std::string> &commandTokens);
 
 public:
-    explicit ConsoleCommandHandler(TextProcessor *textProcessor) : textProcessor_(textProcessor) {};
+    explicit ConsoleCommandHandler(TextProcessor *textProcessor);
 
     void handleCommand(const std::string &command) override;
 

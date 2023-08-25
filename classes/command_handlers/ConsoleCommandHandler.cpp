@@ -9,6 +9,12 @@ const std::string ConsoleCommandHandler::COMMAND_SUCCESS_MSG_ = "Command success
 
 const std::string ConsoleCommandHandler::INVALID_COMMAND_MSG_ = "Invalid Command.";
 
+ConsoleCommandHandler::ConsoleCommandHandler(TextProcessor *textProcessor) : textProcessor_(textProcessor) {
+    if(!textProcessor_){
+        throw std::invalid_argument("TextProcessor is a nullptr.");
+    }
+}
+
 void ConsoleCommandHandler::startConsoleUi() {
     std::string command;
 
@@ -108,6 +114,10 @@ void ConsoleCommandHandler::removeMacro(const std::string &macroName) {
 }
 
 void ConsoleCommandHandler::promptForSaveIfFilesOpened() {
+    if(!textProcessor_){
+        std::cout << "Internal Error. TextProcessor is a nullptr." << std::endl;
+        return;
+    }
     std::vector<std::string> openedFileNames = textProcessor_->getOpenedFileNames();
     for (size_t i = 0; i < openedFileNames.size(); ++i) {
         std::string input;
