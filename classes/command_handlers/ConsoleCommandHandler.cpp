@@ -102,24 +102,35 @@ void ConsoleCommandHandler::handleCommand(const std::string &command) {
             printCommandInfo();
             return;
         }
-
-        handleNoArgCommand(commandTokens);
-        return;
     }
 
-    else if (commandTokens.size() == 2) {
-        handleOneArgCommand(commandTokens);
-        return;
+    else if(commandTokens.size() == 2){
+        const std::string &commandToken = commandTokens[0];
+        const std::string &argOne = commandTokens[1];
+        try{
+            if(commandToken == "add_macro"){
+                addMacroAndFillFromConsole(argOne);
+                std::cout << "Macro created successfully." << std::endl;
+                return;
+            }
+            else if (commandToken == "do_macro"){
+                executeMacro(argOne);
+                std::cout << "Macro executed successfully." << std::endl;
+                return;
+            }
+            else if(commandToken == "remove_macro"){
+                removeMacro(argOne);
+                std::cout << "Macro removed successfully." << std::endl;
+                return;
+            }
+        }
+        catch(const std::exception &e){
+            std::cout << e.what() << std::endl;
+            return;
+        }
     }
 
-    else if (commandTokens.size() == 3) {
-        handleTwoArgCommand(commandTokens);
-        return;
-    }
-
-    // to add other commands...
-
-    std::cout << INVALID_COMMAND_MSG_ << std::endl;
+    executeCommand(commandTokens);
 }
 
 void ConsoleCommandHandler::handleNoArgCommand(const std::vector<std::string> &commandTokens) {
@@ -460,6 +471,10 @@ void ConsoleCommandHandler::executeCommand(const std::vector<std::string> &comma
     Command *command = nullptr;
     try{
         command = CommandFactory::createCommand(commandTokens);
+        if(!command){
+            std::cout << INVALID_COMMAND_MSG_ << std::endl;
+            return;
+        }
         command->execute(*textProcessor_);
         delete command;
     }
