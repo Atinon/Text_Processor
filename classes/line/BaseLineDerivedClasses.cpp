@@ -90,38 +90,38 @@ BaseLine *QuotedLine::clone() {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-NumberAndDotLine::NumberAndDotLine(const std::string &stringValue) : BaseLine(stringValue) {}
+BulletPointLine::BulletPointLine(const std::string &stringValue) : BaseLine(stringValue) {}
 
-BaseLine::LineTypes NumberAndDotLine::getType() const {
-    return BaseLine::NUMBER_AND_DOT;
+BaseLine::LineTypes BulletPointLine::getType() const {
+    return BaseLine::BULLET_POINT;
 }
 
-void NumberAndDotLine::setStringValue(const std::string &stringValue) {
+void BulletPointLine::setStringValue(const std::string &stringValue) {
     if (LineParser::isNumberAndDotLine(stringValue)) {
         stringValue_ = stringValue;
         return;
     }
-    throw std::invalid_argument("Provided value is not fit for NumberAndDotLine.");
+    throw std::invalid_argument("Provided value is not fit for BulletPointLine.");
 }
 
-void NumberAndDotLine::toLower() {
+void BulletPointLine::toLower() {
     CaseConverter::toLowerDefault(stringValue_);
 }
 
-void NumberAndDotLine::toUpper() {
+void BulletPointLine::toUpper() {
     CaseConverter::toUpperDefault(stringValue_);
 }
 
-void NumberAndDotLine::trimLeft() {
+void BulletPointLine::trimLeft() {
     WhitespaceTrimmer::trimLeftDefault(stringValue_);
 }
 
-void NumberAndDotLine::trimRight() {
+void BulletPointLine::trimRight() {
     WhitespaceTrimmer::trimRightDefault(stringValue_);
 }
 
-BaseLine *NumberAndDotLine::clone() {
-    return new NumberAndDotLine(*this);
+BaseLine *BulletPointLine::clone() {
+    return new BulletPointLine(*this);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

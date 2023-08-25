@@ -143,7 +143,7 @@ void TextProcessor::sort() {
         BaseLine *line;
     };
 
-    // Separate NumberAndDotLine objects from the rest
+    // Separate BulletPointLine objects from the rest
     std::vector<NumberDotLinePositions> numberAndDotLines;
     std::vector<BaseLine *> otherLines;
 
@@ -154,7 +154,7 @@ void TextProcessor::sort() {
     try {
         for (size_t i = 0; i < currentLinesRef.size(); ++i) {
             BaseLine *currentLine = currentLinesRef[i];
-            if (currentLine->getType() == BaseLine::NUMBER_AND_DOT) {
+            if (currentLine->getType() == BaseLine::BULLET_POINT) {
                 numberAndDotLines.push_back(NumberDotLinePositions{i, currentLine});
                 continue;
             }

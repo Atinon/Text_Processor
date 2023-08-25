@@ -14,7 +14,7 @@ public:
     enum LineTypes {
         REGULAR,
         QUOTED,
-        NUMBER_AND_DOT,
+        BULLET_POINT,
         NUMBER,
     };
 

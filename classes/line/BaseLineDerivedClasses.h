@@ -90,10 +90,10 @@ public:
 /**
  * This class represents text that starts with a number followed by a dot. For example: 1. Lorem Ipsum...
  */
-class NumberAndDotLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
+class BulletPointLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
 
 public:
-    explicit NumberAndDotLine(const std::string &stringValue);
+    explicit BulletPointLine(const std::string &stringValue);
 
     LineTypes getType() const override;
 
@@ -109,7 +109,7 @@ public:
 
     BaseLine *clone() override;
 
-    ~NumberAndDotLine() override = default;
+    ~BulletPointLine() override = default;
 };
 
 // ---------------------------------------------------------------------------------------------------------------------

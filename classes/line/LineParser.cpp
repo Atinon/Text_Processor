@@ -18,7 +18,7 @@ std::vector<BaseLine *> LineParser::createFromStringVector(const std::vector<std
         }
 
         if (isNumberAndDotLine(rawData[i])) {
-            pushNewLineToVectorOrThrow(result, BaseLine::NUMBER_AND_DOT, rawData[i]);
+            pushNewLineToVectorOrThrow(result, BaseLine::BULLET_POINT, rawData[i]);
             continue;
         }
 
@@ -42,7 +42,7 @@ BaseLine *LineParser::createFromString(const std::string &rawData) {
             newLine = new NumberLine(rawData);
         }
         else if (isNumberAndDotLine(rawData)){
-            newLine = new NumberAndDotLine(rawData);
+            newLine = new BulletPointLine(rawData);
         }
         else if (isQuotedLine(rawData)){
             newLine = new QuotedLine(rawData);
@@ -200,8 +200,8 @@ void LineParser::pushNewLineToVectorOrThrow(std::vector<BaseLine *> &resultRef, 
             case BaseLine::NUMBER:
                 resultRef.push_back(new NumberLine(stringValue));
                 return;
-            case BaseLine::NUMBER_AND_DOT:
-                resultRef.push_back(new NumberAndDotLine(stringValue));
+            case BaseLine::BULLET_POINT:
+                resultRef.push_back(new BulletPointLine(stringValue));
                 return;
             case BaseLine::QUOTED:
                 resultRef.push_back(new QuotedLine(stringValue));
@@ -225,8 +225,8 @@ BaseLine *LineParser::parseTypeAndCreateCopy(BaseLine *line) {
     if (NumberLine *numberLine = dynamic_cast<NumberLine *>(line)) {
         copiedLine = new (std::nothrow) NumberLine(*numberLine);
     }
-    else if (NumberAndDotLine *numberAndDotLine = dynamic_cast<NumberAndDotLine *>(line)) {
-        copiedLine = new (std::nothrow) NumberAndDotLine(*numberAndDotLine);
+    else if (BulletPointLine *numberAndDotLine = dynamic_cast<BulletPointLine *>(line)) {
+        copiedLine = new (std::nothrow) BulletPointLine(*numberAndDotLine);
     }
     else if (QuotedLine *quotedLine = dynamic_cast<QuotedLine *>(line)) {
         copiedLine = new (std::nothrow) QuotedLine(*quotedLine);
