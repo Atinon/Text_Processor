@@ -217,6 +217,13 @@ void LineParser::pushNewLineToVectorOrThrow(std::vector<BaseLine *> &resultRef, 
         resultRef.clear();
         throw std::runtime_error("Failed to allocate enough memory.");
     }
+    catch(...){
+        for (BaseLine* &i : resultRef) {
+            delete i;
+        }
+        resultRef.clear();
+        throw;
+    }
 }
 
 CaseConverter *LineParser::castToCaseConverter(BaseLine *line) {
