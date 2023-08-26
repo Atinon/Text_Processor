@@ -72,7 +72,7 @@ void Printer::printLinesCentered(const std::vector<BaseLine *> &lines) {
             std::cout << " ";
         }
 
-        std::cout << "  |Type: " << lines[i]->getType() << std::endl;
+        std::cout << "  |Type: " << getLineTypeString(*currentLine) << std::endl;
     }
 }
 
