@@ -4,12 +4,23 @@
 #include "BaseLine.h"
 
 /**
- * This class is inherited by Line classes that have the ability to change the casing of their letters.
+ * @class CaseConverter
+ * @brief Base class for line classes that can change the casing of their letters.
+ *
+ * This class provides an interface for line classes that need to perform letter casing conversions.
  */
 class CaseConverter {
 protected:
+    /**
+    * @brief Convert the string to lowercase using the default implementation.
+    * @param stringRef Reference to the string to be converted.
+    */
     static void toLowerDefault(std::string &stringRef);
 
+    /**
+     * @brief Convert the string to uppercase using the default implementation.
+    * @param stringRef Reference to the string to be converted.
+     */
     static void toUpperDefault(std::string &stringRef);
 
 public:
@@ -23,12 +34,23 @@ public:
 // ---------------------------------------------------------------------------------------------------------------------
 
 /**
- * This class is inherited by Line classes that have the ability trim excess whitespace characters.
+ * @class WhitespaceTrimmer
+ * @brief Base class for line classes that can trim excess whitespace characters.
+ *
+ * This class provides an interface for line classes that need to perform whitespace trimming operations.
  */
 class WhitespaceTrimmer {
 protected:
+    /**
+    * @brief Trim whitespace characters from the left of the string using the default implementation.
+    * @param stringRef Reference to the string to be trimmed.
+    */
     static void trimLeftDefault(std::string &stringRef);
 
+    /**
+     * @brief Trim whitespace characters from the right of the string using the default implementation.
+    * @param stringRef Reference to the string to be trimmed.
+    */
     static void trimRightDefault(std::string &stringRef);
 
 public:
@@ -41,8 +63,21 @@ public:
 
 // ---------------------------------------------------------------------------------------------------------------------
 
+/*
+ * All the BaseLine derived classes are tightly coupled with the LineParser class.
+ * It is responsible for creating the correct classes for each line(or block) of raw text.
+ * The setter methods for each line type use the LineParser functionality.
+ * LineParser is declared a friend class to all derived classes to indicate this.
+ * LineParser can use the protected constructor with string value to construct line objects.
+ */
+
+// ---------------------------------------------------------------------------------------------------------------------
+
 /**
- * This class represents all Lines that don't fit in the other categories. Just plain text.
+ * @class RegularLine
+ * @brief Represents all Lines that don't fit in the other categories. Just plain text.
+ *
+ * This class inherits from BaseLine and provides functionality for changing casing and trimming whitespace.
  */
 class RegularLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
 protected:
@@ -72,7 +107,10 @@ public:
 // ---------------------------------------------------------------------------------------------------------------------
 
 /**
- * This class represents single and multi-line text that starts and ends with quotes.
+ * @class QuotedLine
+ * @brief Represents single and multi-line text that starts and ends with quotes.
+ *
+ * This class inherits from BaseLine and provides basic quote-specific functionality.
  */
 class QuotedLine : public BaseLine {
 protected:
@@ -94,7 +132,10 @@ public:
 // ---------------------------------------------------------------------------------------------------------------------
 
 /**
- * This class represents text that starts with a number followed by a dot. For example: 1. Lorem Ipsum...
+ * @class BulletPointLine
+ * @brief Represents text that starts with a number followed by a dot.
+ *
+ * This class inherits from BaseLine and provides casing and trimming functionality.
  */
 class BulletPointLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
 protected:
@@ -124,7 +165,10 @@ public:
 // ---------------------------------------------------------------------------------------------------------------------
 
 /**
- * This class represents numbers. It's value can be interpreted as a numeric one.
+ * @class NumberLine
+ * @brief Represents text with a numeric value.
+ *
+ * This class inherits from BaseLine and provides whitespace trimming functionality.
  */
 class NumberLine : public BaseLine, public WhitespaceTrimmer {
 protected:
@@ -144,6 +188,10 @@ public:
 
     BaseLine *clone() override;
 
+    /**
+    * @brief Get the numeric value of the number.
+    * @return The numeric value of the number.
+    */
     long long getNumericValue() const;
 
     ~NumberLine() override = default;

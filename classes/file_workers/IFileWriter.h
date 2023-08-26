@@ -7,7 +7,12 @@
 class BaseLine;
 
 /**
- * Interface for file writing operations.
+ * @class IFileWriter
+ * @brief Interface for file writing operations.
+ *
+ * This interface defines the basic contract for classes that perform file writing operations.
+ * It includes methods for writing a given vector of BaseLine pointers to a file using polymorphism
+ * and managing the file name.
  */
 class IFileWriter {
 public:

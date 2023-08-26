@@ -6,6 +6,14 @@
 #include <cstring>
 #include "../line/BaseLine.h"
 
+/**
+ * @class Printer
+ * @brief Utility class for printing and formatting tasks.
+ *
+ * This class provides static methods for printing different types of information, including lines, file names,
+ * and command information. It also includes utility methods for determining the maximum line width and
+ * obtaining a string representation of a line's type.
+ */
 class Printer {
 public:
     static size_t getMaxLineWidth(const std::vector<BaseLine *> &lines);
@@ -21,6 +29,12 @@ public:
     static void printCommandInfo();
 };
 
+/**
+ * @class InputReceiver
+ * @brief Utility class for receiving user input.
+ *
+ * This class provides static methods for receiving user input, both single-line and multi-line.
+ */
 class InputReceiver {
 public:
     static std::string getSingleLineInput();
@@ -28,6 +42,12 @@ public:
     static std::vector<std::string> getMultiLineInput();
 };
 
+/**
+ * @class InputParser
+ * @brief Utility class for parsing and tokenizing user input.
+ *
+ * This class provides static methods for parsing strings and tokenizing commands.
+ */
 class InputParser {
 public:
     static size_t parseStringToUll(const std::string &stringValue);
@@ -35,7 +55,13 @@ public:
     static void basicTokenizingFunction(const std::string &command, std::vector<std::string> &vectorRef);
 };
 
-
+/**
+ * @struct CommandInfo
+ * @brief Utility struct containing the name of a command and a brief explanation.
+ *
+ * This class provides information about commands and is used in a vector, after which
+ * appropriate information if printed to the user.
+ */
 struct CommandInfo {
     std::string name;
     std::string explanation;

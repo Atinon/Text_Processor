@@ -7,7 +7,11 @@
 
 
 /**
- * Implements the IFileWriter interface and provides definitions for it's methods.
+ * @class TextFileWriter
+ * @brief Concrete implementation of the IFileWriter interface for text files.
+ *
+ * This class provides a specific implementation of the IFileWriter interface to write BaseLine classes to
+ * text files along with managing file names.
  */
 class TextFileWriter: public IFileWriter {
 private:

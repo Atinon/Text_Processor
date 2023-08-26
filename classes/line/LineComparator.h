@@ -5,9 +5,11 @@
 #include "BaseLine.h"
 
 /**
- * This class provides a sorting operator to use with sorting functions.
+ * @struct LineComparator
+ * @brief Provides a sorting operator for sorting functions to compare BaseLine objects.
  *
- * It fits the criteria required.
+ * This struct defines a sorting operator that can be used with various sorting algorithms
+ * to compare two BaseLine objects. It follows the required criteria for sorting.
  */
 struct LineComparator {
     bool operator()(const BaseLine* lineOne, const BaseLine* lineTwo);

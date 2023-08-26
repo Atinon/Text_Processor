@@ -6,7 +6,11 @@
 #include <fstream>
 
 /**
- * Implements the IFileReader interface and provides definitions for it's methods.
+ * @class TextFileReader
+ * @brief Concrete implementation of the IFileReader interface for text files.
+ *
+ * This class provides a specific implementation of the IFileReader interface to read content from
+ * text files and returning them as a vector of strings.
  */
 class TextFileReader : public IFileReader {
 private:

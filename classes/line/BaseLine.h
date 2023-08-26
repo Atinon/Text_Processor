@@ -4,7 +4,10 @@
 #include <string>
 
 /**
- * Abstract Line class for shared functionality for all of it's derived ones.
+ * @class BaseLine
+ * @brief Base class for different types of lines.
+ *
+ * This class serves as the base for various line types such as Regular, Quoted, Bullet Point, and Number lines.
  */
 class BaseLine {
 protected:
@@ -12,6 +15,10 @@ protected:
 
     BaseLine() = default;
 public:
+    /**
+     * @enum LineTypes
+     * @brief Enumeration of different line types.
+     */
     enum LineTypes {
         REGULAR,
         QUOTED,

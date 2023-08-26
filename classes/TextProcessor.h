@@ -10,7 +10,12 @@
 
 
 /**
- * This is the main class that fits all of the components together and provides complete methods.
+ * @class TextProcessor
+ * @brief The main class that orchestrates and manages the processing of text files.
+ *
+ * This class acts as the core component that ties together various functionalities for processing and managing
+ * text files. It maintains information about opened files, blocks of lines, undo history, and provides methods for
+ * manipulating and interacting with these components.
  */
 class TextProcessor final {
 private:
@@ -18,15 +23,26 @@ private:
     const static short UNDO_STACK_LIMIT_;
 
     /**
- * This struct represents opened files.
- */
+     * @struct FileData
+     * @brief Represents information about opened files.
+     *
+     * This structure holds details about an opened file, including its file name and a vector of BaseLine pointers
+     * representing the lines in the file.
+     */
     struct FileData {
         std::string fileName;
         std::vector<BaseLine*> lines_;
     };
 
+    /**
+    * @struct Block
+    * @brief Represents a block of lines within a file.
+    *
+    * This structure represents a block of lines within a file, identified by its starting and ending indices. It
+    * also holds a vector of BaseLine pointers for the lines within the block.
+    */
     struct Block {
-        const static size_t NPOS_ = -1; // remove later and use TextProcessor::NPOS_ instead
+        const static size_t NPOS_ = -1; // can use TextProcessor::NPOS_
         size_t fileId;
         size_t indexStart;
         size_t indexEnd;
@@ -34,21 +50,28 @@ private:
         Block() : fileId(NPOS_), indexStart(NPOS_), indexEnd(NPOS_){};
     };
 
+    /**
+    * @struct UndoHistory
+    * @brief Represents a snapshot of a file's previous state for undo functionality.
+    *
+    * This structure stores information about a file's previous state, including its file ID and a vector of
+    * BaseLine pointers(clones) representing the lines in the previous state. It is used for undo operations.
+    */
     struct UndoHistory {
         size_t fileId;
         std::vector<BaseLine*> previousState;
         UndoHistory() : fileId(NPOS_){};
     };
 
-    IFileReader *fileReader_;
-    IFileWriter *fileWriter_;
+    IFileReader *fileReader_; ///< Pointer to the file reader implementation for reading file contents.
+    IFileWriter *fileWriter_; ///< Pointer to the file writer implementation for writing file contents.
 
-    std::vector<FileData> files_;
-    size_t currentFileIndex_;
+    std::vector<FileData> files_; ///< Collection of opened files and their associated lines.
+    size_t currentFileIndex_; ///< Index indicating the currently active file in the 'files_' collection.
 
-    Block block_;
+    Block block_; ///< A data structure representing a block of lines within a file
 
-    std::vector<UndoHistory> undoStack_; // will be used as a stack
+    std::vector<UndoHistory> undoStack_; ///< Stack used to keep track of undo history for line modifications.
 
     static void deAllocSingleLine(BaseLine *&line);
 
@@ -58,6 +81,10 @@ private:
 
     void checkIfAnyOpenFilesOrThrow() const;
 
+    /**
+    * @brief Returns a reference to the vector with lines of the current open file.
+    * @throw std::runtime_error If not file is open
+    */
     std::vector<BaseLine *> &getCurrentLinesRefOrThrow();
 
     const std::vector<BaseLine *> &getCurrentLinesConstRefOrThrow() const;
@@ -121,7 +148,7 @@ public:
 
     void unsetBlock();
 
-    const std::vector<BaseLine*> &getBlock() const; // TODO: added print and print_centered so far
+    const std::vector<BaseLine*> &getBlock() const;
 
     void toUpperSingleLine(size_t index);
     void toLowerSingleLine(size_t index);

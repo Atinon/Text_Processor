@@ -2,9 +2,10 @@
 #define TEXT_PROCESSOR_ICOMMANDHANDLER_H
 
 /**
- * Interface template class providing a handle command with a template parameter.
+ * @class ICommandHandler
+ * @brief Interface template class to handle commands of a specified type.
  *
- * Can be implemented with different types of commands. Current implementation used is with string commands.
+ * @tparam T The type of command to be handled.
  */
 template <typename T>
 class ICommandHandler {

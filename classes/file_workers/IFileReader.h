@@ -5,10 +5,18 @@
 #include <string>
 
 /**
- * Interface for file reading operations.
+ * @class IFileReader
+ * @brief Interface for file reading operations.
+ *
+ * This interface defines the basic contract for classes that perform file reading operations.
+ * It includes methods for reading file content and producing a vector of strings, and managing the file name.
  */
 class IFileReader {
 public:
+    /**
+    * @brief Read the content of the file and return it as a vector of strings representing each line from the file.
+    * @return A vector containing the lines of the file content.
+    */
     virtual std::vector<std::string> readFileContent() = 0;
 
     virtual const std::string &getFileName() const = 0;

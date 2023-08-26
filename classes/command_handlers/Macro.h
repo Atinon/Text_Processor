@@ -5,9 +5,11 @@
 #include <vector>
 
 /**
- * Basic class defined to hold a macro name and a series of commands for it.
+ * @class Macro
+ * @brief A class to define a macro containing a name and a series of commands.
  *
- * Used in ConsoleCommandHandler.
+ * This class is used within the ConsoleCommandHandler to manage macros. A macro consists of a user-defined name and
+ * a collection of commands that can be executed as a sequence.
  */
 class Macro {
 public:

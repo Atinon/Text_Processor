@@ -4,8 +4,22 @@
 #include "../TextProcessor.h"
 #include "CommandUtil.h"
 
+/**
+ * @class Command
+ * @brief Base class for command objects to be executed by a TextProcessor instance.
+ *
+ * This class defines the interface for command objects that can be executed by a TextProcessor.
+ * Inheriting classes must implement the execute() function to provide the specific behavior of the command.
+ */
 class Command {
 public:
+    /**
+    * @brief Execute the command on the given TextProcessor instance.
+    * @param tp The TextProcessor on which the command is executed.
+    *
+    * This function should be overridden by inheriting classes to define the behavior of the command.
+    * The derived class should perform actions on the provided TextProcessor based on the command's logic.
+    */
     virtual void execute(TextProcessor &tp) = 0;
 
     virtual ~Command() = default;
