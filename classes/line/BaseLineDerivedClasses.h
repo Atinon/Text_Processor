@@ -45,9 +45,12 @@ public:
  * This class represents all Lines that don't fit in the other categories. Just plain text.
  */
 class RegularLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
+protected:
+    friend class LineParser;
 
-public:
     explicit RegularLine(const std::string &stringValue);
+public:
+    RegularLine() = default;
 
     LineTypes getType() const override;
 
@@ -72,9 +75,12 @@ public:
  * This class represents single and multi-line text that starts and ends with quotes.
  */
 class QuotedLine : public BaseLine {
+protected:
+    friend class LineParser;
 
-public:
     explicit QuotedLine(const std::string &stringValue);
+public:
+    QuotedLine() = default;
 
     LineTypes getType() const override;
 
@@ -91,9 +97,12 @@ public:
  * This class represents text that starts with a number followed by a dot. For example: 1. Lorem Ipsum...
  */
 class BulletPointLine : public BaseLine, public CaseConverter, public WhitespaceTrimmer {
+protected:
+    friend class LineParser;
 
-public:
     explicit BulletPointLine(const std::string &stringValue);
+public:
+    BulletPointLine() = default;
 
     LineTypes getType() const override;
 
@@ -118,9 +127,12 @@ public:
  * This class represents numbers. It's value can be interpreted as a numeric one.
  */
 class NumberLine : public BaseLine, public WhitespaceTrimmer {
+protected:
+    friend class LineParser;
 
-public:
     explicit NumberLine(const std::string &stringValue);
+public:
+    NumberLine() = default;
 
     LineTypes getType() const override;
 

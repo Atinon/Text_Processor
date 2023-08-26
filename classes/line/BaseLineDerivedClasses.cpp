@@ -97,7 +97,7 @@ BaseLine::LineTypes BulletPointLine::getType() const {
 }
 
 void BulletPointLine::setStringValue(const std::string &stringValue) {
-    if (LineParser::isNumberAndDotLine(stringValue)) {
+    if (LineParser::isBulletPointLine(stringValue)) {
         stringValue_ = stringValue;
         return;
     }

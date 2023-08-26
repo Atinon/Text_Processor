@@ -46,7 +46,7 @@ public:
 
     static bool isNumberLine(const std::string &s);
 
-    static bool isNumberAndDotLine(const std::string &s);
+    static bool isBulletPointLine(const std::string &s);
 
     static bool isQuotedLine(const std::string &s);
 

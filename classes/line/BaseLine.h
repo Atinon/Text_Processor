@@ -10,6 +10,7 @@ class BaseLine {
 protected:
     std::string stringValue_;
 
+    BaseLine() = default;
 public:
     enum LineTypes {
         REGULAR,

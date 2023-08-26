@@ -2,6 +2,7 @@
 #include "classes/Config.h"
 #include "classes/TextProcessor.h"
 #include "classes/command_handlers/ConsoleCommandHandler.h"
+#include "classes/line/BaseLineDerivedClasses.h"
 
 using namespace std;
 

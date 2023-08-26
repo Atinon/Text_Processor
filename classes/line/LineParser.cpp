@@ -17,7 +17,7 @@ std::vector<BaseLine *> LineParser::createFromStringVector(const std::vector<std
             continue;
         }
 
-        if (isNumberAndDotLine(rawData[i])) {
+        if (isBulletPointLine(rawData[i])) {
             pushNewLineToVectorOrThrow(result, BaseLine::BULLET_POINT, rawData[i]);
             continue;
         }
@@ -41,7 +41,7 @@ BaseLine *LineParser::createFromString(const std::string &rawData) {
         if(isNumberLine(rawData)){
             newLine = new NumberLine(rawData);
         }
-        else if (isNumberAndDotLine(rawData)){
+        else if (isBulletPointLine(rawData)){
             newLine = new BulletPointLine(rawData);
         }
         else if (isQuotedLine(rawData)){
@@ -82,7 +82,7 @@ bool LineParser::isNumberLine(const std::string &s) {
     return atLeastOneDigitFound;
 }
 
-bool LineParser::isNumberAndDotLine(const std::string &s) {
+bool LineParser::isBulletPointLine(const std::string &s) {
     size_t offset = 0, firstIndex = 0, secondIndex = 1;
 
     for (int i = 0; i < s.length(); ++i) {
