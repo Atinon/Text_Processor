@@ -11,12 +11,32 @@ size_t Printer::getMaxLineWidth(const std::vector<BaseLine *> &lines) {
     return maxWidth;
 }
 
+std::string Printer::getLineTypeString(const BaseLine &line) {
+    switch(line.getType()){
+        case BaseLine::REGULAR:
+            return "Regular";
+        case BaseLine::QUOTED:
+            return "Quoted";
+        case BaseLine::BULLET_POINT:
+            return "BulletPoint";
+        case BaseLine::NUMBER:
+            return "Number";
+        default:
+            return "UnknownType";
+    }
+}
+
 void Printer::printLinesRegular(const std::vector<BaseLine *> &lines) {
     for (int i = 0; i < lines.size(); ++i) {
+        BaseLine* currentLine = lines[i];
+        if(!currentLine){
+            std::cout << "Error. Line is a nullptr." << std::endl;
+            return;
+        }
         std::cout
                 << "idx: " << i
-                << "|  " << lines[i]->getStringValue()
-                << "  |Type: " << lines[i]->getType()
+                << "|  " << currentLine->getStringValue()
+                << "  |Type: " << getLineTypeString(*currentLine)
                 << std::endl;
     }
 }
@@ -25,9 +45,15 @@ void Printer::printLinesCentered(const std::vector<BaseLine *> &lines) {
     size_t maxWidth = getMaxLineWidth(lines);
 
     for (int i = 0; i < lines.size(); ++i) {
+        BaseLine* currentLine = lines[i];
+        if(!currentLine){
+            std::cout << "Error. Line is a nullptr." << std::endl;
+            return;
+        }
+
         std::cout << "idx: " << i << "|  ";
 
-        const std::string &lineValue = lines[i]->getStringValue();
+        const std::string &lineValue = currentLine->getStringValue();
         size_t padding = (maxWidth - lineValue.length()) / 2;
 
         // Print leading spaces for centering

@@ -10,6 +10,8 @@ class Printer {
 public:
     static size_t getMaxLineWidth(const std::vector<BaseLine *> &lines);
 
+    static std::string getLineTypeString(const BaseLine &line);
+
     static void printLinesRegular(const std::vector<BaseLine *> &lines);
 
     static void printLinesCentered(const std::vector<BaseLine *> &lines);
